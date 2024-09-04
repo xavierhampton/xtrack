@@ -8,9 +8,9 @@ const tintColorDark = '#fff';
 
 export const Colors = {
   galaxy: {
-
-
-
+    primary: '#FFFFFF',
+    secondary: '#FFFFFF',
+    accent: 'blue',
   },
 
   light: {

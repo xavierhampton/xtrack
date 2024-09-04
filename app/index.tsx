@@ -1,7 +1,7 @@
-import { Pressable, Text, View } from "react-native";
-import {Button} from "react-native"
+import {Text, View } from "react-native";
 import {Link} from 'expo-router'
 import { StyleSheet } from "react-native";
+import {themeColor} from '@/hooks/theme'
 
 export default function Index() {
   return (
@@ -33,6 +33,7 @@ export default function Index() {
   );
 }
 
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -40,17 +41,15 @@ const styles = StyleSheet.create({
       alignItems: "center",
       backgroundColor: '#151515',
     },
-
     buttonContainer: {
       marginTop: 'auto',
       marginBottom: 60,
     },
-
     registerButton: {
       width: 300,
       height: 60,
       textAlign: 'center',
-      backgroundColor: '#F8A145',
+      backgroundColor: themeColor(theme).accent,
       borderColor: 'black',
       borderWidth: 1,
       display: 'flex',
@@ -59,9 +58,7 @@ const styles = StyleSheet.create({
       alignContent: 'center',
       borderRadius: 8,
       overflow: 'hidden',
-
     },
-
     signInButton: {
       display: 'flex',
       alignItems: 'center',
@@ -77,7 +74,6 @@ const styles = StyleSheet.create({
 
       color: '#F8A145',
     },
-
     buttonText: {
       textAlign: 'center',
       color: 'white',
@@ -85,6 +81,4 @@ const styles = StyleSheet.create({
       fontSize: 20,
       fontFamily: 'JetBrainsMono',
     }
-
-
 })
