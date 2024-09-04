@@ -9,6 +9,7 @@ export default function Index() {
       <Text 
       style={{
         marginTop: 'auto',
+        color: 'white',
         }}>
         Add a splash cover page here or something cool.
         </Text>
@@ -16,15 +17,15 @@ export default function Index() {
       <View style={styles.buttonContainer}>
       <Link href="/sign-in"
       style={styles.registerButton} >
-        <Text style={styles.buttonText}>
-            Register     
+        <Text style={styles.registerButtonText}>
+            Register &gt;    
         </Text>
       </Link>
 
       <Link href="/sign-in"
       style={styles.signInButton} >
-        <Text style={styles.buttonText}>
-            Sign In     
+        <Text style={styles.signButtonText}>
+            Sign In &gt;    
         </Text>
       </Link>
 
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: '#151515',
+      backgroundColor: themeColor(theme).primary,
     },
     buttonContainer: {
       marginTop: 'auto',
@@ -49,15 +50,21 @@ const styles = StyleSheet.create({
       width: 300,
       height: 60,
       textAlign: 'center',
-      backgroundColor: themeColor(theme).accent,
-      borderColor: 'black',
-      borderWidth: 1,
+      backgroundColor: 'white',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       alignContent: 'center',
       borderRadius: 8,
       overflow: 'hidden',
+      marginBottom: 20,
+
+
+      shadowColor: '#FFFFFF',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: .6,
+      shadowRadius: 4,  
+      elevation: 5
     },
     signInButton: {
       display: 'flex',
@@ -67,18 +74,33 @@ const styles = StyleSheet.create({
       width: 300,
       height: 60,
       
-      overflow: 'hidden',
-      borderColor: '#F8A145',
+      overflow: 'visible',
+      borderColor: 'white',
       borderWidth: 1,
       borderRadius: 8,
 
-      color: '#F8A145',
+
+      shadowColor: '#FFFFFF',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: .6,
+      shadowRadius: 4,  
+      elevation: 5
+      
     },
-    buttonText: {
+    signButtonText: {
       textAlign: 'center',
-      color: 'white',
       lineHeight: 60,
-      fontSize: 20,
+      fontSize: 24,
+      fontFamily: 'JetBrainsMono',
+      color: 'white',
+      overflow:'visible',
+
+    },
+    registerButtonText: {
+      textAlign: 'center',
+      color: themeColor(theme).primary,
+      lineHeight: 60,
+      fontSize: 24,
       fontFamily: 'JetBrainsMono',
     }
 })
