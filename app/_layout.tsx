@@ -11,12 +11,9 @@ declare global {
   var theme: string;
 }
 global.theme = 'galaxy'
-
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-
-  
 
   const [loaded] = useFonts({
     JetBrainsMono: require('../assets/fonts/JetBrainsMono-Regular.ttf'),

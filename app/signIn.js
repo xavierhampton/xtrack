@@ -1,27 +1,39 @@
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { KeyboardAvoidingView, TextInput, TouchableOpacityComponent } from 'react-native';
-import { Image, StyleSheet, Platform } from 'react-native';
-import { View, Text } from 'react-native';
-import React, {useState} from 'react';
+import { TextInput} from 'react-native';
+import { Image, StyleSheet} from 'react-native';
+import { View, Text, Button } from 'react-native';
+import React, {useState, useEffect} from 'react';
 import { TouchableOpacity } from 'react-native';
 import {themeColor} from '@/hooks/theme'
-import { useIsFocused } from '@react-navigation/native';
+import {router} from 'expo-router'
 import {auth} from '../firebase'
+import {googleSignIn} from '../components/auth_google_signin'
+
+
 import {signInWithEmailAndPassword} from 'firebase/auth'
 
 export default function SignInScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log('Redirecting to Homepage')
+        console.log(user.email)
+        router.push("/home")
+      }
+    })
+  }, [])
+
   const handeLogin = () => {
-    console.log('handle sign up')
       signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
           const user = userCredential.user
-          console.log(user.email)
+          console.log(`Logged in with: ${user.email}`)
       })
       .catch(error => alert(error.message))
   }
+  
     return (
       <View
       style={styles.container}
@@ -49,6 +61,8 @@ export default function SignInScreen() {
           style= {styles.button}>
             <Text style= {styles.buttonText}>Login</Text></TouchableOpacity>
         </View>
+        <Button title="Google"
+        onPress={googleSignIn}></Button>
       </View>
     );
 }

@@ -1,14 +1,13 @@
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { KeyboardAvoidingView, TextInput, TouchableOpacityComponent } from 'react-native';
-import { Image, StyleSheet, Platform } from 'react-native';
-import { View, Text } from 'react-native';
+import { TextInput} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { TouchableOpacity } from 'react-native';
 import {themeColor} from '@/hooks/theme'
-import { useIsFocused } from '@react-navigation/native';
 import {router} from 'expo-router'
 import {createUserWithEmailAndPassword } from 'firebase/auth';
 import {auth} from '../firebase'
+import {googleSignIn} from '../components/auth_google_signin'
 
 export default function SignInScreen() {
   const [email, setEmail] = useState('')
@@ -60,6 +59,8 @@ const handeSignUp = () => {
           style= {styles.button}>
             <Text style= {styles.buttonText}>Register</Text></TouchableOpacity>
         </View>
+        <Button title="Google"
+        onPress={googleSignIn}></Button>
       </View>
     );
 }
