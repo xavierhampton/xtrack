@@ -2,16 +2,27 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { KeyboardAvoidingView, TextInput, TouchableOpacityComponent } from 'react-native';
 import { Image, StyleSheet, Platform } from 'react-native';
 import { View, Text } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { TouchableOpacity } from 'react-native';
 import {themeColor} from '@/hooks/theme'
 import { useIsFocused } from '@react-navigation/native';
+import {router} from 'expo-router'
 import {createUserWithEmailAndPassword } from 'firebase/auth';
 import {auth} from '../firebase'
 
 export default function SignInScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log('Redirecting to Homepage')
+        console.log(user.email)
+        router.push("/home")
+      }
+    })
+  }, [])
 
 const handeSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)

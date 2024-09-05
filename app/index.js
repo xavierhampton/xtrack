@@ -4,9 +4,24 @@ import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
+import {useEffect} from 'react'
+import {auth} from '../firebase'
 
 export default function Index() {
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log('Redirecting to Homepage')
+        console.log(user.email)
+        router.push('/home')
+      }
+    })
+  }, [])
+
   return (
+
+    
     <View style={styles.container}>
       <Text 
       style={{
