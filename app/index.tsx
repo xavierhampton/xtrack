@@ -2,6 +2,8 @@ import {Text, View } from "react-native";
 import {Link} from 'expo-router'
 import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
+import { TouchableOpacity } from "react-native";
+import { router } from "expo-router";
 
 export default function Index() {
   return (
@@ -15,19 +17,20 @@ export default function Index() {
         </Text>
 
       <View style={styles.buttonContainer}>
-      <Link href="/sign-in"
+      <TouchableOpacity onPress={() => {router.push("./signIn")}}
       style={styles.registerButton} >
         <Text style={styles.registerButtonText}>
             Register &gt;    
         </Text>
-      </Link>
+      </TouchableOpacity>
 
-      <Link href="/sign-in"
+
+      <TouchableOpacity onPress={() => {router.push("./signIn")}}
       style={styles.signInButton} >
         <Text style={styles.signButtonText}>
             Sign In &gt;    
         </Text>
-      </Link>
+      </TouchableOpacity>
 
       </View>
     </View>
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
       marginTop: 'auto',
-      marginBottom: 60,
+      marginBottom: 40,
     },
     registerButton: {
       width: 300,
