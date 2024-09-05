@@ -17,7 +17,7 @@ export default function Index() {
         </Text>
 
       <View style={styles.buttonContainer}>
-      <TouchableOpacity onPress={() => {router.push("./signIn")}}
+      <TouchableOpacity onPress={() => {router.push("./register")}}
       style={styles.registerButton} >
         <Text style={styles.registerButtonText}>
             Register &gt;    

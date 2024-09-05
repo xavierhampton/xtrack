@@ -6,22 +6,22 @@ import React, {useState} from 'react';
 import { TouchableOpacity } from 'react-native';
 import {themeColor} from '@/hooks/theme'
 import { useIsFocused } from '@react-navigation/native';
+import {createUserWithEmailAndPassword } from 'firebase/auth';
 import {auth} from '../firebase'
-import {signInWithEmailAndPassword} from 'firebase/auth'
 
 export default function SignInScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handeLogin = () => {
-    console.log('handle sign up')
-      signInWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-          const user = userCredential.user
-          console.log(user.email)
-      })
-      .catch(error => alert(error.message))
-  }
+const handeSignUp = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+        const user = userCredential.user
+        console.log(`Registered with: ${user.email}`)
+    })
+    .catch(error => alert(error.message))
+}
+
     return (
       <View
       style={styles.container}
@@ -45,9 +45,9 @@ export default function SignInScreen() {
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity 
-          onPress= {() => {handeLogin()}} 
+          onPress= {() => {handeSignUp()}} 
           style= {styles.button}>
-            <Text style= {styles.buttonText}>Login</Text></TouchableOpacity>
+            <Text style= {styles.buttonText}>Register</Text></TouchableOpacity>
         </View>
       </View>
     );
