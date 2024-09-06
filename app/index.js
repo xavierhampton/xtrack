@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: themeColor(theme).primary,
+      backgroundColor: themeColor(global.theme).primary,
     },
     buttonContainer: {
       marginTop: 'auto',
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     },
     registerButtonText: {
       textAlign: 'center',
-      color: themeColor(theme).primary,
+      color: themeColor(global.theme).primary,
       lineHeight: 60,
       fontSize: 24,
       fontFamily: 'JetBrainsMono',

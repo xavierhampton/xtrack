@@ -1,0 +1,1 @@
+global.theme = 'galaxy'

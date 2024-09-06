@@ -7,10 +7,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 
-declare global {
-  var theme: string;
-}
-global.theme = 'galaxy'
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {

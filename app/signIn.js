@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       paddingTop: 200,
-      backgroundColor: themeColor(theme).primary,
+      backgroundColor: themeColor().primary,
     },
     input: {
       marginTop: 5,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
       elevation: 5
     },
     buttonText: {
-      color: themeColor(theme).primary,
+      color: themeColor().primary,
       fontFamily: 'JetBrainsMono',
       fontSize: 24,
     },

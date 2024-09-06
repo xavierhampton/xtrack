@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import '@/components/UserTheme.js'
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import {themeColor} from '@/hooks/theme'
@@ -10,16 +11,20 @@ export default function TabLayout() {
     <Tabs 
       screenOptions={{
         tabBarItemStyle: {
-            paddingBottom: 5,
+            paddingBottom: 15,
+            
         },
         tabBarStyle: {
-            backgroundColor: themeColor(theme).secondary,
-            borderRadius: 30,
+            backgroundColor: themeColor(global.theme).secondary,
             display: 'flex',
             alignContent: 'center',
             justifyContent: 'center',
-            marginBottom: 10,
             paddingBottom: 0,
+            borderColor: themeColor(global.theme).primary,
+            marginTop: 0,
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+
              },
         tabBarShowLabel: false,
         tabBarActiveTintColor: 'white',
