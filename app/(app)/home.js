@@ -17,7 +17,7 @@ export default function Home() {
     return (
         <View>
             <Text>Helo World</Text>
-            <Button onPress={handleSignOut}>Sign Out</Button>
+            <Button onPress={handleSignOut} title="Sign Out"></Button>
         </View>
     );
 
