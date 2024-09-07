@@ -15,12 +15,12 @@ export default function TabLayout() {
             
         },
         tabBarStyle: {
-            backgroundColor: themeColor(global.theme).secondary,
+            backgroundColor: themeColor().secondary,
             display: 'flex',
             alignContent: 'center',
             justifyContent: 'center',
             paddingBottom: 0,
-            borderColor: themeColor(global.theme).primary,
+            borderColor: themeColor().primary,
             marginTop: 0,
             borderTopWidth: 0,
             borderBottomWidth: 0,
@@ -47,7 +47,7 @@ export default function TabLayout() {
         options={{
           title: 'Explore',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} 
+            <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color} 
             style={{
                 fontSize: 30,
             }} />
