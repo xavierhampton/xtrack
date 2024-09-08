@@ -1,11 +1,13 @@
-import {View, Text, Button, ScrollView} from 'react-native'
+import {View, Text, Pressable, ScrollView} from 'react-native'
 import {auth} from '@/firebase'
 import {router} from 'expo-router'
 import React from 'react'
 import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import { Circle, Bar } from 'react-native-progress';
-import { displayPartsToString } from 'typescript';
+import {LinearGradient} from 'expo-linear-gradient';
+import Feather from '@expo/vector-icons/Feather';
+import MaskedView from '@react-native-masked-view/masked-view'
 
 export default function Home() {
 
@@ -24,8 +26,16 @@ export default function Home() {
 
                 <View style={styles.headerContainer}>
 
-
-
+                    <View style={{display: 'flex', flexDirection: 'column'}}>
+                        <MaskedView style={{ width: 120, height: 40, marginLeft: 15}} maskElement={<Text  style={styles.logo}>xTracK</Text>}>
+                            <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
+                        </MaskedView>
+                        <Text style={{color: 'white', fontFamily: 'JetBrainsMono', fontSize: 12, paddingLeft: 25, paddingTop: 8}}>Welcome Back!</Text>
+                    </View>
+                    
+                    <Pressable onPress={handleSignOut} style={{marginLeft: 'auto', justifyContent: 'center', marginRight: 20,}}>
+                            <Feather name="log-out" size={24} color='red' />
+                    </Pressable>
                 </View>
 
                 <View style={styles.macroContainer}>
@@ -62,6 +72,11 @@ export default function Home() {
                     </View>
                 </View>
 
+                <View style={styles.dateContainer}>
+
+
+                </View>
+
                 <View style={styles.foodContainer}>
 
 
@@ -72,6 +87,11 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
+    logo: {
+        fontSize: 35,
+        fontFamily: 'JetBrainsMono',
+        letterSpacing: -3,
+    },
     container: {
       backgroundColor: themeColor().primary,
     },
@@ -80,11 +100,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     headerContainer: {
+        display: 'flex',
+        flexDirection: 'row',
         marginTop: 50,
         marginBottom: 10,
         backgroundColor: themeColor().secondary,
         width: 350,
-        height: 100,
+        height: 70,
         borderRadius: 30,
         
     },
@@ -118,6 +140,13 @@ const styles = StyleSheet.create({
     circleText: {
         fontFamily: 'JetBrainsMono',
         color: themeColor().accent,
+    },
+    dateContainer: {
+        backgroundColor: themeColor().secondary,
+        width: 350,
+        height: 50,
+        borderRadius: 30,
+        marginBottom: 10,
     },
     foodContainer: {
         backgroundColor: themeColor().secondary,
