@@ -21,9 +21,22 @@ export default function Home() {
         .catch(error => console.log(error.message))
     }
 
+    const [data, setData] = useState(new Date())
+
     const increaseDate = () => {
-        date.setDate(date.getDate() + 1)
+            const newDate = new Date(); newDate.setDate(data.getDate()); newDate.setMonth(data.getMonth()); newDate.setFullYear(data.getFullYear());
+            newDate.setDate(data.getDate() + 1)
+
+            setData(newDate)
     } 
+    const decreaseDate = () => {
+            const newDate = new Date(); newDate.setDate(data.getDate()); newDate.setMonth(data.getMonth()); newDate.setFullYear(data.getFullYear());
+            newDate.setDate(data.getDate() - 1)
+
+            setData(newDate)
+    }
+    
+    
 
     return (
         <ScrollView style={styles.container}>
@@ -79,10 +92,11 @@ export default function Home() {
 
                 <View style={styles.dateContainer}>
 
-                    <Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&lt;</Text>
-                    <DateTimePicker value={new Date()} minimumDate={new Date(2024, 0, 1)} maximumDate={new Date(2035, 10, 20)}></DateTimePicker>
-
-                    <Pressable onPress={increaseDate}><Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&gt;</Text></Pressable>
+                    <Pressable hitSlop={30} onPress={decreaseDate}><Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&lt;</Text></Pressable>
+                    <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: 200, justifyContent: 'center'}}>
+                        <DateTimePicker onChange={(event, Date) => {setData(Date)}} value={data} minimumDate={new Date(2024, 0, 1)} maximumDate={new Date(2035, 10, 20)} style={{width: 130}}></DateTimePicker>
+                    </View>
+                    <Pressable hitSlop={30} onPress={increaseDate}><Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&gt;</Text></Pressable>
 
                 </View>
 
@@ -153,11 +167,11 @@ const styles = StyleSheet.create({
     dateContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
         
         backgroundColor: themeColor().secondary,
-        width: 350,
+        width: 280,
         height: 40,
         borderRadius: 30,
         marginBottom: 10,
