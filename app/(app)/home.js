@@ -1,13 +1,14 @@
 import {View, Text, Pressable, ScrollView} from 'react-native'
 import {auth} from '@/firebase'
 import {router} from 'expo-router'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import { Circle, Bar } from 'react-native-progress';
 import {LinearGradient} from 'expo-linear-gradient';
 import Feather from '@expo/vector-icons/Feather';
 import MaskedView from '@react-native-masked-view/masked-view'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function Home() {
 
@@ -19,6 +20,10 @@ export default function Home() {
         })
         .catch(error => console.log(error.message))
     }
+
+    const increaseDate = () => {
+        date.setDate(date.getDate() + 1)
+    } 
 
     return (
         <ScrollView style={styles.container}>
@@ -34,7 +39,7 @@ export default function Home() {
                     </View>
                     
                     <Pressable onPress={handleSignOut} style={{marginLeft: 'auto', justifyContent: 'center', marginRight: 20,}}>
-                            <Feather name="log-out" size={24} color='red' />
+                            <Feather name="log-out" size={24} color='#B22222'/>
                     </Pressable>
                 </View>
 
@@ -74,6 +79,10 @@ export default function Home() {
 
                 <View style={styles.dateContainer}>
 
+                    <Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&lt;</Text>
+                    <DateTimePicker value={new Date()} minimumDate={new Date(2024, 0, 1)} maximumDate={new Date(2035, 10, 20)}></DateTimePicker>
+
+                    <Pressable onPress={increaseDate}><Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&gt;</Text></Pressable>
 
                 </View>
 
@@ -142,9 +151,14 @@ const styles = StyleSheet.create({
         color: themeColor().accent,
     },
     dateContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        
         backgroundColor: themeColor().secondary,
         width: 350,
-        height: 50,
+        height: 40,
         borderRadius: 30,
         marginBottom: 10,
     },
