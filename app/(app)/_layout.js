@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '@/components/UserTheme.js'
 import {View, Text, Pressable} from 'react-native'
 
@@ -11,7 +11,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 
+
 export default function TabLayout() {
+      const [popup, setPopup] = useState(false)
+  
+        const togglePopUp = () => {
+          setPopup(!popup)
+        }
 
   return (
     <View style={{height: '100%', width: '100%'}}>
@@ -84,14 +90,58 @@ export default function TabLayout() {
       />
     </Tabs>
 
-        <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
+
+
+    <View style={ (popup) ? {
+            
+            shadowColor: 'white',
+            shadowRadius: 10,
+            shadowOpacity: .03,
+            borderRadius: 50,
+             position: 'absolute',
+            width: '80%',
+            height: '30%',
+            left: 37,
+            backgroundColor: themeColor().secondary,
+            bottom: '10%'}
+          : {
+            width: 0,
+            height: 0
+          }}>
+
+
+                  </View>
+
+        <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]} onPress={togglePopUp}>
+
       <MaskedView
-        Text={'d'}style={{ width: 100, height: 80, position: 'absolute', bottom: 35, left: '50%', transform: 'translateX(-38px))'}}
+        
+        Text={'d'}
+        style={ (!popup) ? {
+        display: 'flex',
+        
+        width: 100,
+        height: 80,
+        position: 'absolute',
+        bottom: 35,
+        left: '50%',
+        transform: 'translateX(-38px))'}
+      :{
+        width: 100,
+        height: 80,
+        position: 'absolute',
+        bottom: 35,
+        left: '50%',
+        transform: 'translateX(-44px)) rotate(45deg)'
+      }}
         maskElement={<View>
       <AntDesign  name="pluscircle" size={76} color="black" /></View>}>
           <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
       </MaskedView>
+
       </Pressable>
+
+      
     
     
 
