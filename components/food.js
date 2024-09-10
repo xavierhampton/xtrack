@@ -18,10 +18,10 @@ export default class Food extends React.Component {
             <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.defaultStyling]}>
                 <View style={styles.container}>
 
-                    <MaterialCommunityIcons name="food-apple" size={35} color="white" opacity={1} style={{marginLeft: 15}}/>
+                    <MaterialCommunityIcons name="food-apple" size={30} color="white" opacity={1} style={{marginLeft: 15}}/>
                     <Text style={styles.text}>{this.props.name}</Text>
                     <View style={{display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center', alignContent: 'center', marginLeft:'auto'}}>
-                        <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 15, width: 20}]}>{this.props.cal}</Text>
+                        <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 15, width: 40}]}>{this.props.cal}</Text>
                         <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 12}]}>kcal</Text>
                     </View>
                 </View>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
          
     },
     text: {
-        fontSize: 20,
+        fontSize: 16,
         color: 'white',
         fontFamily:'JetBrainsMono',
         marginLeft: 10,

@@ -103,9 +103,9 @@ export default function Home() {
                 </View>
 
                 <View style={styles.foodContainer}>
-                    <Food name='food!!' cal={3} car={2} fat={1} pro={1}></Food>
-                    <Food name='food!!' cal={3} car={2} fat={1} pro={1}></Food>
-                    <Food name='food!!' cal={3} car={2} fat={1} pro={1}></Food>
+                    <Food name='Philly Cheesesteak' cal={1002} car={2} fat={1} pro={1}></Food>
+                    <Food name='Barbeque Sauce' cal={104} car={2} fat={1} pro={1}></Food>
+                    <Food name='mcdonalds sandwhich' cal={250} car={2} fat={1} pro={1}></Food>
 
                 </View>
             </View>
