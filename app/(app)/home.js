@@ -1,7 +1,7 @@
 import {View, Text, Pressable, ScrollView} from 'react-native'
 import {auth} from '@/firebase'
 import {router} from 'expo-router'
-import React, {useEffect, useState} from 'react'
+import React, {Component, useEffect, useState} from 'react'
 import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import { Circle, Bar } from 'react-native-progress';
@@ -9,6 +9,8 @@ import {LinearGradient} from 'expo-linear-gradient';
 import Feather from '@expo/vector-icons/Feather';
 import MaskedView from '@react-native-masked-view/masked-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
+
+import Food from '@/components/food'
 
 export default function Home() {
 
@@ -101,7 +103,9 @@ export default function Home() {
                 </View>
 
                 <View style={styles.foodContainer}>
-
+                    <Food name='food!!' cal={3} car={2} fat={1} pro={1}></Food>
+                    <Food name='food!!' cal={3} car={2} fat={1} pro={1}></Food>
+                    <Food name='food!!' cal={3} car={2} fat={1} pro={1}></Food>
 
                 </View>
             </View>
@@ -177,9 +181,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     foodContainer: {
-        backgroundColor: themeColor().secondary,
-        width: 350,
-        height: 400,
+        backgroundColor: themeColor().primary,
+        width: '95%',
         borderRadius: 30,
     }
 })

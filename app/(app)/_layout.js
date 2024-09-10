@@ -1,30 +1,44 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import '@/components/UserTheme.js'
+import {View, Text} from 'react-native'
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import {themeColor} from '@/hooks/theme'
+import AntDesign from '@expo/vector-icons/AntDesign';
+import MaskedView from '@react-native-masked-view/masked-view'
+import { LinearGradient } from 'expo-linear-gradient';
+
+
 
 export default function TabLayout() {
 
   return (
+    <View style={{height: '100%', width: '100%'}}>
     <Tabs 
       screenOptions={{
         tabBarItemStyle: {
             paddingBottom: 15,
+            height: 80,
+            width: 50,
             
         },
         tabBarStyle: {
+          
             backgroundColor: themeColor().secondary,
             display: 'flex',
             alignContent: 'center',
             justifyContent: 'center',
-            paddingBottom: 0,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingBottom: 35,
             borderColor: themeColor().primary,
             marginTop: 0,
             borderTopWidth: 0,
             borderBottomWidth: 0,
-
+            shadowColor: 'white',
+            shadowRadius: 10,
+            shadowOpacity: .05,
              },
         tabBarShowLabel: false,
         tabBarActiveTintColor: 'white',
@@ -37,7 +51,21 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} 
             style={{
-                fontSize: 35,
+                fontSize: 40,
+            }}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="unknown"
+        options={{
+          title: 'unknown',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} 
+            style={{
+                width: 10,
+                height: 0,
+                fontSize: 0,
             }}/>
           ),
         }}
@@ -49,11 +77,24 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color} 
             style={{
-                fontSize: 30,
+                fontSize: 40,
             }} />
           ),
         }}
       />
     </Tabs>
+
+      <MaskedView
+        Text={'d'}style={{ width: 100, height: 80, position: 'absolute', bottom: 35, left: '50%', transform: 'translateX(-38px))'}}
+        maskElement={<View>
+      <AntDesign  name="pluscircle" size={76} color="black" /></View>}>
+          <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
+      </MaskedView>
+    
+    
+    
+
+    </View>
+    
   );
 }
