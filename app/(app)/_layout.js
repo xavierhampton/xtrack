@@ -96,8 +96,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
-    <AddFoodModal isVisible={isModalVisible}>
-      <Text></Text>
+    <AddFoodModal isVisible={isModalVisible} onClose={toggleModal}>
       </AddFoodModal>
 
         <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]} onPress={toggleModal}>

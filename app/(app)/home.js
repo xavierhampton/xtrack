@@ -1,7 +1,7 @@
 import {View, Text, Pressable, ScrollView} from 'react-native'
 import {auth} from '@/firebase'
 import {router} from 'expo-router'
-import React, {Component, useEffect, useState} from 'react'
+import React, {Component, useDebugValue, useEffect, useState} from 'react'
 import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import { Circle, Bar } from 'react-native-progress';
@@ -9,10 +9,46 @@ import {LinearGradient} from 'expo-linear-gradient';
 import Feather from '@expo/vector-icons/Feather';
 import MaskedView from '@react-native-masked-view/masked-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Food from '@/components/food'
 
 export default function Home() {
+    function FoodObject(name, car, fat, pro, cal) {
+        this.name = name
+        this.car = car
+        this.fat = fat
+        this.pro = pro
+        this.cal = cal
+    }
+
+    const [data, setData] = useState(new Date())
+
+    const storeFoods = async (value) => {
+        try {
+          const jsonValue = JSON.stringify(value);
+          await AsyncStorage.setItem('1/20/2024', jsonValue);
+        } catch (e) {
+          return
+        }
+      };
+
+      const [foodArr, setFoodArr] = useState({})
+
+    const fetchFoods = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem(String(data.getMonth()) + '/' + String(data.getDate()) + '/' + String(data.getFullYear()));
+            return setFoodArr(jsonValue != null ? JSON.parse(jsonValue) : null)          } catch (e) {
+            console.log('fetch error')
+            return
+          }
+          
+        };
+
+        useEffect(() => {
+            fetchFoods()
+        }, [data])
+        
 
     const handleSignOut = () => {
         auth
@@ -23,7 +59,26 @@ export default function Home() {
         .catch(error => console.log(error.message))
     }
 
-    const [data, setData] = useState(new Date())
+    const getDailyFood = (foodArr) => {
+        if (!foodArr) {
+            return (<View><Text style={styles.emptyText}>This is where your food will display. Add food below to get started.</Text>
+            <Text style={styles.emptyDesign}>|</Text>
+            <Text style={styles.emptyDesign}>|</Text>
+            <Text style={styles.emptyDesign}>|</Text>
+            <Text style={styles.emptyDesign}>|</Text>
+            <Text style={styles.emptyDesign}>|</Text>
+            <Text style={styles.emptyDesign}>|</Text>
+            <Text style={styles.emptyDesign}>|</Text>
+            <Text style={styles.emptyDesign}>V</Text></View>)
+        }
+        const arr = []
+        for (let i = 0; i < foodArr.length; i++) {
+            arr.push(<Food key={i} name={foodArr[i].name} cal={foodArr[i].cal} car={foodArr[i].car} fat={foodArr[i].fat} pro={foodArr[i].pro}></Food>)
+        } 
+        return arr
+    }
+
+
 
     const increaseDate = () => {
             const newDate = new Date(); newDate.setDate(data.getDate()); newDate.setMonth(data.getMonth()); newDate.setFullYear(data.getFullYear());
@@ -37,7 +92,6 @@ export default function Home() {
 
             setData(newDate)
     }
-    
     
 
     return (
@@ -103,15 +157,14 @@ export default function Home() {
                 </View>
 
                 <View style={styles.foodContainer}>
-                    <Food name='Philly Cheesesteak' cal={1002} car={2} fat={1} pro={1}></Food>
-                    <Food name='Barbeque Sauce' cal={104} car={2} fat={1} pro={1}></Food>
-                    <Food name='mcdonalds sandwhich' cal={250} car={2} fat={1} pro={1}></Food>
+                    {getDailyFood(foodArr)}
 
                 </View>
             </View>
         </ScrollView>
     );
 }
+
 
 const styles = StyleSheet.create({
     logo: {
@@ -184,5 +237,20 @@ const styles = StyleSheet.create({
         backgroundColor: themeColor().primary,
         width: '95%',
         borderRadius: 30,
+    },
+    emptyText: {
+        fontFamily: 'JetBrainsMono',
+        color: 'white',
+        fontSize: 12,
+        margin: 30,
+        textAlign: 'center',
+        opacity: 0.4,
+    },
+    emptyDesign: {
+        fontFamily: 'JetBrainsMono',
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center',
+        opacity: 0.4,
     }
 })

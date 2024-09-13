@@ -3,6 +3,9 @@ import { Tabs } from 'expo-router';
 import React, {useState} from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 
+import * as SystemUI from 'expo-system-ui';
+
+
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
@@ -10,6 +13,9 @@ import { useFonts } from 'expo-font';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+
+  SystemUI.setBackgroundColorAsync("black");
+
 
   const [loaded] = useFonts({
     JetBrainsMono: require('../assets/fonts/JetBrainsMono-Regular.ttf'),

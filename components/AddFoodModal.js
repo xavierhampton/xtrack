@@ -16,11 +16,15 @@ export default class AddFoodModal extends React.Component {
         
     <Modal animationType="slide" transparent={true} visible={this.props.isVisible}>
         <View style={styles.modalContent}>
-          <Pressable>
-            <MaterialIcons name="close" color="#fff" size={35} />
-          </Pressable>
+            <Pressable onPress={this.props.onClose}>
+              <Text style={styles.closeButton}>X</Text>
+            </Pressable>
+
+
           {this.props.children}
         </View>
+
+
     </Modal>
     
   );
@@ -37,6 +41,19 @@ const styles = StyleSheet.create({
       backgroundColor: themeColor().primary,
       position: 'absolute',
       bottom: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      alignContent: 'center',
     },
+    closeButton: {
+      color: 'white',
+      fontSize: 30,
+      marginRight: 'auto',
+      marginLeft: 20,
+      marginTop: 5,
+      fontFamily: 'Arial',
+      fontWeight: 900,
+    }
   });
   
