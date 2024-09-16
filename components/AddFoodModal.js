@@ -1,8 +1,9 @@
-import { Modal, View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import { Modal, View, Text, Pressable, StyleSheet, ScrollView, } from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
 import {themeColor} from '@/hooks/theme'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SearchBar from "react-native-dynamic-search-bar";
+
 
 
 
@@ -15,7 +16,6 @@ export default class AddFoodModal extends React.Component {
   
     render() {
       
-      
       openRecents = () => {
 
       }
@@ -24,15 +24,15 @@ export default class AddFoodModal extends React.Component {
         
     <Modal animationType="slide" transparent={true} visible={this.props.isVisible}>
         <View style={styles.modalContent}>
-            <Pressable onPress={this.props.onClose} style={{width: '100%', marginBottom: 10}}>
-              <Text style={styles.closeButton}>X</Text>
+            <Pressable onPress={this.props.onClose} style={{width: '100%', marginBottom: 10, }}>
+              <Text style={styles.closeButton}>-       -       v      -       -</Text>
             </Pressable>
             <SearchBar
             placeholder="Search here"
             onPress={() => {}}
             onChangeText={(text) => console.log(text)}
             darkMode={true}
-            style={{height: 60}}
+            style={{height: 60, backgroundColor: themeColor().secondary,}}
             fontSize={16}
             fontFamily='JetBrainsMono'
             />
@@ -42,11 +42,11 @@ export default class AddFoodModal extends React.Component {
           {this.props.children}
         
         <View style={styles.catagoryPicker}>
-            <Pressable><View style={[this.props.recentsSelected ? {
+            <Pressable onPress={this.props.selectRecents}><View style={[this.props.recentsSelected ? {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: 'rgba(255,255,255,0.15)',
+              backgroundColor: 'rgba(255,255,255,0.1)',
               borderBottomLeftRadius: 40,
               borderTopLeftRadius: 40,
               height: 40,
@@ -63,14 +63,14 @@ export default class AddFoodModal extends React.Component {
               width: 95,
             }]}><Text style={{color: 'white'}}>Recents</Text></View></Pressable>
             <View style={{backgroundColor: themeColor().secondary, width: 1, height: 40, display: 'flex', justifyContent: 'center'}}><View style={{backgroundColor: 'white', width: 1, height: 30, opacity: 0.4}}></View></View>
-            <Pressable><View
+            <Pressable onPress={this.props.selectSearch}><View
             style={[this.props.searchSelected ? {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               height: 40,
               width: 95,
-              backgroundColor: 'rgba(255,255,255,0.15)',
+              backgroundColor: 'rgba(255,255,255,0.1)',
             }: 
               {
               display: 'flex',
@@ -83,11 +83,11 @@ export default class AddFoodModal extends React.Component {
             <View style={{backgroundColor: themeColor().secondary, width: 1, height: 40, display: 'flex', justifyContent: 'center'}}>
             <View style={{backgroundColor: 'white', width: 1, height: 30, opacity: 0.4}}></View>
             </View>
-            <Pressable><View style={[this.props.favoritesSelected ? {
+            <Pressable onPress={this.props.selectFavorites}><View style= {[this.props.favoritesSelected ? {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: 'rgba(255,255,255,0.15)',
+              backgroundColor: 'rgba(255,255,255,0.1)',
               borderBottomRightRadius: 40,
               borderTopRightRadius: 40,
               height: 40,
@@ -132,13 +132,14 @@ const styles = StyleSheet.create({
       alignContent: 'center',
     },
     closeButton: {
+      width: '100%',
       color: 'white',
       fontSize: 30,
-      marginRight: 'auto',
-      marginLeft: 25,
       marginTop: 40,
       fontFamily: 'Arial',
       fontWeight: 900,
+      textAlign: 'center',
+      opacity: 0.4,
     },
     catagoryPicker: {
       display: 'flex',

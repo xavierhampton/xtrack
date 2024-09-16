@@ -23,6 +23,13 @@ export default function TabLayout() {
     setIsModalVisible(!isModalVisible);
   }
 
+  const [recentsSelected, setRecentsSelected] = useState(true)
+  const [searchSelected, setSearchSelected] = useState(false)
+  const [favoritesSelected, setFavoritesSelected] = useState(false)
+  const selectRecents = () => {setRecentsSelected(true); setSearchSelected(false); setFavoritesSelected(false)}
+  const selectFavorites = () => {setRecentsSelected(false); setSearchSelected(false); setFavoritesSelected(true)}
+  const selectSearch = () => {setRecentsSelected(false); setSearchSelected(true); setFavoritesSelected(false)}
+
   return (
     <View style={{height: '100%', width: '100%'}}>
       
@@ -96,7 +103,15 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
-    <AddFoodModal isVisible={isModalVisible} onClose={toggleModal}>
+    <AddFoodModal 
+    isVisible={isModalVisible}
+     onClose={toggleModal} 
+     searchSelected={searchSelected}
+     favoritesSelected={favoritesSelected}
+     recentsSelected={recentsSelected}
+     selectFavorites={selectFavorites}
+     selectRecents={selectRecents}
+     selectSearch={selectSearch}>
       </AddFoodModal>
 
         <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]} onPress={toggleModal}>
