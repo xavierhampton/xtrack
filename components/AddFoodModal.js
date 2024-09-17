@@ -3,6 +3,8 @@ import React, {useState, useEffect, useRef} from 'react';
 import {themeColor} from '@/hooks/theme'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SearchBar from "react-native-dynamic-search-bar";
+import MaskedView from '@react-native-masked-view/masked-view'
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -27,15 +29,25 @@ export default class AddFoodModal extends React.Component {
             <Pressable onPress={this.props.onClose} style={{width: '100%', marginBottom: 10, }}>
               <Text style={styles.closeButton}>-       -       v      -       -</Text>
             </Pressable>
-            <SearchBar
-            placeholder="Search here"
-            onPress={() => {}}
-            onChangeText={(text) => console.log(text)}
-            darkMode={true}
-            style={{height: 60, backgroundColor: themeColor().secondary,}}
-            fontSize={16}
-            fontFamily='JetBrainsMono'
-            />
+              <View style={{display: 'flex', gap: 5, flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
+                <SearchBar
+                placeholder="Search here"
+                onPress={() => {}}
+                onChangeText={(text) => console.log(text)}
+                darkMode={true}
+                style={{height: 60, backgroundColor: themeColor().secondary, width: 280}}
+                fontSize={16}
+                fontFamily='JetBrainsMono'
+              />
+              <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 60, height: 60}]}>
+                  <MaskedView
+                  style={{width: 60, height: 60}}
+                  maskElement={<View style={{width: 60, height: 60, backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
+                  <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
+                  </MaskedView>
+                  <Text style={{position: 'absolute', fontFamily: 'JetBrainsMono', fontSize: 60, color: 'white', width: 60, height: 60, textAlign: 'center', bottom: 12}}>+</Text>
+              </Pressable>
+              </View>
             <View>
 
             </View>
