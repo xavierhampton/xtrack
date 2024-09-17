@@ -39,14 +39,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     itemContainer: {
-        marginBottom: 5,
+        marginBottom: 6,
         display: 'flex',
         alignItems: 'center',
 
         backgroundColor: themeColor().secondary,
         width: 350,
-        height: 75,
-        borderRadius: 30,
+        height: 90,
+        borderRadius: 10,
     },
     headerContainer: {
         marginTop: 50,

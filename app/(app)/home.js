@@ -107,40 +107,40 @@ export default function Home() {
                         <Text style={{color: 'white', fontFamily: 'JetBrainsMono', fontSize: 12, paddingLeft: 25, paddingTop: 8}}>Welcome Back!</Text>
                     </View>
                     
-                    <Pressable onPress={handleSignOut} style={{marginLeft: 'auto', justifyContent: 'center', marginRight: 20,}}>
+                    {/*<Pressable onPress={handleSignOut} style={{marginLeft: 'auto', justifyContent: 'center', marginRight: 20,}}>
                             <Feather name="log-out" size={24} color='#B22222'/>
-                    </Pressable>
+                    </Pressable>*/}
                 </View>
 
                 <View style={styles.macroContainer}>
                     <View style={styles.innerMacroContainer}>
-                        <Text style={{color: 'white', fontFamily: 'JetBrainsMono', fontSize: 15, marginBottom: 5}}>Calories</Text> 
-                        <Circle color={themeColor().accent}thickness={6}progress={0.5} showsText={true} size={120} textStyle={styles.circleText}></Circle>
-                        <Text style={{color: 'white', fontFamily: 'JetBrainsMono', fontSize: 11, marginTop: 5}}>1000/2000</Text> 
+                        <Text style={{color: 'white', fontFamily: 'JetBrainsMono', fontSize: 17, marginBottom: 5}}>Calories</Text> 
+                        <Circle color={'#9da2b0'}thickness={6}progress={.6} showsText={true} size={110} textStyle={styles.circleText}></Circle>
+                        <Text style={{color: 'white', fontFamily: 'JetBrainsMono', fontSize: 13, marginTop: 7}}>1000/2000</Text> 
 
                     </View>
                     <View style={styles.innerMacroContainer}> 
-                        <View style={{display: 'flex', flexDirection: 'column', gap: 30, marginRight: 20}}>
+                        <View style={{display: 'flex', flexDirection: 'column', gap: 20, marginRight: 20}}>
                             <View>
                                 <View style={{display: 'flex', flexDirection: 'row',}}>
                                     <Text style={styles.macroText}>Carbs</Text>
                                     <Text style={styles.smallMacroText}>145/160 g</Text>
                                 </View>
-                                <Bar color={themeColor().accent} progress={.7}></Bar>
+                                <Bar color={'#43d07c'} progress={.7}></Bar>
                             </View>
                                 <View>
                                 <View style={{display: 'flex', flexDirection: 'row',}}>
                                     <Text style={styles.macroText}>Protein</Text>
                                     <Text style={styles.smallMacroText}>35/160 g</Text>
                                 </View>
-                                <Bar color={themeColor().accent} progress={.3}></Bar>
+                                <Bar color={'#1cc9d8'} progress={.3}></Bar>
                             </View>
                             <View>
                                 <View style={{display: 'flex', flexDirection: 'row',}}>
                                     <Text style={styles.macroText}>Fat</Text>
                                     <Text style={styles.smallMacroText}>80/160 g</Text>
                                 </View>
-                                <Bar color={themeColor().accent} progress={.5}></Bar>
+                                <Bar color={'#eb3c05'} progress={.5}></Bar>
                             </View>
                         </View>
                     </View>
@@ -148,11 +148,11 @@ export default function Home() {
 
                 <View style={styles.dateContainer}>
 
-                    <Pressable hitSlop={30} onPress={decreaseDate}><Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&lt;</Text></Pressable>
+                    <Pressable  style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]} hitSlop={35} onPress={decreaseDate}><Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&lt;</Text></Pressable>
                     <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: 200, justifyContent: 'center'}}>
                         <DateTimePicker onChange={(event, Date) => {setData(Date)}} value={data} minimumDate={new Date(2024, 0, 1)} maximumDate={new Date(2035, 10, 20)} style={{width: 130}}></DateTimePicker>
                     </View>
-                    <Pressable hitSlop={30} onPress={increaseDate}><Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&gt;</Text></Pressable>
+                    <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]} hitSlop={35} onPress={increaseDate}><Text style={{fontFamily: 'JetBrainsMono', fontSize: 30, color: 'white', lineHeight: 40,}}>&gt;</Text></Pressable>
 
                 </View>
 
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
         backgroundColor: themeColor().secondary,
         width: 350,
         height: 70,
-        borderRadius: 30,
+        borderRadius: 10,
         
     },
     macroContainer: {
@@ -198,8 +198,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         backgroundColor: themeColor().secondary,
         width: 350,
-        height: 200,
-        borderRadius: 30,
+        height: 185,
+        borderRadius: 10,
     },
     innerMacroContainer: {
         display: 'flex',
@@ -209,17 +209,18 @@ const styles = StyleSheet.create({
     },
     macroText: {
         color: 'white',
-        fontFamily: 'JetBrainsMono'
+        fontFamily: 'JetBrainsMono',
+        fontSize: 16,
     },
     smallMacroText: {
         color: 'white',
         fontFamily: 'JetBrainsMono',
         marginLeft: 'auto',
-        fontSize: 11,
+        fontSize: 12,
     },
     circleText: {
         fontFamily: 'JetBrainsMono',
-        color: themeColor().accent,
+        color: 'white',
     },
     dateContainer: {
         display: 'flex',
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
         backgroundColor: themeColor().secondary,
         width: 280,
         height: 40,
-        borderRadius: 30,
+        borderRadius: 10,
         marginBottom: 10,
     },
     foodContainer: {

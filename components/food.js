@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection:'row',
-        height: 55, 
+        height: 65, 
        
          alignItems: 'center',
          backgroundColor: themeColor().secondary,
-         borderRadius: 30,
+         borderRadius: 10,
          marginBottom: 5,
          borderBottomWidth: 0.5,
          borderBottomColor: 'black',

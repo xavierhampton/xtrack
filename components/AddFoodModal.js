@@ -29,7 +29,7 @@ export default class AddFoodModal extends React.Component {
             <Pressable onPress={this.props.onClose} style={{width: '100%', marginBottom: 10, }}>
               <Text style={styles.closeButton}>-       -       v      -       -</Text>
             </Pressable>
-              <View style={{display: 'flex', gap: 5, flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
+              <View style={{display: 'flex', gap: 10, flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
                 <SearchBar
                 placeholder="Search here"
                 onPress={() => {}}
