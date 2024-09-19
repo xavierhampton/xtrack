@@ -11,16 +11,25 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import {router} from 'expo-router'
 import AddFoodModal from '@/components/AddFoodModal'
+import CreateFoodModal from '@/components/CreateFoodModal'
 
 
 
 
 export default function TabLayout() {
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAddFoodModalVisible, setIsAddFoodModalVisible] = useState(false);
+  const [isCreateFoodModalVisible, setIsCreateFoodModalVisible] = useState(false);
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
+
+
+  const toggleAddFoodModal = () => {
+    setIsAddFoodModalVisible(!isAddFoodModalVisible);
+  }
+
+  const toggleCreateFoodModal = () => {
+    setIsAddFoodModalVisible(false)
+    setIsCreateFoodModalVisible(!isCreateFoodModalVisible);
   }
 
   const [recentsSelected, setRecentsSelected] = useState(true)
@@ -104,17 +113,24 @@ export default function TabLayout() {
       />
     </Tabs>
     <AddFoodModal 
-    isVisible={isModalVisible}
-     onClose={toggleModal} 
+    isVisible={isAddFoodModalVisible}
+     onClose={toggleAddFoodModal} 
      searchSelected={searchSelected}
      favoritesSelected={favoritesSelected}
      recentsSelected={recentsSelected}
      selectFavorites={selectFavorites}
      selectRecents={selectRecents}
-     selectSearch={selectSearch}>
+     selectSearch={selectSearch}
+     toggleCreateFoodModal={toggleCreateFoodModal}>
       </AddFoodModal>
+      <CreateFoodModal
+      isVisible={isCreateFoodModalVisible}
+      onClose={toggleCreateFoodModal}
+      CreateFoodModal={CreateFoodModal}
+      
+      ></CreateFoodModal>
 
-        <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]} onPress={toggleModal}>
+        <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]} onPress={toggleAddFoodModal}>
 
       <MaskedView
         Text={'d'}

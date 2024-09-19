@@ -8,8 +8,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 
-
-
 export default class AddFoodModal extends React.Component {
     constructor(props) {
         super(props);
@@ -17,11 +15,6 @@ export default class AddFoodModal extends React.Component {
     
   
     render() {
-      
-      openRecents = () => {
-
-      }
-
     return (
         
     <Modal animationType="slide" transparent={true} visible={this.props.isVisible}>
@@ -39,7 +32,7 @@ export default class AddFoodModal extends React.Component {
                 fontSize={16}
                 fontFamily='JetBrainsMono'
               />
-              <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 60, height: 60}]}>
+              <Pressable onPress={this.props.toggleCreateFoodModal} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 60, height: 60}]}>
                   <MaskedView
                   style={{width: 60, height: 60}}
                   maskElement={<View style={{width: 60, height: 60, backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
@@ -49,7 +42,7 @@ export default class AddFoodModal extends React.Component {
               </Pressable>
               </View>
             <View>
-
+              
             </View>
           {this.props.children}
         
