@@ -11,6 +11,7 @@ export default class CreateFoodModal extends React.Component {
       render() {
         return (
             <Modal animationType="slide" transparent={true} visible={this.props.isVisible}>
+              <KeyboardAvoidingView behavior='height'>
               <View style={styles.modalContent}>
         <ScrollView>
           
@@ -30,40 +31,57 @@ export default class CreateFoodModal extends React.Component {
               </View>
               <View style={styles.foodInformationContainer}>
                   
-                  <View style={[styles.flexContainer, {height: 60, width: 350}]}>
+                  <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Food Name</Text>
-                    <TextInput style={styles.textInput}></TextInput>
+                    <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                    <TextInput style={[styles.textInput, {width: 190, padding: 5}]}></TextInput>
+                  </View>
+                  <View style={[styles.flexContainer, {height: 60, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0, borderTopColor: 'rgba(255,255,255,0.1)', borderTopWidth: 1}]}>
+                    <Text style={styles.label}>Barcode</Text>
+                    <View style={[styles.textInput, {width: 120, padding: 5, marginRight: 30}]}></View>
                   </View>
 
-                  <View style={styles.flexContainer}>
+                  <View style={{display: 'block', width: '100%'}}>
+                <Text style={[styles.subHeaderText, {marginTop: 20, marginBottom: 2}]}>Servings</Text>
+                </View>
 
+                  <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
+                  <Text style={styles.label}>Serving Name</Text>
+                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                  <TextInput style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
                   </View>
+                  <View style={[styles.flexContainer, {height: 70, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
+                  <Text style={styles.label}>Weight</Text>
+                  <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                  <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
+                  </View>
+
 
 
               </View>
               <View style={{display: 'block', width: '100%'}}>
-                <Text style={styles.subHeaderText}>Food Macros</Text>
+                <Text style={[styles.subHeaderText, {marginTop: 70}]}>Food Macros</Text>
               </View>
               <View style={styles.foodMacrosContainer}>
-                  <View style={[styles.flexContainer, {height: 50, width: 350}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 350}]}>
                     <Text style={styles.label}>Calories</Text>
-                    <TextInput style={[styles.textInput, {width: 80, textAlign: 'center'}]}></TextInput>
+                    <TextInput style={[styles.textInput, {width: 80, textAlign: 'center',}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 60, textAlign: 'center', height: 30}]}>kcal</Text>
                   </View>
-                  <View style={[styles.flexContainer, {height: 50, width: 350}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 350}]}>
                     <Text style={styles.label}>Carbs</Text>
                     <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
-                    <Text style={[styles.subHeaderText, {width: 30, textAlign: 'center', height: 30}]}>g</Text>
+                    <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
                   </View>
-                  <View style={[styles.flexContainer, {height: 50, width: 350}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 350}]}>
                     <Text style={styles.label}>Protein</Text>
                     <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
-                    <Text style={[styles.subHeaderText, {width: 30, textAlign: 'center', height: 30}]}>g</Text>
+                    <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
                   </View>
-                  <View style={[styles.flexContainer, {height: 50, width: 350}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 350}]}>
                     <Text style={styles.label}>Fat</Text>
                     <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
-                    <Text style={[styles.subHeaderText, {width: 30, textAlign: 'center', height: 30}]}>g</Text>
+                    <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
                   </View>
               </View>
 
@@ -72,12 +90,16 @@ export default class CreateFoodModal extends React.Component {
 
 
 
+          
             </View>
           </ScrollView>
-          <Pressable style={styles.createFoodButton}>
+          </View>
+          </KeyboardAvoidingView>
+
+          <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.createFoodButton]}>
               <Text style={styles.createFoodButtonText}>Create Food</Text>
           </Pressable>
-          </View>
+          
             </Modal>
         )
       }
@@ -134,7 +156,7 @@ const styles = StyleSheet.create({
   },
   foodInformationContainer: {
     width: 360,
-    height: 200,
+    height: 250,
     
     borderRadius: 10,
     display: 'flex',
@@ -161,6 +183,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: '#306844',
     bottom: 40,
+    left: '9%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
@@ -194,7 +217,8 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     color: 'white',
     fontSize: 16,
-    fontFamily: 'JetBrainsMono'
+    fontFamily: 'JetBrainsMono',
+    marginRight: 10,
   }
 
 
