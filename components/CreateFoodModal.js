@@ -1,20 +1,30 @@
 import { Modal, View, Text, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {themeColor} from '@/hooks/theme'
-import { displayPartsToString } from 'typescript';
+import {themeColor} from '@/hooks/theme';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default class CreateFoodModal extends React.Component {
     constructor(props) {
         super(props);
       }
+
+      
     
       render() {
+
+        function test() {
+          console.log('work')
+        }
+
+
         return (
+          
             <Modal animationType="slide" transparent={true} visible={this.props.isVisible}>
               <KeyboardAvoidingView behavior='height'>
               <View style={styles.modalContent}>
-        <ScrollView>
-          
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100}}>
+        
             <Pressable onPress={this.props.onClose} style={{width: '100%', marginBottom: 10, }}>
               <Text style={styles.closeButton}>-       -       v      -       -</Text>
             </Pressable>
@@ -55,10 +65,12 @@ export default class CreateFoodModal extends React.Component {
                   <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
                   </View>
-
-
-
+                  
               </View>
+              <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.newServingButton]} onPress={test} hitSlop={30}>
+                    <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono', textAlign: 'center', lineHeight: 30, height: 30}}>Add New Serving</Text>
+              </Pressable>
+
               <View style={{display: 'block', width: '100%'}}>
                 <Text style={[styles.subHeaderText, {marginTop: 70}]}>Food Macros</Text>
               </View>
@@ -81,26 +93,32 @@ export default class CreateFoodModal extends React.Component {
                   <View style={[styles.flexContainer, {height: 70, width: 350}]}>
                     <Text style={styles.label}>Fat</Text>
                     <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
-                    <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
+                    <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
                   </View>
               </View>
-
-
               
-
-
-
-          
             </View>
+            
           </ScrollView>
           </View>
+          
           </KeyboardAvoidingView>
 
-          <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.createFoodButton]}>
-              <Text style={styles.createFoodButtonText}>Create Food</Text>
-          </Pressable>
+          <View style={{display: 'flex', position: 'absolute', bottom: 35, width: '100%', height: 40, justifyContent: 'center', alignContent:'center', left: 45}}>
+          <Pressable onPress={this.props.toggleCreateFoodModal} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
+                  <MaskedView
+                  style={{width: 300, height: 60}}
+                  maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
+                  <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
+                  </MaskedView>
+                  <View style={{ width: 300, height: 60}}>
+                    <Text style={{ fontFamily: 'JetBrainsMono', fontSize: 26, color: 'white', width: 300, height: 60, textAlign: 'center', transform: 'translateY(-47px)'}}>Create Food</Text>
+                  </View>
+              </Pressable>   
+            </View>    
           
             </Modal>
+            
         )
       }
 }
@@ -156,13 +174,12 @@ const styles = StyleSheet.create({
   },
   foodInformationContainer: {
     width: 360,
-    height: 250,
+    height: 322,
     
     borderRadius: 10,
     display: 'flex',
     alignContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
   },
   foodMacrosContainer: {
     width: 360,
@@ -175,18 +192,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-  },
-  createFoodButton: {
-    width: 320,
-    height: 60,
-    borderRadius: 10,
-    position: 'absolute',
-    backgroundColor: '#306844',
-    bottom: 40,
-    left: '9%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   createFoodButtonText: {
     color: 'white',
@@ -219,6 +224,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'JetBrainsMono',
     marginRight: 10,
+  },
+  newServingButton: {
+    backgroundColor: '#306844',
+    width: 300,
+    height: 30,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    marginBottom: -50,
   }
 
 

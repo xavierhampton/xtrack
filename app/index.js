@@ -5,6 +5,7 @@ import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import {useEffect} from 'react'
 import {auth} from '../firebase'
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Index() {
 
@@ -20,7 +21,7 @@ export default function Index() {
 
   return (
 
-    
+    <GestureHandlerRootView>
     <View style={styles.container}>
       <Text 
       style={{
@@ -48,6 +49,7 @@ export default function Index() {
 
       </View>
     </View>
+    </GestureHandlerRootView>
   );
 }
 

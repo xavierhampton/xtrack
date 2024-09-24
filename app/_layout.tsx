@@ -9,6 +9,7 @@ import * as SystemUI from 'expo-system-ui';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,9 +33,11 @@ export default function RootLayout() {
   }
 
   return (
+    <GestureHandlerRootView>
     <Stack
     screenOptions={{headerShown: false}}>
       <Stack.Screen name="index" options={{headerShown: false}}/>
     </Stack>
+    </GestureHandlerRootView>
   );
 }
