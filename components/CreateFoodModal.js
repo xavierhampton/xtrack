@@ -44,7 +44,7 @@ export default class CreateFoodModal extends React.Component {
                   <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Food Name</Text>
                     <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
-                    <TextInput style={[styles.textInput, {width: 190, padding: 5}]}></TextInput>
+                    <TextInput maxLength={20}style={[styles.textInput, {width: 190, padding: 5}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 60, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0, borderTopColor: 'rgba(255,255,255,0.1)', borderTopWidth: 1}]}>
                     <Text style={styles.label}>Barcode</Text>
@@ -58,16 +58,16 @@ export default class CreateFoodModal extends React.Component {
                   <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                   <Text style={styles.label}>Serving Name</Text>
                   <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
-                  <TextInput style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
+                  <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                   <Text style={styles.label}>Weight</Text>
-                  <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                  <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
                   </View>
                   
               </View>
-              <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.newServingButton]} onPress={test} hitSlop={30}>
+              <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.newServingButton,]} onPress={test} hitSlop={30}>
                     <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono', textAlign: 'center', lineHeight: 30, height: 30}}>Add New Serving</Text>
               </Pressable>
 
@@ -77,22 +77,22 @@ export default class CreateFoodModal extends React.Component {
               <View style={styles.foodMacrosContainer}>
                   <View style={[styles.flexContainer, {height: 70, width: 350}]}>
                     <Text style={styles.label}>Calories</Text>
-                    <TextInput style={[styles.textInput, {width: 80, textAlign: 'center',}]}></TextInput>
+                    <TextInput maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 80, textAlign: 'center',}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 60, textAlign: 'center', height: 30}]}>kcal</Text>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 350}]}>
                     <Text style={styles.label}>Carbs</Text>
-                    <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                    <TextInput maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 350}]}>
                     <Text style={styles.label}>Protein</Text>
-                    <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                    <TextInput maxLength={4} keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 350}]}>
                     <Text style={styles.label}>Fat</Text>
-                    <TextInput style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                    <TextInput maxLength={4} keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
                   </View>
               </View>
