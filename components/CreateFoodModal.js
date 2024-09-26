@@ -4,28 +4,69 @@ import {themeColor} from '@/hooks/theme';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default class CreateFoodModal extends React.Component {
-    constructor(props) {
-        super(props);
-      }
+const CreateFoodModal = (props) => {
+ 
+          const [servingsArray, setServingsArray] = useState([<View>
+            <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
+                  <Text style={styles.label}>Serving Name</Text>
+                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                  <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
+                  </View>
+                  <View style={[styles.flexContainer, {height: 70, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
+                  <Text style={styles.label}>Weight</Text>
+                  <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                  <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
+            </View>
+            </View>])
+          useEffect(() => {}, [servingsArray])
+          
+        function newServing() {
+          if (servingsArray.length < 3) {
+          let tmp = servingsArray.slice()
+          tmp.push(addNewServingUI(servingsArray.length + 1))
+          setServingsArray(tmp)
+          }
+        }
+        function deleteServing(k) {
+          let tmp = servingsArray.slice()
+          tmp.splice(k,1)
+          setServingsArray(tmp)
+        }
+        function getServings() {
+          const arr = []
+          for (let i = 0; i < servingsArray.length; i++) {
+            arr.push(<View key={i}>{servingsArray[i]}</View>)
+          }
+          return arr
+        }
 
-      
-    
-      render() {
-
-        function test() {
-          console.log('work')
+        function addNewServingUI(k) {
+          return (
+            <View style={{paddingTop: 10}}>
+            <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, paddingTop: 10}]}>
+                  <Text style={styles.label}>Serving Name</Text>
+                  <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
+                  </View>
+                  <View style={[styles.flexContainer, {height: 70, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
+                  <Text style={styles.label}>Weight</Text>
+                  <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                  <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
+                  <Pressable onPress={() =>{deleteServing(k)}} style={{position: 'absolute', right: -5, top: -90,borderRadius: 100, backgroundColor: '#6f0000', width: 26, height: 26}}><Text style={{fontSize: 22, color:'white', textAlign: 'center'}}>X</Text></Pressable>
+            </View>
+            </View>
+          )
+          
         }
 
 
         return (
           
-            <Modal animationType="slide" transparent={true} visible={this.props.isVisible}>
+            <Modal animationType="slide" transparent={true} visible={props.isVisible}>
               <KeyboardAvoidingView behavior='height'>
               <View style={styles.modalContent}>
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100}}>
         
-            <Pressable onPress={this.props.onClose} style={{width: '100%', marginBottom: 10, }}>
+            <Pressable onPress={props.onClose} style={{width: '100%', marginBottom: 10, }}>
               <Text style={styles.closeButton}>-       -       v      -       -</Text>
             </Pressable>
 
@@ -55,19 +96,10 @@ export default class CreateFoodModal extends React.Component {
                 <Text style={[styles.subHeaderText, {marginTop: 20, marginBottom: 2}]}>Servings</Text>
                 </View>
 
-                  <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
-                  <Text style={styles.label}>Serving Name</Text>
-                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
-                  <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
-                  </View>
-                  <View style={[styles.flexContainer, {height: 70, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
-                  <Text style={styles.label}>Weight</Text>
-                  <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
-                  <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
-                  </View>
+                 {getServings()}
                   
               </View>
-              <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.newServingButton,]} onPress={test} hitSlop={30}>
+              <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.newServingButton,{zIndex: 1}]} onPress={newServing} hitSlop={20}>
                     <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono', textAlign: 'center', lineHeight: 30, height: 30}}>Add New Serving</Text>
               </Pressable>
 
@@ -105,7 +137,7 @@ export default class CreateFoodModal extends React.Component {
           </KeyboardAvoidingView>
 
           <View style={{display: 'flex', position: 'absolute', bottom: 35, width: '100%', height: 40, justifyContent: 'center', alignContent:'center', left: 45}}>
-          <Pressable onPress={this.props.toggleCreateFoodModal} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
+          <Pressable onPress={props.toggleCreateFoodModal} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
                   <MaskedView
                   style={{width: 300, height: 60}}
                   maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
@@ -121,7 +153,9 @@ export default class CreateFoodModal extends React.Component {
             
         )
       }
-}
+
+      export default CreateFoodModal
+
 
 
 const styles = StyleSheet.create({
@@ -174,7 +208,6 @@ const styles = StyleSheet.create({
   },
   foodInformationContainer: {
     width: 360,
-    height: 322,
     
     borderRadius: 10,
     display: 'flex',
@@ -231,6 +264,7 @@ const styles = StyleSheet.create({
     height: 30,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
+    marginTop: -10,
     marginBottom: -50,
   }
 
