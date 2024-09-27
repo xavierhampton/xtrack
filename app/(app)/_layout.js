@@ -124,6 +124,7 @@ export default function TabLayout() {
      toggleCreateFoodModal={toggleCreateFoodModal}>
       </AddFoodModal>
       <CreateFoodModal
+      style={{width: '100%'}}
       isVisible={isCreateFoodModalVisible}
       onClose={toggleCreateFoodModal}
       CreateFoodModal={CreateFoodModal}

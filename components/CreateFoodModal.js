@@ -51,7 +51,7 @@ const CreateFoodModal = (props) => {
                   <Text style={styles.label}>Weight</Text>
                   <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
-                  <Pressable onPress={() =>{deleteServing(k)}} style={{position: 'absolute', right: -5, top: -90,borderRadius: 100, backgroundColor: '#6f0000', width: 26, height: 26}}><Text style={{fontSize: 22, color:'white', textAlign: 'center'}}>X</Text></Pressable>
+                  <Pressable onPress={() =>{deleteServing(k)}} style={{position: 'absolute', right: -5, top: -90,borderRadius: 100, backgroundColor: themeColor().secondary, width: 26, height: 26, borderColor: 'white', borderWidth: 1}}><Text style={{fontFamily: 'JetBrainsMono',fontSize: 24, color:'white', textAlign: 'center', transform: 'translateY(-6px)'}}>x</Text></Pressable>
             </View>
             </View>
           )
@@ -61,22 +61,22 @@ const CreateFoodModal = (props) => {
 
         return (
           
-            <Modal animationType="slide" transparent={true} visible={props.isVisible}>
-              <KeyboardAvoidingView behavior='height'>
-              <View style={styles.modalContent}>
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100}}>
-        
-            <Pressable onPress={props.onClose} style={{width: '100%', marginBottom: 10, }}>
-              <Text style={styles.closeButton}>-       -       v      -       -</Text>
-            </Pressable>
+            <Modal animationType="slide" transparent={true} visible={props.isVisible} style={{width: '100%'}}>
+              <KeyboardAvoidingView behavior='height' style={{width: '100%'}}>
+              <View style={styles.modalContent}> 
 
-            <View style={styles.modalContent}>
-            
-
-              <View style={styles.titleContainer}>
-                <Text style={styles.headerText}>Custom Food</Text>
+              <View style={[styles.headerContainer, {display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}]}>
+              <Pressable onPress={props.onClose} style={{width: 26, marginBottom: 10, marginLeft:'auto', backgroundColor: themeColor().secondary}}>
+                      <Text style={[styles.closeButton, {marginLeft: 'auto', fontSize: 40, transform: 'translateX(-10px) translateY(10px)'}]}>x</Text>
+                    </Pressable>
+                <Text style={[styles.headerText, {transform: 'translateY(-20px)'}]}>Custom Food</Text>
+                
               </View>
 
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100}}>
+        
+            <View style={styles.modalContent}>
+              
               <View style={{display: 'block', width: '100%'}}>
                 <Text style={styles.subHeaderText}>Food Information</Text>
               </View>
@@ -181,16 +181,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     opacity: 0.4,
   },
-  titleContainer: {
-    width: 340,
-    height: 40,
+  headerContainer: {
+    width: 385,
+    height: 90,
     backgroundColor: themeColor().secondary,
     borderRadius: 10,
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 0,
   },
   headerText: {
     color: 'white',
