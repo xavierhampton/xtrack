@@ -6,8 +6,8 @@ import { TouchableOpacity } from 'react-native';
 import {themeColor} from '@/hooks/theme'
 import {router} from 'expo-router'
 import {createUserWithEmailAndPassword } from 'firebase/auth';
-import {auth} from '../firebase'
-import {googleSignIn} from '../components/auth_google_signin'
+import {auth} from '@/firebase'
+import {googleSignIn} from '@/components/auth_google_signin'
 
 export default function SignInScreen() {
   const [email, setEmail] = useState('')

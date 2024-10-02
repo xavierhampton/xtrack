@@ -5,8 +5,9 @@ import React, {useState, useEffect} from 'react';
 import { TouchableOpacity } from 'react-native';
 import {themeColor} from '@/hooks/theme'
 import {router} from 'expo-router'
-import {auth} from '../firebase'
-import {googleSignIn} from '../components/auth_google_signin'
+import {auth} from '@/firebase'
+import {googleSignIn} from '@/components/auth_google_signin'
+
 
 
 import {signInWithEmailAndPassword} from 'firebase/auth'
