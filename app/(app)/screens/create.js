@@ -138,7 +138,7 @@ const create = (props) => {
           </KeyboardAvoidingView>
 
           <View style={{display: 'flex', position: 'absolute', bottom: 35, width: '100%', height: 40, justifyContent: 'center', alignContent:'center', left: 45}}>
-          <Pressable onPress={props.toggleCreateFood} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
+          <Pressable onPress={() => router.push('screens/overview')} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
                   <MaskedView
                   style={{width: 300, height: 60}}
                   maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
