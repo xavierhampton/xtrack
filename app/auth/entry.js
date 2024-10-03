@@ -6,7 +6,7 @@ import { router } from "expo-router";
 import {useEffect} from 'react'
 import {auth} from '@/firebase'
 
-export default function Index() {
+export default function Entry() {
 
   useEffect(() => {
     auth.onAuthStateChanged(user => {

@@ -1,37 +1,28 @@
-import { Tabs } from 'expo-router';
-import React, {useState, useEffect} from 'react';
+import { Tabs, router } from 'expo-router';
 import '@/components/UserTheme.js'
-import {View, Text, Pressable} from 'react-native'
-
+import React, {useState, useEffect,useCallback, useRef, useMemo } from "react";
+import { StyleSheet, Text, View, Pressable } from "react-native";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import {themeColor} from '@/hooks/theme'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaskedView from '@react-native-masked-view/masked-view'
 import { LinearGradient } from 'expo-linear-gradient';
-
-import {router} from 'expo-router'
-import AddFoodModal from '@/components/AddFoodModal'
-import CreateFoodModal from '@/components/CreateFoodModal'
-
-
-
+import SearchBar from "react-native-dynamic-search-bar";
 
 export default function TabLayout() {
+  const sheetRef = useRef(null);
+  const snapPoints = useMemo(() => ["75%", "95%"], []);
 
-  const [isAddFoodModalVisible, setIsAddFoodModalVisible] = useState(false);
-  const [isCreateFoodModalVisible, setIsCreateFoodModalVisible] = useState(false);
-
-
-
-  const toggleAddFoodModal = () => {
-    setIsAddFoodModalVisible(!isAddFoodModalVisible);
-  }
-
-  const toggleCreateFoodModal = () => {
-    router.push("/screens/create")
-    setIsAddFoodModalVisible(false)
-    //setIsCreateFoodModalVisible(!isCreateFoodModalVisible);
-  }
+  // callbacks
+  const handleSheetChange = useCallback((index) => {
+  }, []);
+  const handleSnapPress = useCallback((index) => {
+    sheetRef.current?.snapToIndex(index);
+  }, []);
+  const handleClosePress = useCallback(() => {
+    sheetRef.current?.close();
+  }, []);
 
   const [recentsSelected, setRecentsSelected] = useState(true)
   const [searchSelected, setSearchSelected] = useState(false)
@@ -42,18 +33,14 @@ export default function TabLayout() {
 
   return (
     <View style={{height: '100%', width: '100%'}}>
-      
-    
     <Tabs 
       screenOptions={{
         tabBarItemStyle: {
             paddingBottom: 15,
             height: 80,
-            width: 50,
-            
+            width: 50, 
         },
         tabBarStyle: {
-          
             backgroundColor: themeColor().secondary,
             display: 'flex',
             alignContent: 'center',
@@ -84,7 +71,6 @@ export default function TabLayout() {
             }}/>
           ),
         }}
-        
       />
       <Tabs.Screen
         name="unknown"
@@ -93,7 +79,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} 
             style={{
-                width: 10,
+                width: 0,
                 height: 0,
                 fontSize: 0,
             }}/>
@@ -112,28 +98,8 @@ export default function TabLayout() {
           ),
         }}
       />
-    </Tabs>
-    <AddFoodModal 
-    isVisible={isAddFoodModalVisible}
-     onClose={toggleAddFoodModal} 
-     searchSelected={searchSelected}
-     favoritesSelected={favoritesSelected}
-     recentsSelected={recentsSelected}
-     selectFavorites={selectFavorites}
-     selectRecents={selectRecents}
-     selectSearch={selectSearch}
-     toggleCreateFoodModal={toggleCreateFoodModal}>
-      </AddFoodModal>
-      <CreateFoodModal
-      style={{width: '100%'}}
-      isVisible={isCreateFoodModalVisible}
-      onClose={toggleCreateFoodModal}
-      CreateFoodModal={CreateFoodModal}
-      
-      ></CreateFoodModal>
-
-        <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]} onPress={toggleAddFoodModal}>
-
+    </Tabs>    
+        <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]} onPress={() => handleSnapPress(1)}>
       <MaskedView
         Text={'d'}
         style={{
@@ -150,9 +116,129 @@ export default function TabLayout() {
       <AntDesign  name="pluscircle" size={76} color="black" /></View>}>
           <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
       </MaskedView>
-
       </Pressable>
+
+
+
+      <BottomSheet
+        ref={sheetRef}
+        enablePanDownToClose={true}
+        index={-1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChange}
+        backgroundStyle={{backgroundColor: themeColor().primary}}
+        handleIndicatorStyle={{backgroundColor: 'rgba(170,170,170,1)'}}
+      >
+        <BottomSheetScrollView>
+        
+        <View style={{
+          height: 50,
+          width: '100%',
+          backgroundColor: themeColor().primary,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          alignContent: 'center',}}>
+              <View style={{display: 'flex', gap: 10, flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
+                <SearchBar
+                placeholder="Search here"
+                onPress={() => {}}
+                onChangeText={(text) => console.log(text)}
+                darkMode={true}
+                style={{height: 60, backgroundColor: themeColor().secondary, width: 280}}
+                fontSize={16}
+                fontFamily='JetBrainsMono'
+              />
+              <Pressable onPress={() => router.push('screens/create')} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 60, height: 60}]}>
+                  <MaskedView
+                  style={{width: 60, height: 60}}
+                  maskElement={<View style={{width: 60, height: 60, backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
+                  <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
+                  </MaskedView>
+                  <Text style={{position: 'absolute', fontFamily: 'JetBrainsMono', fontSize: 60, color: 'white', width: 60, height: 60, textAlign: 'center', bottom: 12}}>+</Text>
+              </Pressable>
+
+              </View>
+        
+        <View style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 280,
+          height: 40,
+          borderRadius: 40,
+          marginTop: 10,}}>
+            <Pressable onPress={selectRecents}><View style={[recentsSelected ? {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(255,255,255,0.1)',
+              borderBottomLeftRadius: 40,
+              borderTopLeftRadius: 40,
+              height: 40,
+              width: 95,
+            }
+            :{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: themeColor().secondary,
+              borderBottomLeftRadius: 40,
+              borderTopLeftRadius: 40,
+              height: 40,
+              width: 95,
+            }]}><Text style={{color: 'white'}}>Recents</Text></View></Pressable>
+            <View style={{backgroundColor: themeColor().secondary, width: 1, height: 40, display: 'flex', justifyContent: 'center'}}><View style={{backgroundColor: 'white', width: 1, height: 30, opacity: 0.4}}></View></View>
+            <Pressable onPress={selectSearch}><View
+            style={[searchSelected ? {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 40,
+              width: 95,
+              backgroundColor: 'rgba(255,255,255,0.1)',
+            }: 
+              {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: themeColor().secondary,
+              height: 40,
+              width: 95,
+            }]}><Text style={{color: 'white'}}>Search</Text></View></Pressable>
+            <View style={{backgroundColor: themeColor().secondary, width: 1, height: 40, display: 'flex', justifyContent: 'center'}}>
+            <View style={{backgroundColor: 'white', width: 1, height: 30, opacity: 0.4}}></View>
+            </View>
+            <Pressable onPress={selectFavorites}><View style= {[favoritesSelected ? {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(255,255,255,0.1)',
+              borderBottomRightRadius: 40,
+              borderTopRightRadius: 40,
+              height: 40,
+              width: 95,
+            }:
+            {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: themeColor().secondary,
+              borderBottomRightRadius: 40,
+              borderTopRightRadius: 40,
+              height: 40,
+              width: 95,
+            }]}><Text style={{color: 'white'}}>Favorites</Text></View></Pressable>
+            
+        </View>
+        </View>
+
+        </BottomSheetScrollView>
+      </BottomSheet>
+
     </View>
     
   );
 }
+
