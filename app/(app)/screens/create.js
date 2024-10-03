@@ -9,12 +9,12 @@ import {router} from 'expo-router'
 const create = (props) => {
  
           const [servingsArray, setServingsArray] = useState([<View>
-            <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
+            <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                   <Text style={styles.label}>Serving Name</Text>
                   <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
                   <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
                   </View>
-                  <View style={[styles.flexContainer, {height: 70, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                   <Text style={styles.label}>Weight</Text>
                   <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
@@ -45,15 +45,15 @@ const create = (props) => {
         function addNewServingUI(k) {
           return (
             <View style={{paddingTop: 5}}>
-            <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, paddingTop: 10, }]}>
+            <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, paddingTop: 10, }]}>
                   <Text style={styles.label}>Serving Name</Text>
                   <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
                   </View>
-                  <View style={[styles.flexContainer, {height: 70, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                   <Text style={styles.label}>Weight</Text>
                   <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
-                  <Pressable onPress={() =>{deleteServing(k)}} style={{position: 'absolute', right: -5, top: -90,borderRadius: 100, backgroundColor: themeColor().secondary, width: 26, height: 26, borderColor: 'white', borderWidth: 1}}><Text style={{fontFamily: 'JetBrainsMono',fontSize: 24, color:'white', textAlign: 'center', transform: 'translateY(-6px)'}}>x</Text></Pressable>
+                  <Pressable onPress={() =>{deleteServing(k)}} style={{position: 'absolute', right: 0, top: -88,borderRadius: 100, backgroundColor: themeColor().secondary, width: 26, height: 26, borderColor: 'white', borderWidth: 1}}><Text style={{fontFamily: 'JetBrainsMono',fontSize: 24, color:'white', textAlign: 'center', transform: 'translateY(-6px)'}}>x</Text></Pressable>
             </View>
             </View>
           )
@@ -74,21 +74,21 @@ const create = (props) => {
                 
               </View>
 
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100}}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100, width: '100%'}}>
         
             <View style={styles.Content}>
               
               <View style={{display: 'block', width: '100%'}}>
-                <Text style={styles.subHeaderText}>Food Information</Text>
+                <Text style={[styles.subHeaderText, {width: 375, textAlign: 'left'}]}>Food Information</Text>
               </View>
               <View style={styles.foodInformationContainer}>
                   
-                  <View style={[styles.flexContainer, {height: 80, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
+                  <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Food Name</Text>
                     <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
                     <TextInput maxLength={20}style={[styles.textInput, {width: 190, padding: 5}]}></TextInput>
                   </View>
-                  <View style={[styles.flexContainer, {height: 60, width: 350, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
+                  <View style={[styles.flexContainer, {height: 60, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                     <Text style={styles.label}>Barcode</Text>
                     <View style={[styles.textInput, {width: 120, padding: 5, marginRight: 30}]}></View>
                   </View>
@@ -105,25 +105,25 @@ const create = (props) => {
               </Pressable>
 
               <View style={{display: 'block', width: '100%'}}>
-                <Text style={[styles.subHeaderText, {marginTop: 70}]}>Food Macros</Text>
+                <Text style={[styles.subHeaderText, {marginTop: 70, width: 375}]}>Food Macros</Text>
               </View>
               <View style={styles.foodMacrosContainer}>
-                  <View style={[styles.flexContainer, {height: 70, width: 350, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Calories</Text>
                     <TextInput maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 80, textAlign: 'center',}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 60, textAlign: 'center', height: 30}]}>kcal</Text>
                   </View>
-                  <View style={[styles.flexContainer, {height: 70, width: 350, borderRadius: 0}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 375, borderRadius: 0}]}>
                     <Text style={styles.label}>Carbs</Text>
                     <TextInput maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
                   </View>
-                  <View style={[styles.flexContainer, {height: 70, width: 350, borderRadius: 0}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 375, borderRadius: 0}]}>
                     <Text style={styles.label}>Protein</Text>
                     <TextInput maxLength={4} keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
                   </View>
-                  <View style={[styles.flexContainer, {height: 70, width: 350, borderTopLeftRadius: 0, borderTopRightRadius: 0}]}>
+                  <View style={[styles.flexContainer, {height: 70, width: 375, borderTopLeftRadius: 0, borderTopRightRadius: 0}]}>
                     <Text style={styles.label}>Fat</Text>
                     <TextInput maxLength={4} keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     marginBottom: -10,
   },
   foodInformationContainer: {
-    width: 360,
+    width: 375,
     
     borderRadius: 10,
     display: 'flex',
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   foodMacrosContainer: {
-    width: 360,
+    width: 375,
     height: 300,
 
     gap: 0,
