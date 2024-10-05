@@ -1,12 +1,31 @@
 import {View, Text, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef, useMemo, useCallback} from 'react';
 import {themeColor} from '@/hooks/theme';
 import MaskedView from '@react-native-masked-view/masked-view';
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { LinearGradient } from 'expo-linear-gradient';
 import {router} from 'expo-router'
 
 
 const create = (props) => {
+  const sheetRef = useRef(null);
+  const snapPoints = useMemo(() => ["25%"], []);
+
+  // callbacks
+  const handleSheetChange = useCallback((index) => {
+  }, []);
+  const handleSnapPress = useCallback((index) => {
+    sheetRef.current?.snapToIndex(index);
+  }, []);
+  const handleClosePress = useCallback(() => {
+    sheetRef.current?.close();
+  }, []);
+  
+
+  // Implement
+  const saveFood = () => {
+    console.log("SAVE")
+  }
  
           const [servingsArray, setServingsArray] = useState([<View>
             <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
@@ -74,7 +93,7 @@ const create = (props) => {
                 
               </View>
 
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100, width: '100%'}}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 150, width: '100%'}}>
         
             <View style={styles.Content}>
               
@@ -138,7 +157,7 @@ const create = (props) => {
           </KeyboardAvoidingView>
 
           <View style={{display: 'flex', position: 'absolute', bottom: 35, width: '100%', height: 40, justifyContent: 'center', alignContent:'center', left: 45}}>
-          <Pressable onPress={() => router.push('screens/overview')} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
+          <Pressable onPress={() => handleSnapPress(0)} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
                   <MaskedView
                   style={{width: 300, height: 60}}
                   maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
@@ -149,7 +168,41 @@ const create = (props) => {
                   </View>
               </Pressable>   
             </View>
-            </View> 
+
+
+            <BottomSheet
+            ref={sheetRef}
+            enablePanDownToClose={true}
+            index={-1}
+            snapPoints={snapPoints}
+            onChange={handleSheetChange}
+            backgroundStyle={{backgroundColor: themeColor().secondary, shadowColor: 'white', shadowOpacity: 0.2, shadowRadius: 2}}
+            handleIndicatorStyle={{backgroundColor: 'rgba(170,170,170,1)'}}>
+            
+                <View style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', alignItems: 'center', gap: 10}}>
+
+                    <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, gap: 20}}>
+                    <Pressable onPress = {() => handleClosePress()} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{backgroundColor: '#683030', borderRadius: 10, width: 140, height: 45, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
+                      <Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 18, textAlign: 'center'}}>Cancel</Text>
+                    </Pressable>
+                    <Pressable onPress = {() => {saveFood(); router.push('/main/home')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{backgroundColor: '#306844', borderRadius: 10, width: 140, height: 45, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
+                      <Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 18, textAlign: 'center'}}>Save</Text>
+                    </Pressable>
+                    </View>
+                    
+                    <Pressable onPress={() => {saveFood(); router.push('/screens/overview')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{borderColor: '#684468', borderRadius: 10, borderWidth: 2,  width: 300, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
+                    <MaskedView
+                    style={{width: 300, height: 60}}
+                    maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 24, textAlign: 'center', lineHeight: 52}}>Save & Track</Text></View>}>
+                  <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
+                  </MaskedView>
+                    
+                     
+                    </Pressable>
+                </View>
+            
+            </BottomSheet>
+            </View>
           
             
     
