@@ -9,14 +9,11 @@ const overview = (props) => {
 
   const [food, setFood] = useState({name: 'FOOD', serving: [{servingName: 'NAME', cal: 0, pro: 0, car: 0, fat: 0}]})
 
-  const c = useLocalSearchParams();
-  
-  
-  const fetchRecent = async () => {
+  const fetchCache = async () => {
     try {
-        const jsonValue = await AsyncStorage.getItem('recents');
-        const recent = jsonValue != null ? JSON.parse(jsonValue) : null;
-        setFood(recent.pop())
+        const jsonValue = await AsyncStorage.getItem('overview-cache');
+        const cacheVal = jsonValue != null ? JSON.parse(jsonValue) : null;
+        setFood(cacheVal)
       }
         catch (e) {
         console.log('fetch error')
@@ -24,14 +21,7 @@ const overview = (props) => {
       }
     }
 
-    //Must check if from recently created
-    if (true) {
-      fetchRecent()
-    }
-    else {
-      return
-    }
-
+      fetchCache()
     return (
         <View style={{backgroundColor: themeColor().primary}}>
               <KeyboardAvoidingView behavior='position' style={{width: '100%', height: '100%'}} contentContainerStyle={{backgroundColor: 'black'}}>

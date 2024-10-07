@@ -25,6 +25,7 @@ const create = (props) => {
   
 
   const [recents, setRecents] = useState([])
+  const [food, setFood] = useState({name: 'Philly Cheese2', serving: [{servingName: 'sandwhich', cal: 1000, pro: 100, car: 200, fat: 90}]})
 
   const fetchRecents = async () => {
     try {
@@ -65,10 +66,20 @@ const create = (props) => {
     }
   };
 
+  const pushOverviewCache = async () => {
+    try {
+      const jsonValue = JSON.stringify(food);
+      await AsyncStorage.setItem('overview-cache', jsonValue);
+    }
+     catch (e) {
+      console.log('store error')
+      return
+    }
+  }
+
   // Implement
-  const saveFood = () => {
-    const newFood = {name: 'Philly Cheese', serving: [{servingName: 'sandwhich', cal: 1000, pro: 100, car: 200, fat: 90}]}
-    storeRecents(newFood)
+  const saveFood = () => { 
+    storeRecents(food)
     console.log("SAVE")
   }
  
@@ -235,7 +246,7 @@ const create = (props) => {
                     </Pressable>
                     </View>
                     
-                    <Pressable onPress={() => {saveFood(); router.push({pathname: '/screens/overview', params: {create: true}});}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{borderColor: '#684468', borderRadius: 10, borderWidth: 2,  width: 300, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
+                    <Pressable onPress={() => {saveFood(); pushOverviewCache(); router.push({pathname: '/screens/overview', params: {create: true}});}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{borderColor: '#684468', borderRadius: 10, borderWidth: 2,  width: 300, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
                     <MaskedView
                     style={{width: 300, height: 60}}
                     maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 24, textAlign: 'center', lineHeight: 52}}>Save & Track</Text></View>}>
