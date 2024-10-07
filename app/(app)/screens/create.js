@@ -5,6 +5,8 @@ import MaskedView from '@react-native-masked-view/masked-view';
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { LinearGradient } from 'expo-linear-gradient';
 import {router} from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const create = (props) => {
@@ -22,8 +24,51 @@ const create = (props) => {
   }, []);
   
 
+  const [recents, setRecents] = useState([])
+
+  const fetchRecents = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('recents');
+        return setRecents(jsonValue != null ? JSON.parse(jsonValue) : [])          } 
+        catch (e) {
+        console.log('fetch error')
+        return
+      }
+      
+    };
+
+  const storeRecents = async (value) => {
+    try {
+      fetchRecents();
+    }
+    catch {
+      console.log('store error')
+      return
+    }
+    const newRecents = []
+    for (i of recents) {
+      newRecents.push(i)
+    }
+    newRecents.push(value)
+
+    if (newRecents > 50) {
+      newRecents.shift()
+    }
+
+    try {
+      const jsonValue = JSON.stringify(newRecents);
+      await AsyncStorage.setItem('recents', jsonValue);
+    }
+     catch (e) {
+      console.log('store error')
+      return
+    }
+  };
+
   // Implement
   const saveFood = () => {
+    const newFood = {name: 'Philly Cheese', serving: [{servingName: 'sandwhich', cal: 1000, pro: 100, car: 200, fat: 90}]}
+    storeRecents(newFood)
     console.log("SAVE")
   }
  
@@ -190,7 +235,7 @@ const create = (props) => {
                     </Pressable>
                     </View>
                     
-                    <Pressable onPress={() => {saveFood(); router.push('/screens/overview')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{borderColor: '#684468', borderRadius: 10, borderWidth: 2,  width: 300, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
+                    <Pressable onPress={() => {saveFood(); router.push({pathname: '/screens/overview', params: {create: true}});}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{borderColor: '#684468', borderRadius: 10, borderWidth: 2,  width: 300, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
                     <MaskedView
                     style={{width: 300, height: 60}}
                     maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 24, textAlign: 'center', lineHeight: 52}}>Save & Track</Text></View>}>

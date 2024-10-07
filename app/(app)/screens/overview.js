@@ -1,8 +1,37 @@
 import {View, Text, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, TextInput} from 'react-native'
+import { useState } from 'react';
 import {themeColor} from '@/hooks/theme';
-import {router} from 'expo-router'
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+import {router, useLocalSearchParams} from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const overview = (props) => {
+
+  const [food, setFood] = useState({name: 'FOOD', serving: [{servingName: 'NAME', cal: 0, pro: 0, car: 0, fat: 0}]})
+
+  const c = useLocalSearchParams();
+  
+  
+  const fetchRecent = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('recents');
+        const recent = jsonValue != null ? JSON.parse(jsonValue) : null;
+        setFood(recent.pop())
+      }
+        catch (e) {
+        console.log('fetch error')
+        return
+      }
+    }
+
+    //Must check if from recently created
+    if (true) {
+      fetchRecent()
+    }
+    else {
+      return
+    }
+
     return (
         <View style={{backgroundColor: themeColor().primary}}>
               <KeyboardAvoidingView behavior='position' style={{width: '100%', height: '100%'}} contentContainerStyle={{backgroundColor: 'black'}}>
@@ -12,7 +41,7 @@ const overview = (props) => {
               <Pressable onPress={() => {router.push('main/home')}} style={{width: 26, marginBottom: 10, marginLeft:'auto', backgroundColor: themeColor().secondary}}>
                       <Text style={[styles.closeButton, {marginLeft: 'auto', fontSize: 40, transform: 'translateX(-10px) translateY(10px)'}]}>x</Text>
                     </Pressable>
-                <Text style={[styles.headerText, {transform: 'translateY(-20px)'}]}>INSERT FOOD TITLE</Text>
+                <Text style={[styles.headerText, {transform: 'translateY(-20px)'}]}>{food.name}</Text>
               </View>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100, width: '100%'}}>
 
