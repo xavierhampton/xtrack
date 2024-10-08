@@ -1,4 +1,4 @@
-import {View, Text, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
+import {View, Alert, Text, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
 import React, {useState, useEffect, useRef, useMemo, useCallback} from 'react';
 import {themeColor} from '@/hooks/theme';
 import MaskedView from '@react-native-masked-view/masked-view';
@@ -22,6 +22,25 @@ const create = (props) => {
   const handleClosePress = useCallback(() => {
     sheetRef.current?.close();
   }, []);
+
+  const missingFieldsToString = () => {
+    if (foodName == '') {
+      return 'Food Name is required';
+    }
+    else if (serving1 == '') {
+      return  'Serving Name is required';
+    }
+    else if (weight1 == '') {
+      return 'Serving Weight is required';
+    }
+  }
+
+  const invalidAlert = () =>
+    Alert.alert(missingFieldsToString(), '', [
+      
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+    
   
   const [foodName, setFoodName] = useState('')
   const [serving1, setServing1] = useState('')
@@ -34,6 +53,13 @@ const create = (props) => {
 
   const [recents, setRecents] = useState([])
   const [food, setFood] = useState({name: 'Philly Cheese2', serving: [{servingName: 'sandwhich', cal: 1000, pro: 100, car: 200, fat: 90}]})
+
+  const checkValidState = () => {
+    if (foodName != '' && serving1 != '' && weight1 != '') {
+      return true
+    }
+    return false
+  }
 
   const fetchRecents = async () => {
     try {
@@ -84,8 +110,8 @@ const create = (props) => {
       return
     }
   }
+  
 
-  // Implement
   const saveFood = () => { 
     storeRecents(food)
     console.log("SAVE")
@@ -252,12 +278,12 @@ const create = (props) => {
                     <Pressable onPress = {() => handleClosePress()} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{backgroundColor: '#683030', borderRadius: 10, width: 140, height: 45, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
                       <Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 18, textAlign: 'center'}}>Cancel</Text>
                     </Pressable>
-                    <Pressable onPress = {() => {saveFood(); router.push('/main/home')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{backgroundColor: '#306844', borderRadius: 10, width: 140, height: 45, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
+                    <Pressable onPress = {() => {if (checkValidState()){ saveFood(); router.push('/main/home');} else {invalidAlert()}}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{backgroundColor: '#306844', borderRadius: 10, width: 140, height: 45, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
                       <Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 18, textAlign: 'center'}}>Save</Text>
                     </Pressable>
                     </View>
                     
-                    <Pressable onPress={() => {saveFood(); pushOverviewCache(); router.push({pathname: '/screens/overview', params: {create: true}});}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{borderColor: '#684468', borderRadius: 10, borderWidth: 2,  width: 300, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
+                    <Pressable onPress={() => { if (checkValidState()) {saveFood(); pushOverviewCache(); router.push({pathname: '/screens/overview'});} else {invalidAlert()};}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },{borderColor: '#684468', borderRadius: 10, borderWidth: 2,  width: 300, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
                     <MaskedView
                     style={{width: 300, height: 60}}
                     maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 24, textAlign: 'center', lineHeight: 52}}>Save & Track</Text></View>}>
