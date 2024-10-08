@@ -43,16 +43,37 @@ const create = (props) => {
     
   
   const [foodName, setFoodName] = useState('')
+
   const [serving1, setServing1] = useState('')
   const [weight1, setWeight1] = useState('')
+  const [serving2, setServing2] = useState('')
+  const [weight2, setWeight2] = useState('')
+  const [serving3, setServing3] = useState('')
+  const [weight3, setWeight3] = useState('')
+
   const [cal, setCal] = useState('')
   const [car, setCar] = useState('')
   const [pro, setPro] = useState('')
   const [fat, setFat] = useState('')
-  
+
+
+  useEffect(() => {
+    let foodObject = {name: foodName, servings: [{servingName: serving1, weight: weight1, cal: cal, car: car, pro: pro, fat: fat}]}
+    if (serving2 != '' && weight2 != '') {
+      let mult = (cal / weight1) * weight2
+      let tmp = {servingName: serving2, weight: weight2, cal: (cal*mult), car: (car*mult), pro: (pro*mult), fat: (fat*mult)}
+      foodObject['servings'].push(tmp)
+    }
+    if (serving3 != '' && weight3 != '') {
+      let mult = (cal / weight1) * weight3
+      let tmp = {servingName: serving3, weight: weight3, cal: (cal*mult), car: (car*mult), pro: (pro*mult), fat: (fat*mult)}
+      foodObject['servings'].push(tmp)
+    }
+    setFood(foodObject)
+  }, [foodName, serving1, weight1, serving2, weight2, serving3, weight3, cal, car, pro, fat])
 
   const [recents, setRecents] = useState([])
-  const [food, setFood] = useState({name: 'Philly Cheese2', serving: [{servingName: 'sandwhich', cal: 1000, pro: 100, car: 200, fat: 90}]})
+  const [food, setFood] = useState({})
 
   const checkValidState = () => {
     if (foodName != '' && serving1 != '' && weight1 != '') {
@@ -135,7 +156,7 @@ const create = (props) => {
         function newServing() {
           if (servingsArray.length < 3) {
           let tmp = servingsArray.slice()
-          tmp.push(addNewServingUI(servingsArray.length + 1))
+          tmp.push(addNewServingUI(servingsArray.length))
           setServingsArray(tmp)
           }
         }
@@ -158,14 +179,14 @@ const create = (props) => {
             <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, paddingTop: 10, }]}>
                   <Text style={styles.label}>Serving Name</Text>
                   <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
-                  <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'left', paddingLeft: 10,}]}></TextInput>
+                  <TextInput onChangeText={(text) => { (k == 1) ? setServing2(text): setServing3(text)}}maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'left', paddingLeft: 10,}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                   <Text style={styles.label}>Weight</Text>
                   <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
-                  <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
+                  <TextInput  onChangeText={(text) => { (k == 1) ? setWeight2(text): setWeight3(text)}} maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
-                  <Pressable onPress={() =>{deleteServing(k)}} style={{position: 'absolute', right: 0, top: -88,borderRadius: 100, backgroundColor: themeColor().secondary, width: 26, height: 26, borderColor: 'white', borderWidth: 1}}><Text style={{fontFamily: 'JetBrainsMono',fontSize: 24, color:'white', textAlign: 'center', transform: 'translateY(-6px)'}}>x</Text></Pressable>
+                  <Pressable onPress={() =>{deleteServing(k); if (k==1) {setServing2(''); setWeight2(''); setServing3(''); setWeight3('')} else {setServing3(''); setWeight3('')}}} style={{position: 'absolute', right: 0, top: -88,borderRadius: 100, backgroundColor: themeColor().secondary, width: 26, height: 26, borderColor: 'white', borderWidth: 1}}><Text style={{fontFamily: 'JetBrainsMono',fontSize: 24, color:'white', textAlign: 'center', transform: 'translateY(-6px)'}}>x</Text></Pressable>
             </View>
             </View>
           )
