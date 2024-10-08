@@ -23,6 +23,14 @@ const create = (props) => {
     sheetRef.current?.close();
   }, []);
   
+  const [foodName, setFoodName] = useState('')
+  const [serving1, setServing1] = useState('')
+  const [weight1, setWeight1] = useState('')
+  const [cal, setCal] = useState('')
+  const [car, setCar] = useState('')
+  const [pro, setPro] = useState('')
+  const [fat, setFat] = useState('')
+  
 
   const [recents, setRecents] = useState([])
   const [food, setFood] = useState({name: 'Philly Cheese2', serving: [{servingName: 'sandwhich', cal: 1000, pro: 100, car: 200, fat: 90}]})
@@ -87,11 +95,12 @@ const create = (props) => {
             <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                   <Text style={styles.label}>Serving Name</Text>
                   <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
-                  <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
+                  <TextInput onChangeText={(text) => setServing1(text)} maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'left', paddingLeft: 15,}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                   <Text style={styles.label}>Weight</Text>
-                  <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                  <TextInput onChangeText={(text) => setWeight1(text)} maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
             </View>
             </View>])
@@ -122,11 +131,13 @@ const create = (props) => {
             <View style={{paddingTop: 5}}>
             <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, paddingTop: 10, }]}>
                   <Text style={styles.label}>Serving Name</Text>
-                  <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'center',}]}></TextInput>
+                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                  <TextInput maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'left', paddingLeft: 10,}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                   <Text style={styles.label}>Weight</Text>
-                  <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                  <TextInput  maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
                   <Pressable onPress={() =>{deleteServing(k)}} style={{position: 'absolute', right: 0, top: -88,borderRadius: 100, backgroundColor: themeColor().secondary, width: 26, height: 26, borderColor: 'white', borderWidth: 1}}><Text style={{fontFamily: 'JetBrainsMono',fontSize: 24, color:'white', textAlign: 'center', transform: 'translateY(-6px)'}}>x</Text></Pressable>
             </View>
@@ -138,7 +149,7 @@ const create = (props) => {
 
         return (
           <View style={{backgroundColor: themeColor().primary}}>
-              <KeyboardAvoidingView behavior='position' style={{width: '100%', height: '100%'}} contentContainerStyle={{backgroundColor: 'black'}}>
+              <KeyboardAvoidingView behavior='padding' style={{width: '100%', height: '100%'}} contentContainerStyle={{backgroundColor: 'black'}}>
               <View style={styles.Content}> 
 
               <View style={[styles.headerContainer, {display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}]}>
@@ -161,7 +172,7 @@ const create = (props) => {
                   <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Food Name</Text>
                     <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
-                    <TextInput maxLength={20}style={[styles.textInput, {width: 190, padding: 5}]}></TextInput>
+                    <TextInput onChangeText={(text) => setFoodName(text)} value={foodName} maxLength={20}style={[styles.textInput, {width: 190, padding: 5}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 60, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                     <Text style={styles.label}>Barcode</Text>
@@ -185,22 +196,22 @@ const create = (props) => {
               <View style={styles.foodMacrosContainer}>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Calories</Text>
-                    <TextInput maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 80, textAlign: 'center',}]}></TextInput>
+                    <TextInput placeholder={"0"} onChangeText={(text) => setCal(text)} value={cal}maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 80, textAlign: 'right', paddingRight: 10}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 60, textAlign: 'center', height: 30}]}>kcal</Text>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderRadius: 0}]}>
                     <Text style={styles.label}>Carbs</Text>
-                    <TextInput maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                    <TextInput placeholder={"0"} onChangeText={(text) => setCar(text)} value={car} maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderRadius: 0}]}>
                     <Text style={styles.label}>Protein</Text>
-                    <TextInput maxLength={4} keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                    <TextInput placeholder={"0"} onChangeText={(text) => setPro(text)} value={pro} maxLength={4} keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5,}]}>g</Text>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderTopLeftRadius: 0, borderTopRightRadius: 0}]}>
                     <Text style={styles.label}>Fat</Text>
-                    <TextInput maxLength={4} keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'center'}]}></TextInput>
+                    <TextInput placeholder={"0"} onChangeText={(text) => setFat(text)} value={fat} maxLength={4} keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
                     <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
                   </View>
               </View>
