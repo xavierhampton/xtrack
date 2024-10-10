@@ -1,27 +1,47 @@
 import {View, Text, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, TextInput} from 'react-native'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {themeColor} from '@/hooks/theme';
 import {router, useLocalSearchParams} from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Dropdown } from 'react-native-element-dropdown'
 
 
 const overview = (props) => {
 
-  const [food, setFood] = useState({name: 'FOOD', serving: [{servingName: 'NAME', cal: 0, pro: 0, car: 0, fat: 0}]})
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const [food, setFood] = useState({})
 
   const fetchCache = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem('overview-cache');
         const cacheVal = jsonValue != null ? JSON.parse(jsonValue) : null;
         setFood(cacheVal)
+        updateList(cacheVal)
       }
         catch (e) {
         console.log('fetch error')
         return
       }
     }
+    const [data, setData] = useState([{ label: 'Item 1', value: '1' },
+                                    { label: 'Item 2', value: '2' },
+                                    { label: 'Item 3', value: '3' },])
 
-      fetchCache()
+    const updateList = (f) => {
+      let tmp = []
+      if (f.servings) {
+        for (let i = 0; i < f.servings.length; i++) {
+          console.log(i)
+          tmp.push({label: f.servings[i].servingName, value: i})
+        }
+        setData(tmp)
+      } 
+    }
+
+    useEffect(() => {fetchCache()}, [])
+    
     return (
         <View style={{backgroundColor: themeColor().primary}}>
               <KeyboardAvoidingView behavior='position' style={{width: '100%', height: '100%'}} contentContainerStyle={{backgroundColor: 'black'}}>
@@ -48,6 +68,31 @@ const overview = (props) => {
                     <View style={[styles.textInput, {width: 120, padding: 5, marginRight: 30}]}></View>
                   </View>
                 </View>
+
+
+        <Dropdown
+          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={data}
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          placeholder={!isFocus ? 'Select item' : '...'}
+          searchPlaceholder="Search..."
+          value={value}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
+            setValue(item.value);
+            setIsFocus(false);
+          }}
+          
+            
+          
+        />
 
                 </ScrollView>
                 </View>
@@ -132,4 +177,27 @@ Content: {
     fontFamily: 'JetBrainsMono',
     marginRight: 10,
   },
+  dropdown: {
+      margin: 16,
+      height: 50,
+      borderBottomColor: 'white',
+      borderBottomWidth: 0.5,
+    },
+    icon: {
+      marginRight: 5,
+    },
+    placeholderStyle: {
+      fontSize: 16,
+    },
+    selectedTextStyle: {
+      fontSize: 16,
+    },
+    iconStyle: {
+      width: 20,
+      height: 20,
+    },
+    inputSearchStyle: {
+      height: 40,
+      fontSize: 16,
+    },
 }

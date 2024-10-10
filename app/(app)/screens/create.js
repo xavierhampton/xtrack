@@ -58,7 +58,7 @@ const create = (props) => {
 
 
   useEffect(() => {
-    let foodObject = {name: foodName, servings: [{servingName: serving1, weight: weight1, cal: cal, car: car, pro: pro, fat: fat}]}
+    let foodObject = {name: foodName, servings: [{servingName: serving1, weight: weight1 ? weight1 : 0, cal: cal ? cal: 0, car: car ? car : 0, pro: pro ? pro : 0, fat: fat ? fat : 0}]}
     if (serving2 != '' && weight2 != '') {
       let mult = weight1 ? (cal / weight1) * weight2: 0
       let tmp = {servingName: serving2, weight: weight2, cal: (cal*mult), car: (car*mult), pro: (pro*mult), fat: (fat*mult)}
@@ -145,9 +145,9 @@ const create = (props) => {
                   <TextInput onChangeText={(text) => setServing1(text)} maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'left', paddingLeft: 15,}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
-                  <Text style={styles.label}>Weight</Text>
+                  <Text style={styles.label} >Weight</Text>
                   <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
-                  <TextInput onChangeText={(text) => setWeight1(text)} maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
+                  <TextInput placeholder={"0"} onChangeText={(text) => setWeight1(text)} maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
             </View>
             </View>])
@@ -242,8 +242,8 @@ const create = (props) => {
               </View>
               <View style={[styles.flexContainer, {width: 375, height: 40, marginTop: 5,}]}>
                 <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono', marginRight: 'auto', paddingLeft: 15}}>Macros per: </Text>
-                <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono'}}>[{serving1 ? serving1 : 'Serving_Name'}]</Text>
-                <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono', marginLeft: 'auto', paddingRight: 5}}>[{weight1 ? weight1 : 0} g]</Text>
+                <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono', opacity: .6}}>[<Text style={{opacity: 1}}>{serving1 ? serving1 : 'Serving_Name'}</Text>]</Text>
+                <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono', marginLeft: 'auto', paddingRight: 5, opacity: 0.6}}>[{weight1 ? weight1 : 0} g]</Text>
               </View>
               <View style={styles.foodMacrosContainer}>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
