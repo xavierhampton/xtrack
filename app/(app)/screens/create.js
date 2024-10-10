@@ -38,7 +38,7 @@ const create = (props) => {
   const invalidAlert = () =>
     Alert.alert(missingFieldsToString(), '', [
       
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
+      {},
     ]);
     
   
@@ -60,12 +60,12 @@ const create = (props) => {
   useEffect(() => {
     let foodObject = {name: foodName, servings: [{servingName: serving1, weight: weight1, cal: cal, car: car, pro: pro, fat: fat}]}
     if (serving2 != '' && weight2 != '') {
-      let mult = (cal / weight1) * weight2
+      let mult = weight1 ? (cal / weight1) * weight2: 0
       let tmp = {servingName: serving2, weight: weight2, cal: (cal*mult), car: (car*mult), pro: (pro*mult), fat: (fat*mult)}
       foodObject['servings'].push(tmp)
     }
     if (serving3 != '' && weight3 != '') {
-      let mult = (cal / weight1) * weight3
+      let mult = weight1 ? (cal / weight1) * weight3 : 0
       let tmp = {servingName: serving3, weight: weight3, cal: (cal*mult), car: (car*mult), pro: (pro*mult), fat: (fat*mult)}
       foodObject['servings'].push(tmp)
     }
@@ -239,6 +239,11 @@ const create = (props) => {
 
               <View style={{display: 'block', width: '100%'}}>
                 <Text style={[styles.subHeaderText, {marginTop: 70, width: 375}]}>Food Macros</Text>
+              </View>
+              <View style={[styles.flexContainer, {width: 375, height: 40, marginTop: 5,}]}>
+                <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono', marginRight: 'auto', paddingLeft: 15}}>Macros per: </Text>
+                <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono'}}>[{serving1 ? serving1 : 'Serving_Name'}]</Text>
+                <Text style={{color:'white', fontSize: 14, fontFamily: 'JetBrainsMono', marginLeft: 'auto', paddingRight: 5}}>[{weight1 ? weight1 : 0} g]</Text>
               </View>
               <View style={styles.foodMacrosContainer}>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
