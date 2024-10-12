@@ -34,7 +34,7 @@ const overview = (props) => {
       if (f.servings) {
         for (let i = 0; i < f.servings.length; i++) {
           console.log(i)
-          tmp.push({label: f.servings[i].servingName, value: i})
+          tmp.push({label: f.servings[i].servingName + " (" + f.servings[i].weight + " g)", value: i})
         }
         setData(tmp)
       } 
@@ -44,8 +44,8 @@ const overview = (props) => {
     
     return (
         <View style={{backgroundColor: themeColor().primary}}>
-              <KeyboardAvoidingView behavior='position' style={{width: '100%', height: '100%'}} contentContainerStyle={{backgroundColor: 'black'}}>
-              <View style={styles.Content}> 
+              <KeyboardAvoidingView behavior='padding' style={{width: '100%', height: '100%'}} contentContainerStyle={{backgroundColor: 'black'}}>
+              <View style={styles.content}> 
 
               <View style={[styles.headerContainer, {display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}]}>
               <Pressable onPress={() => {router.push('main/home')}} style={{width: 26, marginBottom: 10, marginLeft:'auto', backgroundColor: themeColor().secondary}}>
@@ -61,39 +61,38 @@ const overview = (props) => {
                   
                   <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Amount</Text>
-                    <TextInput maxLength={3}style={[styles.textInput, {width: 80, padding: 5}]}></TextInput>
+                    <TextInput keyboardType='numeric' placeholder={'1'} maxLength={3} style={[styles.textInput, {width: 80, padding: 5, textAlign: 'right', paddingRight: 10}]}></TextInput>
                   </View>
-                  <View style={[styles.flexContainer, {height: 60, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
+                  <View style={[styles.flexContainer, {height: 60, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0, paddingBottom: 10}]}>
                     <Text style={styles.label}>Serving Size</Text>
-                    <View style={[styles.textInput, {width: 120, padding: 5, marginRight: 30}]}></View>
-                  </View>
-                </View>
-
-
-        <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={data}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Select item' : '...'}
-          searchPlaceholder="Search..."
-          value={value}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-          }}
+                    <Dropdown
+                      style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                      placeholderStyle={styles.placeholderStyle}
+                      selectedTextStyle={[styles.selectedTextStyle, {fontFamily: 'JetBrainsMono'}]}
+                      data={data}
+                      maxHeight={300}
+                      containerStyle ={{backgroundColor: 'rgba(0,255,0,0)', borderWidth: 0}}
+                      itemContainerStyle={{backgroundColor: themeColor().secondary, borderRadius: 10}}
+                      itemTextStyle={{color: 'white', fontFamily: 'JetBrainsMono'}}
+                      labelField="label"
+                      valueField="value"
+                      fontFamily='JetBrainsMono'
+                      placeholder={!isFocus ? 'Select item' : '...'}
+                      value={value}
+                      activeColor= {themeColor().secondary}
+                      onFocus={() => setIsFocus(true)}
+                      onBlur={() => setIsFocus(false)}
+                      onChange={item => {
+                        setValue(item.value);
+                        setIsFocus(false);
+                      }}
           
             
           
         />
-
+                  </View>
+                </View>         
+  
                 </ScrollView>
                 </View>
                 </KeyboardAvoidingView>
@@ -104,7 +103,7 @@ const overview = (props) => {
 export default overview
 
 const styles = {
-Content: {
+content: {
     height: '100%',
     width: '100%',
 
@@ -163,6 +162,7 @@ Content: {
     fontFamily: 'JetBrainsMono',
     color: 'white',
     fontSize: 20,
+    marginRight: 'auto',
     marginLeft: 15,
   },
   textInput: {
@@ -178,26 +178,25 @@ Content: {
     marginRight: 10,
   },
   dropdown: {
-      margin: 16,
+      margin: 8,
+      marginLeft: 'auto',
+      marginRight: 10,
       height: 50,
       borderBottomColor: 'white',
       borderBottomWidth: 0.5,
+      width: 180,
+      
     },
     icon: {
       marginRight: 5,
     },
     placeholderStyle: {
       fontSize: 16,
+      color: 'rgba(255,255,255,0.6)',
     },
     selectedTextStyle: {
       fontSize: 16,
-    },
-    iconStyle: {
-      width: 20,
-      height: 20,
-    },
-    inputSearchStyle: {
-      height: 40,
-      fontSize: 16,
+      color: 'rgba(255,255,255,0.6)',
+
     },
 }
