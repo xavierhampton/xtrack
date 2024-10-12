@@ -19,6 +19,8 @@ const overview = (props) => {
   const [dailyCar, setDailyCar] = useState('350')
   const [dailyFat, setDailyFat] = useState('70')
 
+  const [mult, setMult] = useState('1')
+
 
   const fetchCache = async () => {
     try {
@@ -74,7 +76,7 @@ const overview = (props) => {
                   
                   <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Amount</Text>
-                    <TextInput keyboardType='numeric' placeholder={'1'} maxLength={3} style={[styles.textInput, {width: 80, padding: 5, textAlign: 'right', paddingRight: 10}]}></TextInput>
+                    <TextInput onChangeText={(text) => setMult(text)} keyboardType='numeric' placeholder={'1'} maxLength={3} style={[styles.textInput, {width: 80, padding: 5, textAlign: 'right', paddingRight: 10}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 60, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0, paddingBottom: 10}]}>
                     <Text style={styles.label}>Serving Size</Text>
@@ -114,45 +116,45 @@ const overview = (props) => {
                         <View style={[styles.labelContainer, {width: 320}]}>
                           <View style={{display: 'flex', flexDirection:'row',marginRight: 'auto'}}>
                             <Text style={[styles.barText,{fontSize: 16}]}>Calories - </Text>
-                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{food.servings[parseInt(value)].cal}/{dailyCalories} kcal</Text>
+                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{mult * food.servings[parseInt(value)].cal}/{dailyCalories} kcal</Text>
                           </View>
                             
-                            <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyCalories != 0) ? parseInt((food.servings[parseInt(value)].cal / dailyCalories) * 100) : 0)}%</Text>
+                            <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyCalories != 0) ? parseInt((mult *food.servings[parseInt(value)].cal / dailyCalories) * 100) : 0)}%</Text>
                         </View>
-                         <Bar color={'#9da2b0'} progress={((dailyCalories != 0) ? food.servings[parseInt(value)].cal / dailyCalories : 0)} width={320} height={10}></Bar>
+                         <Bar color={'#9da2b0'} progress={((dailyCalories != 0) ? mult * food.servings[parseInt(value)].cal / dailyCalories : 0)} width={320} height={10}></Bar>
                       </View>
 
                       <View style={[styles.barContainer, {width: 320}]}>
                         <View style={[styles.labelContainer, {width: 320}]}>
                         <View style={{display: 'flex', flexDirection:'row',marginRight: 'auto'}}>
                             <Text style={[styles.barText,{fontSize: 16}]}>Carbs - </Text>
-                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{food.servings[parseInt(value)].car}/{dailyCar} g</Text>
+                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{mult *food.servings[parseInt(value)].car}/{dailyCar} g</Text>
                           </View>                            
-                          <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyCar != 0) ? parseInt((food.servings[parseInt(value)].car / dailyCar) * 100) : 0)}%</Text>
+                          <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyCar != 0) ? parseInt((mult *food.servings[parseInt(value)].car / dailyCar) * 100) : 0)}%</Text>
                         </View>
-                         <Bar color={'#43d07c'} progress={((dailyCar != 0) ? food.servings[parseInt(value)].car / dailyCar : 0)} width={320} height={10}></Bar>
+                         <Bar color={'#43d07c'} progress={((dailyCar != 0) ? mult *food.servings[parseInt(value)].car / dailyCar : 0)} width={320} height={10}></Bar>
                       </View>
 
                       <View style={[styles.barContainer, {width: 320}]}>
                         <View style={[styles.labelContainer, {width: 320}]}>
                         <View style={{display: 'flex', flexDirection:'row',marginRight: 'auto'}}>
                             <Text style={[styles.barText,{fontSize: 16}]}>Protein - </Text>
-                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{food.servings[parseInt(value)].pro}/{dailyPro} g</Text>
+                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{mult *food.servings[parseInt(value)].pro}/{dailyPro} g</Text>
                           </View>                             
-                          <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyPro != 0) ? parseInt((food.servings[parseInt(value)].pro / dailyPro) * 100) : 0)}%</Text>
+                          <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyPro != 0) ? parseInt((mult *food.servings[parseInt(value)].pro / dailyPro) * 100) : 0)}%</Text>
                         </View>
-                         <Bar color={'#1cc9d8'} progress={((dailyPro != 0) ? food.servings[parseInt(value)].pro / dailyPro : 0)} width={320} height={10}></Bar>
+                         <Bar color={'#1cc9d8'} progress={((dailyPro != 0) ? mult *food.servings[parseInt(value)].pro / dailyPro : 0)} width={320} height={10}></Bar>
                       </View>
 
                       <View style={[styles.barContainer, {width: 320}]}>
                         <View style={[styles.labelContainer, {width: 320}]}>
                         <View style={{display: 'flex', flexDirection:'row',marginRight: 'auto'}}>
                             <Text style={[styles.barText,{fontSize: 16}]}>Fat - </Text>
-                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{food.servings[parseInt(value)].fat}/{dailyFat} g</Text>
+                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{mult *food.servings[parseInt(value)].fat}/{dailyFat} g</Text>
                           </View>                             
-                          <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyFat != 0) ? parseInt((food.servings[parseInt(value)].fat / dailyFat) * 100) : 0)}%</Text>
+                          <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyFat != 0) ? parseInt((mult *food.servings[parseInt(value)].fat / dailyFat) * 100) : 0)}%</Text>
                         </View>
-                         <Bar color={'#eb3c05'} progress={((dailyFat != 0) ? food.servings[parseInt(value)].fat / dailyFat : 0)} width={320} height={10}></Bar>
+                         <Bar color={'#eb3c05'} progress={((dailyFat != 0) ? mult *food.servings[parseInt(value)].fat / dailyFat : 0)} width={320} height={10}></Bar>
                       </View>
                 </View>
                  
