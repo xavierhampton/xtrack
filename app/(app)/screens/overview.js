@@ -4,14 +4,21 @@ import {themeColor} from '@/hooks/theme';
 import {router, useLocalSearchParams} from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dropdown } from 'react-native-element-dropdown'
+import { Bar } from 'react-native-progress';
+import { displayPartsToString } from 'typescript';
 
 
 const overview = (props) => {
 
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('0');
   const [isFocus, setIsFocus] = useState(false);
+  const [food, setFood] = useState({name: 'NULL', servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
 
-  const [food, setFood] = useState({})
+  const [dailyCalories, setDailyCalories] = useState('2000')
+  const [dailyPro, setDailyPro] = useState('200')
+  const [dailyCar, setDailyCar] = useState('350')
+  const [dailyFat, setDailyFat] = useState('70')
+
 
   const fetchCache = async () => {
     try {
@@ -34,7 +41,7 @@ const overview = (props) => {
       if (f.servings) {
         for (let i = 0; i < f.servings.length; i++) {
           console.log(i)
-          tmp.push({label: f.servings[i].servingName + " (" + f.servings[i].weight + " g)", value: i})
+          tmp.push({label: f.servings[i].servingName + " (" + f.servings[i].weight + " g)", value: String(i)})
         }
         setData(tmp)
       } 
@@ -55,8 +62,14 @@ const overview = (props) => {
               </View>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100, width: '100%'}}>
 
+              
+
                 <View style={{display: 'block', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center'}}>
+              
+              <View style={{display: 'block', width: '100%'}}>
+                <Text style={[styles.subHeaderText, {marginTop: 20, width: 375, transform: 'translateY(-10px)'}]}>Customize</Text>
               </View>
+
               <View style={styles.foodInformationContainer}>
                   
                   <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
@@ -71,6 +84,7 @@ const overview = (props) => {
                       selectedTextStyle={[styles.selectedTextStyle, {fontFamily: 'JetBrainsMono'}]}
                       data={data}
                       maxHeight={300}
+                      
                       containerStyle ={{backgroundColor: 'rgba(0,255,0,0)', borderWidth: 0}}
                       itemContainerStyle={{backgroundColor: themeColor().secondary, borderRadius: 10}}
                       itemTextStyle={{color: 'white', fontFamily: 'JetBrainsMono'}}
@@ -86,13 +100,63 @@ const overview = (props) => {
                         setValue(item.value);
                         setIsFocus(false);
                       }}
-          
-            
-          
         />
                   </View>
-                </View>         
-  
+                </View>
+
+                
+              <View style={{display: 'block', width: '100%'}}>
+                <Text style={[styles.subHeaderText, {marginTop: 20, width: 375}]}>Summary</Text>
+              </View>
+
+                <View style={[styles.flexContainer, {width: 375, height: 225, marginTop: 10, paddingTop: -5, flexDirection: 'column', gap: 18}]}>
+                      <View style={[styles.barContainer, {width: 320}]}>
+                        <View style={[styles.labelContainer, {width: 320}]}>
+                          <View style={{display: 'flex', flexDirection:'row',marginRight: 'auto'}}>
+                            <Text style={[styles.barText,{fontSize: 16}]}>Calories - </Text>
+                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{food.servings[parseInt(value)].cal}/{dailyCalories} kcal</Text>
+                          </View>
+                            
+                            <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyCalories != 0) ? parseInt((food.servings[parseInt(value)].cal / dailyCalories) * 100) : 0)}%</Text>
+                        </View>
+                         <Bar color={'#9da2b0'} progress={((dailyCalories != 0) ? food.servings[parseInt(value)].cal / dailyCalories : 0)} width={320} height={10}></Bar>
+                      </View>
+
+                      <View style={[styles.barContainer, {width: 320}]}>
+                        <View style={[styles.labelContainer, {width: 320}]}>
+                        <View style={{display: 'flex', flexDirection:'row',marginRight: 'auto'}}>
+                            <Text style={[styles.barText,{fontSize: 16}]}>Carbs - </Text>
+                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{food.servings[parseInt(value)].car}/{dailyCar} g</Text>
+                          </View>                            
+                          <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyCar != 0) ? parseInt((food.servings[parseInt(value)].car / dailyCar) * 100) : 0)}%</Text>
+                        </View>
+                         <Bar color={'#43d07c'} progress={((dailyCar != 0) ? food.servings[parseInt(value)].car / dailyCar : 0)} width={320} height={10}></Bar>
+                      </View>
+
+                      <View style={[styles.barContainer, {width: 320}]}>
+                        <View style={[styles.labelContainer, {width: 320}]}>
+                        <View style={{display: 'flex', flexDirection:'row',marginRight: 'auto'}}>
+                            <Text style={[styles.barText,{fontSize: 16}]}>Protein - </Text>
+                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{food.servings[parseInt(value)].pro}/{dailyPro} g</Text>
+                          </View>                             
+                          <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyPro != 0) ? parseInt((food.servings[parseInt(value)].pro / dailyPro) * 100) : 0)}%</Text>
+                        </View>
+                         <Bar color={'#1cc9d8'} progress={((dailyPro != 0) ? food.servings[parseInt(value)].pro / dailyPro : 0)} width={320} height={10}></Bar>
+                      </View>
+
+                      <View style={[styles.barContainer, {width: 320}]}>
+                        <View style={[styles.labelContainer, {width: 320}]}>
+                        <View style={{display: 'flex', flexDirection:'row',marginRight: 'auto'}}>
+                            <Text style={[styles.barText,{fontSize: 16}]}>Fat - </Text>
+                            <Text style={[styles.barText,{fontSize: 12, opacity: 0.6, marginBottom: 3, marginTop: 'auto',}]}>{food.servings[parseInt(value)].fat}/{dailyFat} g</Text>
+                          </View>                             
+                          <Text style={[styles.barText,{marginLeft: 'auto', fontSize: 14, opacity: 0.6, marginTop: 'auto'}]}>{((dailyFat != 0) ? parseInt((food.servings[parseInt(value)].fat / dailyFat) * 100) : 0)}%</Text>
+                        </View>
+                         <Bar color={'#eb3c05'} progress={((dailyFat != 0) ? food.servings[parseInt(value)].fat / dailyFat : 0)} width={320} height={10}></Bar>
+                      </View>
+                </View>
+                 
+                </View>
                 </ScrollView>
                 </View>
                 </KeyboardAvoidingView>
@@ -187,8 +251,13 @@ content: {
       width: 180,
       
     },
-    icon: {
-      marginRight: 5,
+    subHeaderText: {
+      color: 'white',
+      opacity: .6,
+      fontFamily: 'JetBrainsMono',
+      fontSize: 16,
+      paddingLeft: 10,
+      marginBottom: -10,
     },
     placeholderStyle: {
       fontSize: 16,
@@ -199,4 +268,16 @@ content: {
       color: 'rgba(255,255,255,0.6)',
 
     },
+    barContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    labelContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    barText: {
+      color: 'white',
+      fontFamily: 'JetBrainsMono',
+    }
 }

@@ -60,12 +60,12 @@ const create = (props) => {
   useEffect(() => {
     let foodObject = {name: foodName, servings: [{servingName: serving1, weight: weight1 ? weight1 : 0, cal: cal ? cal: 0, car: car ? car : 0, pro: pro ? pro : 0, fat: fat ? fat : 0}]}
     if (serving2 != '' && weight2 != '') {
-      let mult = weight1 ? (cal / weight1) * weight2: 0
+      let mult = weight1 ? (weight2 / weight1): 0
       let tmp = {servingName: serving2, weight: weight2, cal: (cal*mult), car: (car*mult), pro: (pro*mult), fat: (fat*mult)}
       foodObject['servings'].push(tmp)
     }
     if (serving3 != '' && weight3 != '') {
-      let mult = weight1 ? (cal / weight1) * weight3 : 0
+      let mult = weight1 ? (weight3 / weight1) : 0
       let tmp = {servingName: serving3, weight: weight3, cal: (cal*mult), car: (car*mult), pro: (pro*mult), fat: (fat*mult)}
       foodObject['servings'].push(tmp)
     }
