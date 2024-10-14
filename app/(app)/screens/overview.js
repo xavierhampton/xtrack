@@ -5,7 +5,8 @@ import {router, useLocalSearchParams} from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dropdown } from 'react-native-element-dropdown'
 import { Bar } from 'react-native-progress';
-import { displayPartsToString } from 'typescript';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 const overview = (props) => {
@@ -160,6 +161,18 @@ const overview = (props) => {
                  
                 </View>
                 </ScrollView>
+                <View style={{display: 'flex', position: 'absolute', bottom: 35, width: '100%', height: 40, justifyContent: 'center', alignContent:'center', left: 45}}>
+          <Pressable  style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
+                  <MaskedView
+                  style={{width: 300, height: 60}}
+                  maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
+                  <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
+                  </MaskedView>
+                  <View style={{ width: 300, height: 60}}>
+                    <Text style={{ fontFamily: 'JetBrainsMono', fontSize: 26, color: 'white', width: 300, height: 60, textAlign: 'center', transform: 'translateY(-47px)'}}>Track Food</Text>
+                  </View>
+              </Pressable>   
+            </View>
                 </View>
                 </KeyboardAvoidingView>
         </View>
