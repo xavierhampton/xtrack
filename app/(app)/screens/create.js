@@ -56,6 +56,10 @@ const create = (props) => {
   const [pro, setPro] = useState('')
   const [fat, setFat] = useState('')
 
+  
+  const [recents, setRecents] = useState([])
+  const [food, setFood] = useState({})
+
 
   useEffect(() => {
     let foodObject = {name: foodName, selectedServing: 0, mult:1, servings: [{servingName: serving1, weight: weight1 ? weight1 : 0, cal: cal ? cal: 0, car: car ? car : 0, pro: pro ? pro : 0, fat: fat ? fat : 0}]}
@@ -72,8 +76,6 @@ const create = (props) => {
     setFood(foodObject)
   }, [foodName, serving1, weight1, serving2, weight2, serving3, weight3, cal, car, pro, fat])
 
-  const [recents, setRecents] = useState([])
-  const [food, setFood] = useState({})
 
   const checkValidState = () => {
     if (foodName != '' && serving1 != '' && weight1 != '') {

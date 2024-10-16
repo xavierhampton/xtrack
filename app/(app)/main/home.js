@@ -14,13 +14,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Food from '@/components/food'
 
 export default function Home() {
-    function FoodObject(name, car, fat, pro, cal) {
-        this.name = name
-        this.car = car
-        this.fat = fat
-        this.pro = pro
-        this.cal = cal
-    }
 
     const [data, setData] = useState(new Date())
 
@@ -73,7 +66,7 @@ export default function Home() {
         }
         const arr = []
         for (let i = 0; i < foodArr.length; i++) {
-            arr.push(<Food key={i} name={foodArr[i].name} cal={foodArr[i].cal} car={foodArr[i].car} fat={foodArr[i].fat} pro={foodArr[i].pro}></Food>)
+            arr.push(<Food key={i} name={foodArr[i].name} cal={foodArr[i].servings[foodArr[i].selectedServing].cal * foodArr[i].mult}></Food>)
         } 
         return arr
     }

@@ -33,7 +33,7 @@ export default class Food extends React.Component {
     )}
 }
 
-Food.propTypes = { name: PropTypes.string.isRequired, cal: PropTypes.number.isRequired , pro: PropTypes.number.isRequired, car: PropTypes.number.isRequired, fat: PropTypes.number.isRequired};
+Food.propTypes = { name: PropTypes.string.isRequired, cal: PropTypes.number.isRequired};
 
 const styles = StyleSheet.create({
     container: {
@@ -47,9 +47,7 @@ const styles = StyleSheet.create({
          marginBottom: 5,
          borderBottomWidth: 0.5,
          borderBottomColor: 'black',
-         
-         
-         
+        
     },
     text: {
         fontSize: 16,

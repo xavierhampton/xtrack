@@ -13,7 +13,7 @@ const overview = (props) => {
 
   const [value, setValue] = useState('0');
   const [isFocus, setIsFocus] = useState(false);
-  const [food, setFood] = useState({name: 'NULL', servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
+  const [food, setFood] = useState({name: 'NULL', selectedServing: 0, mult: 1, servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
 
   const [dailyCalories, setDailyCalories] = useState('2000')
   const [dailyPro, setDailyPro] = useState('200')
@@ -24,31 +24,29 @@ const overview = (props) => {
 
   const [date, setDate] = useState(new Date())
 
-    const storeFoods = async (value) => {
-        try {
-          const jsonValue = JSON.stringify(value);
-          await AsyncStorage.setItem(String(data.getMonth()) + '/' + String(data.getDate()) + '/' + String(data.getFullYear()), jsonValue);
-        } catch (e) {
-          return
-        }
-      };
+    const [foodArr, setFoodArr] = useState([])
 
-    const [foodArr, setFoodArr] = useState({})
+    const [data, setData] = useState([{ label: 'Item 1', value: '1' },
+      { label: 'Item 2', value: '2' },
+      { label: 'Item 3', value: '3' },])
+
 
     const fetchFoods = async () => {
         try {
-            const jsonValue = await AsyncStorage.getItem(String(data.getMonth()) + '/' + String(data.getDate()) + '/' + String(data.getFullYear()));
-            return setFoodArr(jsonValue != null ? JSON.parse(jsonValue) : null)          } catch (e) {
+            const jsonValue = await AsyncStorage.getItem(String(date.getMonth()) + '/' + String(date.getDate()) + '/' + String(date.getFullYear()));
+            return setFoodArr(jsonValue != null ? JSON.parse(jsonValue) : [])          } catch (e) {
             console.log('fetch error')
             return
           }
           
         };
 
-        useEffect(() => {
-            fetchFoods()
-        }, [date])
-
+      const updateFood = () => {
+        let foodObject = JSON.parse(JSON.stringify(food));
+        foodObject.mult = mult
+        foodObject.selectedServing = value
+        setFood(foodObject)
+      }
 
     const fetchCache = async () => {
         try {
@@ -62,10 +60,7 @@ const overview = (props) => {
         return
       }
     }
-    const [data, setData] = useState([{ label: 'Item 1', value: '1' },
-                                    { label: 'Item 2', value: '2' },
-                                    { label: 'Item 3', value: '3' },])
-
+    
     const updateList = (f) => {
       let tmp = []
       if (f.servings) {
@@ -76,6 +71,31 @@ const overview = (props) => {
         setData(tmp)
       } 
     }
+    const storeFoods = async (value) => {
+      try {
+        const jsonValue = JSON.stringify(value);
+        await AsyncStorage.setItem(String(date.getMonth()) + '/' + String(date.getDate()) + '/' + String(date.getFullYear()), jsonValue);
+      } catch (e) {
+        console.log('save error')
+        return
+      }
+    }
+
+    const pushToDay = () => {
+      let tmpFoodArr = JSON.parse(JSON.stringify(foodArr))
+      tmpFoodArr.push(food)
+      storeFoods(tmpFoodArr)
+      router.push('/main/home')
+    }
+
+
+    useEffect(() => {
+      updateFood()
+    }, [mult, value])
+
+    useEffect(() => {
+      fetchFoods()
+  }, [date])
 
     useEffect(() => {fetchCache()}, [])
     
@@ -196,7 +216,7 @@ const overview = (props) => {
                   <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
                   </MaskedView>
                   <View style={{ width: 300, height: 60}}>
-                    <Text style={{ fontFamily: 'JetBrainsMono', fontSize: 26, color: 'white', width: 300, height: 60, textAlign: 'center', transform: 'translateY(-47px)'}}>Track Food</Text>
+                    <Text onPress = {() => {pushToDay()}} style={{ fontFamily: 'JetBrainsMono', fontSize: 26, color: 'white', width: 300, height: 60, textAlign: 'center', transform: 'translateY(-47px)'}}>Track Food</Text>
                   </View>
               </Pressable>   
             </View>
