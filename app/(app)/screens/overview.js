@@ -22,9 +22,36 @@ const overview = (props) => {
 
   const [mult, setMult] = useState('1')
 
+  const [date, setDate] = useState(new Date())
 
-  const fetchCache = async () => {
-    try {
+    const storeFoods = async (value) => {
+        try {
+          const jsonValue = JSON.stringify(value);
+          await AsyncStorage.setItem(String(data.getMonth()) + '/' + String(data.getDate()) + '/' + String(data.getFullYear()), jsonValue);
+        } catch (e) {
+          return
+        }
+      };
+
+    const [foodArr, setFoodArr] = useState({})
+
+    const fetchFoods = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem(String(data.getMonth()) + '/' + String(data.getDate()) + '/' + String(data.getFullYear()));
+            return setFoodArr(jsonValue != null ? JSON.parse(jsonValue) : null)          } catch (e) {
+            console.log('fetch error')
+            return
+          }
+          
+        };
+
+        useEffect(() => {
+            fetchFoods()
+        }, [date])
+
+
+    const fetchCache = async () => {
+        try {
         const jsonValue = await AsyncStorage.getItem('overview-cache');
         const cacheVal = jsonValue != null ? JSON.parse(jsonValue) : null;
         setFood(cacheVal)
