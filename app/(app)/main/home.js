@@ -16,17 +16,37 @@ import Food from '@/components/food'
 export default function Home() {
 
     const [data, setData] = useState(new Date())
+    const [foodArr, setFoodArr] = useState({})
 
-    const storeFoods = async (value) => {
+    const [targetCal, setTargetCal] = useState(2000)
+    const [targetCar, setTargetCar] = useState(250)
+    const [targetFat, setTargetFat] = useState(66)
+    const [targetPro, setTargetPro] = useState(100)
+
+    const [dailyCal, setCal] = useState(0)
+    const [dailyCar, setCar] = useState(0)
+    const [dailyFat, setFat] = useState(0)
+    const [dailyPro, setPro] = useState(0)
+
+
+     /*const handleSignOut = () => {
+        auth
+        .signOut()
+        .then(() => {
+            router.push('/')
+        })
+        .catch(error => console.log(error.message))
+    }*/
+
+    /*const storeFoods = async (value) => {
         try {
           const jsonValue = JSON.stringify(value);
           await AsyncStorage.setItem('1/20/2024', jsonValue);
         } catch (e) {
           return
         }
-      };
+      };*/
 
-      const [foodArr, setFoodArr] = useState({})
 
     const fetchFoods = async () => {
         try {
@@ -37,20 +57,6 @@ export default function Home() {
           }
           
         };
-
-        useEffect(() => {
-            fetchFoods()
-        }, [data])
-        
-
-    const handleSignOut = () => {
-        auth
-        .signOut()
-        .then(() => {
-            router.push('/')
-        })
-        .catch(error => console.log(error.message))
-    }
 
     const getDailyFood = (foodArr) => {
         if (!foodArr) {
@@ -71,7 +77,21 @@ export default function Home() {
         return arr
     }
 
-
+    const updateCharts = () => {
+        let curCal = 0
+        let curFat = 0
+        let curPro = 0
+        let curCar = 0
+        if (foodArr) {
+            for (let i = 0; i < foodArr.length; i++) {
+                curCal += foodArr[i].servings[foodArr[i].selectedServing].cal * foodArr[i].mult
+                curPro += foodArr[i].servings[foodArr[i].selectedServing].pro * foodArr[i].mult
+                curCar += foodArr[i].servings[foodArr[i].selectedServing].car * foodArr[i].mult
+                curFat += foodArr[i].servings[foodArr[i].selectedServing].fat * foodArr[i].mult
+            }
+        }
+        setCal(curCal); setPro(curPro); setCar(curCar); setFat(curFat);
+    }
 
     const increaseDate = () => {
             const newDate = new Date(); newDate.setDate(data.getDate()); newDate.setMonth(data.getMonth()); newDate.setFullYear(data.getFullYear());
@@ -85,6 +105,14 @@ export default function Home() {
 
             setData(newDate)
     }
+
+    useEffect(() => {
+        fetchFoods()
+    }, [data])
+    
+    useEffect(() => {
+        updateCharts()
+    }, [foodArr])
     
 
     return (
@@ -108,8 +136,8 @@ export default function Home() {
                 <View style={styles.macroContainer}>
                     <View style={styles.innerMacroContainer}>
                         <Text style={{color: 'white', fontFamily: 'JetBrainsMono', fontSize: 17, marginBottom: 5}}>Calories</Text> 
-                        <Circle color={'#9da2b0'}thickness={6}progress={.6} showsText={true} size={110} textStyle={styles.circleText}></Circle>
-                        <Text style={{color: 'white', fontFamily: 'JetBrainsMono', fontSize: 13, marginTop: 7}}>1000/2000</Text> 
+                        <Circle color={'#9da2b0'}thickness={6}progress={targetCal ? dailyCal/targetCal : 0} showsText={true} size={110} textStyle={styles.circleText}></Circle>
+                        <Text style={{color: 'white', fontFamily: 'JetBrainsMono', fontSize: 13, marginTop: 7}}>{dailyCal}/{targetCal}</Text> 
 
                     </View>
                     <View style={styles.innerMacroContainer}> 
@@ -117,23 +145,23 @@ export default function Home() {
                             <View>
                                 <View style={{display: 'flex', flexDirection: 'row',}}>
                                     <Text style={styles.macroText}>Carbs</Text>
-                                    <Text style={styles.smallMacroText}>145/160 g</Text>
+                                    <Text style={styles.smallMacroText}>{dailyCar}/{targetCar} g</Text>
                                 </View>
-                                <Bar color={'#43d07c'} progress={.7}></Bar>
+                                <Bar color={'#43d07c'} progress={targetCar ? dailyCar/targetCar : 0}></Bar>
                             </View>
                                 <View>
                                 <View style={{display: 'flex', flexDirection: 'row',}}>
                                     <Text style={styles.macroText}>Protein</Text>
-                                    <Text style={styles.smallMacroText}>35/160 g</Text>
+                                    <Text style={styles.smallMacroText}>{dailyPro}/{targetPro} g</Text>
                                 </View>
-                                <Bar color={'#1cc9d8'} progress={.3}></Bar>
+                                <Bar color={'#1cc9d8'} progress={targetPro ? dailyPro/targetPro : 0}></Bar>
                             </View>
                             <View>
                                 <View style={{display: 'flex', flexDirection: 'row',}}>
                                     <Text style={styles.macroText}>Fat</Text>
-                                    <Text style={styles.smallMacroText}>80/160 g</Text>
+                                    <Text style={styles.smallMacroText}>{dailyFat}/{targetFat} g</Text>
                                 </View>
-                                <Bar color={'#eb3c05'} progress={.5}></Bar>
+                                <Bar color={'#eb3c05'} progress={targetFat ? dailyFat/targetFat : 0}></Bar>
                             </View>
                         </View>
                     </View>
