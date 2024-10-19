@@ -15,7 +15,7 @@ export default class Food extends React.Component {
     {
     return (
         <View>
-            <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.defaultStyling]}>
+            <Pressable onPress={this.props.pressFunc} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.defaultStyling]}>
                 <View style={styles.container}>
 
                     <MaterialCommunityIcons name="food-apple" size={30} color="white" opacity={1} style={{marginLeft: 15}}/>

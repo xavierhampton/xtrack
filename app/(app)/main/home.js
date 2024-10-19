@@ -47,6 +47,26 @@ export default function Home() {
         }
       };*/
 
+      const pushOverviewCache = async (i) => {
+        try {
+          const jsonValue = JSON.stringify(foodArr[i]);
+          await AsyncStorage.setItem('overview-cache', jsonValue);
+        }
+         catch (e) {
+          console.log('store error')
+          return
+        }
+      }
+
+      const pushDateOverviewCache = async (i) => {
+        try {
+          await AsyncStorage.setItem('date-overview-cache', String(data.getMonth()) + '/' + String(data.getDate()) + '/' + String(data.getFullYear()));
+        }
+         catch (e) {
+          console.log('store error')
+          return
+        }
+      }
 
     const fetchFoods = async () => {
         try {
@@ -58,8 +78,8 @@ export default function Home() {
           
         };
 
-    const getDailyFood = (foodArr) => {
-        if (!foodArr) {
+    const getDailyFood = (fArr) => {
+        if (!fArr) {
             return (<View><Text style={styles.emptyText}>This is where your food will display. Add food below to get started.</Text>
             <Text style={styles.emptyDesign}>|</Text>
             <Text style={styles.emptyDesign}>|</Text>
@@ -72,7 +92,7 @@ export default function Home() {
         }
         const arr = []
         for (let i = 0; i < foodArr.length; i++) {
-            arr.push(<Food key={i} name={foodArr[i].name} servingName={foodArr[i].servings[foodArr[i].selectedServing].servingName} cal={foodArr[i].servings[foodArr[i].selectedServing].cal * foodArr[i].mult}></Food>)
+            arr.push(<Food pressFunc={() => {pushOverviewCache(i); pushDateOverviewCache(); router.push('screens/simple_overview')}} key={i} name={foodArr[i].name} servingName={foodArr[i].servings[foodArr[i].selectedServing].servingName} cal={foodArr[i].servings[foodArr[i].selectedServing].cal * foodArr[i].mult}></Food>)
         } 
         return arr
     }
