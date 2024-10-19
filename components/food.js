@@ -19,7 +19,10 @@ export default class Food extends React.Component {
                 <View style={styles.container}>
 
                     <MaterialCommunityIcons name="food-apple" size={30} color="white" opacity={1} style={{marginLeft: 15}}/>
-                    <Text style={styles.text}>{this.props.name}</Text>
+                    <View style={{display: 'flex', flexDirection: 'column'}}>
+                        <Text style={styles.text}>{this.props.name}</Text>
+                        <Text style={styles.subText}>{this.props.servingName}</Text>
+                    </View>
                     <View style={{display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center', alignContent: 'center', marginLeft:'auto'}}>
                         <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 15, width: 40}]}>{this.props.cal}</Text>
                         <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 12}]}>kcal</Text>
@@ -54,6 +57,15 @@ const styles = StyleSheet.create({
         color: 'white',
         fontFamily:'JetBrainsMono',
         marginLeft: 10,
+        marginTop: 5,
+    },
+    subText: {
+        fontSize: 12,
+        color: 'white',
+        opacity: 0.6,
+        fontFamily:'JetBrainsMono',
+        marginLeft: 10,
+        marginTop: -3,
     }
 
 })

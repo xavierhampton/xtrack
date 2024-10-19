@@ -72,7 +72,7 @@ export default function Home() {
         }
         const arr = []
         for (let i = 0; i < foodArr.length; i++) {
-            arr.push(<Food key={i} name={foodArr[i].name} cal={foodArr[i].servings[foodArr[i].selectedServing].cal * foodArr[i].mult}></Food>)
+            arr.push(<Food key={i} name={foodArr[i].name} servingName={foodArr[i].servings[foodArr[i].selectedServing].servingName} cal={foodArr[i].servings[foodArr[i].selectedServing].cal * foodArr[i].mult}></Food>)
         } 
         return arr
     }
