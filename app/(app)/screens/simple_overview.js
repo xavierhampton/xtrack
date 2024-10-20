@@ -12,7 +12,7 @@ const simple_overview = (props) => {
 
     const [foodArr, setFoodArr] = useState({})
     const [value, setValue] = useState(0);
-    const [food, setFood] = useState({name: 'NULL', selectedServing: 0, mult: 1, servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
+    const [food, setFood] = useState({name: 'NULL', selectedServing: 0, mult: '1', servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
 
     const [dailyCalories, setDailyCalories] = useState('2000')
     const [dailyPro, setDailyPro] = useState('200')
@@ -75,6 +75,7 @@ const simple_overview = (props) => {
         const cacheVal = jsonValue != null ? JSON.parse(jsonValue) : null;
         setFood(cacheVal)
         setValue(cacheVal.selectedServing)
+        setMult(cacheVal.mult)
       }
         catch (e) {
         console.log('fetch error')
@@ -118,7 +119,7 @@ const simple_overview = (props) => {
                   
                   <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Amount</Text>
-                    <TextInput editable={false} keyboardType='numeric' placeholder={'1'} maxLength={3} style={[styles.textInput, {width: 80, padding: 5, textAlign: 'right', paddingRight: 10}]}></TextInput>
+                    <TextInput editable={false} keyboardType='numeric' placeholder={mult} maxLength={3} style={[styles.textInput, {width: 80, padding: 5, textAlign: 'right', paddingRight: 10}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 60, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0, paddingBottom: 10}]}>
                     <Text style={styles.label}>Serving Size</Text>

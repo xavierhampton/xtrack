@@ -92,7 +92,7 @@ export default function Home() {
         }
         const arr = []
         for (let i = 0; i < foodArr.length; i++) {
-            arr.push(<Food pressFunc={() => {pushOverviewCache(i); pushDateOverviewCache(); router.push('screens/simple_overview')}} key={i} name={foodArr[i].name} servingName={foodArr[i].servings[foodArr[i].selectedServing].servingName} cal={foodArr[i].servings[foodArr[i].selectedServing].cal * foodArr[i].mult}></Food>)
+            arr.push(<Food pressFunc={() => {pushOverviewCache(i); pushDateOverviewCache(); router.push('screens/simple_overview')}} key={i} mult={foodArr[i].mult} name={foodArr[i].name} servingName={foodArr[i].servings[foodArr[i].selectedServing].servingName} cal={foodArr[i].servings[foodArr[i].selectedServing].cal * foodArr[i].mult}></Food>)
         } 
         return arr
     }

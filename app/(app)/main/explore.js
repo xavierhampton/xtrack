@@ -1,9 +1,32 @@
-import {View, Text, Button, ScrollView} from 'react-native'
+import {View, Text, Pressable, ScrollView, Alert} from 'react-native'
 import React from 'react'
 import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Home() {
+    const clearAsyncStorage = async() => {
+        AsyncStorage.clear();
+     }
+     const showConfirmAlert = () => {
+        Alert.alert(
+          'Delete Storage Cache?',
+          'This will permanently remove everything from your local device.',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => {},
+              style: 'cancel',
+            },
+            {
+              text: 'Confirm',
+              onPress: () => {clearAsyncStorage()},
+            },
+          ],
+          { cancelable: false } 
+        );
+      };
 
 
     return (
@@ -24,6 +47,9 @@ export default function Home() {
                 <View style={styles.itemContainer}>
                     
                 </View>
+                <Pressable style={{marginTop: 30}} onPress={showConfirmAlert}>
+                    <Text style={styles.wipeButton}>Wipe Storage Cache</Text>
+                </Pressable>
             </View>
         </ScrollView>
     );
@@ -69,5 +95,12 @@ const styles = StyleSheet.create({
         width: 350,
         height: 400,
         borderRadius: 30,
+    },
+    wipeButton: {
+        color: 'red',
+        fontFamily: 'JetBrainsMono',
+        fontSize: 14,
+        opacity: 0.6,
+
     }
 })

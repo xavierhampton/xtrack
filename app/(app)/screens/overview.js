@@ -13,7 +13,7 @@ const overview = (props) => {
 
   const [value, setValue] = useState('0');
   const [isFocus, setIsFocus] = useState(false);
-  const [food, setFood] = useState({name: 'NULL', selectedServing: 0, mult: 1, servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
+  const [food, setFood] = useState({name: 'NULL', selectedServing: 0, mult: '1', servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
 
   const [dailyCalories, setDailyCalories] = useState('2000')
   const [dailyPro, setDailyPro] = useState('200')

@@ -21,7 +21,7 @@ export default class Food extends React.Component {
                     <MaterialCommunityIcons name="food-apple" size={30} color="white" opacity={1} style={{marginLeft: 15}}/>
                     <View style={{display: 'flex', flexDirection: 'column'}}>
                         <Text style={styles.text}>{this.props.name}</Text>
-                        <Text style={styles.subText}>{this.props.servingName}</Text>
+                        <Text style={styles.subText}>{(this.props.mult != 1) ? '(' + this.props.mult + 'x) ': ''}{this.props.servingName}</Text>
                     </View>
                     <View style={{display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center', alignContent: 'center', marginLeft:'auto'}}>
                         <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 15, width: 40}]}>{this.props.cal}</Text>
