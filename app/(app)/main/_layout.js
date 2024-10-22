@@ -9,6 +9,8 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import MaskedView from '@react-native-masked-view/masked-view'
 import { LinearGradient } from 'expo-linear-gradient';
 import SearchBar from "react-native-dynamic-search-bar";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function TabLayout() {
   const sheetRef = useRef(null);
@@ -30,6 +32,75 @@ export default function TabLayout() {
   const selectRecents = () => {setRecentsSelected(true); setSearchSelected(false); setFavoritesSelected(false)}
   const selectFavorites = () => {setRecentsSelected(false); setSearchSelected(false); setFavoritesSelected(true)}
   const selectSearch = () => {setRecentsSelected(false); setSearchSelected(true); setFavoritesSelected(false)}
+
+  const [recentsCache , setRecentsCache] = useState([])
+  const [favoritesCache , setFavoritesCache] = useState([])
+  const [searchCache, setSearchCache] = useState([])
+
+
+  const fetchRecents = async() => {
+      try {
+          const jsonValue = await AsyncStorage.getItem('recents');
+          setRecentsCache(jsonValue != null ? JSON.parse(jsonValue) : [])} 
+          catch (e) {
+          console.log('fetch error')
+          return
+          }
+        
+      };
+
+  const recentsBody = () => {
+    if (!recentsCache || recentsCache.length == 0) {
+      return (
+      <View style={{marginTop: 50, display: 'flex', alignItems: 'center'}}>
+        <Text style={styles.emptyText}>You currently have no recents stored. Create some food to start storing!</Text>
+      </View>
+      )
+    }
+    else return (<Text>TODO</Text>)
+    const body = []
+
+  }
+
+  const favoritesBody = () => {
+    if (!favoritesCache || favoritesCache.length == 0) {
+      return (
+      <View style={{marginTop: 50, display: 'flex', alignItems: 'center'}}>
+        <Text style={styles.emptyText}>You currently have no favorites stored. Favorite some food to start storing!</Text>
+      </View>
+      )
+    }
+    else return (<Text>TODO</Text>)
+    const body = []
+
+  }
+
+  const searchBody = () => {
+    if (!searchCache || searchCache.length == 0) {
+      return (
+      <View style={{marginTop: 50, display: 'flex', alignItems: 'center'}}>
+        <Text style={styles.emptyText}>You currently have no food that match your search. Type in a new query above!</Text>
+      </View>
+      )
+    }
+    else return (<Text>TODO</Text>)
+    const body = []
+  }
+  
+
+
+
+  const createScrollBody = () => {
+    if (recentsSelected) {
+      return recentsBody()
+    }
+    else if (searchSelected) {
+      return searchBody()
+    }
+    else if (favoritesSelected) {
+      return favoritesBody()
+    }
+  }
 
   return (
     <View style={{height: '100%', width: '100%'}}>
@@ -233,7 +304,9 @@ export default function TabLayout() {
             
         </View>
         </View>
-
+        <View style={{marginTop: 50, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center'}}>
+          {createScrollBody()}
+        </View>
         </BottomSheetScrollView>
       </BottomSheet>
 
@@ -241,4 +314,15 @@ export default function TabLayout() {
     
   );
 }
+
+const styles = StyleSheet.create({
+  emptyText: {
+    fontFamily: 'JetBrainsMono',
+    color: 'white',
+    fontSize: 12,
+    textAlign: 'center',
+    opacity: 0.4,
+    width: 350
+  },
+})
 

@@ -101,6 +101,6 @@ const styles = StyleSheet.create({
         fontFamily: 'JetBrainsMono',
         fontSize: 14,
         opacity: 0.6,
-
+        textDecorationLine: 'underline',
     }
 })
