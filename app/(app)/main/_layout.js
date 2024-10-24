@@ -10,6 +10,8 @@ import MaskedView from '@react-native-masked-view/masked-view'
 import { LinearGradient } from 'expo-linear-gradient';
 import SearchBar from "react-native-dynamic-search-bar";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SearchFood from '@/components/SearchFood'
+
 
 
 export default function TabLayout() {
@@ -57,9 +59,14 @@ export default function TabLayout() {
       </View>
       )
     }
-    else return (<Text>TODO</Text>)
     const body = []
-
+    for (let i = 0; i < recentsCache.length; i++) {
+        body.push(<SearchFood pressFunc={() => {console.log('TODO')}}></SearchFood>)    
+      }
+    return (
+      <View style={{marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', width: 400}}>
+        {body}
+      </View>)
   }
 
   const favoritesBody = () => {
@@ -101,6 +108,8 @@ export default function TabLayout() {
       return favoritesBody()
     }
   }
+
+  useEffect(() => {fetchRecents()}, [])
 
   return (
     <View style={{height: '100%', width: '100%'}}>
@@ -304,7 +313,7 @@ export default function TabLayout() {
             
         </View>
         </View>
-        <View style={{marginTop: 50, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center'}}>
+        <View style={{width: 400, height: 'auto', marginTop: 50, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           {createScrollBody()}
         </View>
         </BottomSheetScrollView>

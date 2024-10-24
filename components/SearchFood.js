@@ -4,28 +4,23 @@ import PropTypes from 'prop-types';
 import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import * as Progress from 'react-native-progress';
 
-
-export default class Food extends React.Component {
-    constructor(props) {
-        super(props);
-      }
-
-    render()
-    {
+const SearchFood = (props) => {
     return (
         <View>
-            <Pressable onPress={this.props.pressFunc} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, styles.defaultStyling]}>
+            <Pressable onPress={props.pressFunc} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },]}>
                 <View style={styles.container}>
 
                     <MaterialCommunityIcons name="food-apple" size={30} color="white" opacity={1} style={{marginLeft: 15}}/>
                     <View style={{display: 'flex', flexDirection: 'column'}}>
-                        <Text style={styles.text}>{this.props.name}</Text>
-                        <Text style={styles.subText}>{(this.props.mult != 1) ? '(' + this.props.mult + 'x) ': ''}{this.props.servingName}</Text>
+                        <Text style={styles.text}>{props.name}</Text>
+                        <Text style={styles.subText}>{(props.mult != 1) ? '(' + props.mult + 'x) ': ''}{props.servingName}</Text>
                     </View>
                     <View style={{display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center', alignContent: 'center', marginLeft:'auto'}}>
-                        <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 15, width: 40}]}>{this.props.cal}</Text>
+                        <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 15, width: 40}]}>{props.cal}</Text>
                         <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 12}]}>kcal</Text>
+                        <Bar></Bar>
                     </View>
                 </View>
 
@@ -33,17 +28,17 @@ export default class Food extends React.Component {
 
             </Pressable>
         </View>
-    )}
+    )
 }
+export default SearchFood
 
-Food.propTypes = { name: PropTypes.string.isRequired, cal: PropTypes.number.isRequired};
 
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection:'row',
         height: 65, 
-    
+        width: 370,
          alignItems: 'center',
          backgroundColor: themeColor().secondary,
          borderRadius: 10,

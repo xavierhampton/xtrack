@@ -96,17 +96,7 @@ const create = (props) => {
     };
  
   const storeRecents = async (value) => {
-    try {
-      fetchRecents();
-    }
-    catch {
-      console.log('store error')
-      return
-    }
-    const newRecents = []
-    for (i of recents) {
-      newRecents.push(i)
-    }
+    const newRecents = JSON.parse(JSON.stringify(recents))
     newRecents.push(value)
 
     if (newRecents > 50) {
@@ -134,11 +124,11 @@ const create = (props) => {
     }
   }
   
-
   const saveFood = () => { 
     storeRecents(food)
     console.log("SAVE")
   }
+  useEffect(() => {fetchRecents()}, [])
  
           const [servingsArray, setServingsArray] = useState([<View>
             <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
