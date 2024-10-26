@@ -11,18 +11,25 @@ const SearchFood = (props) => {
         <View>
             <Pressable onPress={props.pressFunc} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },]}>
                 <View style={styles.container}>
+                    
 
-                    <MaterialCommunityIcons name="food-apple" size={30} color="white" opacity={1} style={{marginLeft: 15}}/>
-                    <View style={{display: 'flex', flexDirection: 'column'}}>
+                <MaterialCommunityIcons name="food-apple" size={30} color="white" opacity={1} style={{marginLeft: 15}}/>
+                <View style={{display: 'flex', flexDirection: 'column'}}>
                         <Text style={styles.text}>{props.name}</Text>
-                        <Text style={styles.subText}>{(props.mult != 1) ? '(' + props.mult + 'x) ': ''}{props.servingName}</Text>
-                    </View>
+
+                </View>
                     <View style={{display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center', alignContent: 'center', marginLeft:'auto'}}>
                         <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 15, width: 40}]}>{props.cal}</Text>
                         <Text style={[styles.text,{ marginLeft: 'auto', marginRight: 15, fontSize: 12}]}>kcal</Text>
-                        <Bar></Bar>
                     </View>
+                    
                 </View>
+                <View style={{display: 'flex',  flexDirection: 'row', height: 5, width: 300, zIndex: 100, marginLeft: 'auto', transform: 'translateY(-38px) translateX(190px)'}}>
+                    <Progress.Bar  color={'#43d07c'} height={10} width={45} progress={.4} style={{transform: 'rotate(-90deg)', marginRight: -35}}></Progress.Bar>
+                    <Progress.Bar  color={'#1cc9d8'} height={10} progress={.4} width={45} style={{transform: 'rotate(-90deg)'}}></Progress.Bar>
+                    <Progress.Bar  color={'#eb3c05'} height={10} progress={0.5} width={45} style={{transform: 'rotate(-90deg)', marginLeft: -35}}></Progress.Bar>
+                </View>
+                
 
 
 
@@ -45,7 +52,7 @@ const styles = StyleSheet.create({
          marginBottom: 5,
          borderBottomWidth: 0.5,
          borderBottomColor: 'black',
-        
+        marginBottom: 1,
     },
     text: {
         fontSize: 16,

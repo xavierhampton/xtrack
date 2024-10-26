@@ -60,11 +60,11 @@ export default function TabLayout() {
       )
     }
     const body = []
-    for (let i = 0; i < recentsCache.length; i++) {
-        body.push(<SearchFood pressFunc={() => {console.log('TODO')}}></SearchFood>)    
+    for (let i = recentsCache.length - 1; i >= 0 ; i--) {
+        body.push(<SearchFood name={recentsCache[i].name} cal={recentsCache[i].servings[0].cal} pressFunc={() => {console.log('TODO')}}></SearchFood>)    
       }
     return (
-      <View style={{marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', width: 400}}>
+      <View style={{marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: -10}}>
         {body}
       </View>)
   }
