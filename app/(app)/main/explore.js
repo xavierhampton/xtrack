@@ -3,6 +3,8 @@ import React from 'react'
 import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+
 
 
 export default function Home() {
@@ -32,21 +34,36 @@ export default function Home() {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.pageContainer}>
-                <View style={styles.itemContainer}>
-                    
-                </View>
-                <View style={styles.itemContainer}>
-                    
-                </View>
-                <View style={styles.itemContainer}>
-                    
-                </View>
-                <View style={styles.itemContainer}>
-                    
-                </View>
-                <View style={styles.itemContainer}>
-                    
-                </View>
+                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
+                    <View style={styles.itemContainer}>
+                        <MaterialCommunityIcons style={styles.icon} name="account" size={30} color="white" />
+                        <Text style={styles.title}>Account</Text>
+                    </View>
+                </Pressable>
+                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
+                    <View style={styles.itemContainer}>
+                        <MaterialCommunityIcons style={styles.icon} name="target" size={30} color="white" />
+                        <Text style={styles.title}>Daily Targets</Text>
+                    </View>
+                </Pressable>
+                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
+                    <View style={styles.itemContainer}>
+                        <MaterialCommunityIcons style={styles.icon} name="target" size={30} color="white" />
+                        <Text style={styles.title}>TEST</Text>
+                    </View>
+                </Pressable>
+                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
+                    <View style={styles.itemContainer}>
+                        <MaterialCommunityIcons style={styles.icon} name="target" size={30} color="white" />
+                        <Text style={styles.title}>TEST</Text>
+                    </View>
+                </Pressable>
+                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
+                    <View style={styles.itemContainer}>
+                        <MaterialCommunityIcons style={styles.icon} name="target" size={30} color="white" />
+                        <Text style={styles.title}>TEST</Text>
+                    </View>
+                </Pressable>
                 <Pressable style={{marginTop: 30}} onPress={showConfirmAlert}>
                     <Text style={styles.wipeButton}>Wipe Storage Cache</Text>
                 </Pressable>
@@ -59,6 +76,15 @@ const styles = StyleSheet.create({
     container: {
       backgroundColor: themeColor().primary,
     },
+    title: {
+        fontFamily: 'JetBrainsMono',
+        fontSize: 20,
+        color: 'white',
+        marginLeft: 15,
+    },
+    icon: {
+        marginLeft: 10,
+    },
     pageContainer: {
         marginTop: 50,
         display: 'flex',
@@ -67,6 +93,8 @@ const styles = StyleSheet.create({
     itemContainer: {
         marginBottom: 6,
         display: 'flex',
+        flexDirection: 'row',
+        
         alignItems: 'center',
 
         backgroundColor: themeColor().secondary,
