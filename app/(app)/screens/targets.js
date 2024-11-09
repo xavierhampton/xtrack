@@ -1,10 +1,11 @@
 import { View, Pressable, Text, StyleSheet, TextInput, KeyboardAvoidingView} from "react-native"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router"
 import {themeColor} from '@/hooks/theme';
 import MaskedView from "@react-native-masked-view/masked-view";
 import { ScrollView } from "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const targets = (props) => {
@@ -13,6 +14,33 @@ const targets = (props) => {
     const [car, setCar] = useState('')
     const [pro, setPro] = useState('')
     const [fat, setFat] = useState('')
+
+    const saveTargets = async () => {
+        try {
+            const targetsObj = {'cal': cal ? cal : 0, 'car': car ? car : 0, 'pro': pro ? pro : 0, 'fat': fat ? fat : 0}
+            await AsyncStorage.setItem('targets', JSON.stringify(targetsObj))
+        }
+        catch {
+            console.log('Save Error')
+        }
+    }
+
+    const getTargets = async () => {
+        try {
+            const targetsObj = await AsyncStorage.getItem('targets')
+            const data = JSON.parse(targetsObj)
+            setCal(data['cal']);
+            setCar(data['pro'])
+            setPro(data['pro'])
+            setFat(data['fat'])
+        }
+        catch {
+            console.log('Fetch Error')
+        }
+    }
+    useEffect(() => {
+        getTargets()
+    }, [])
 
     return (
         <View style={{backgroundColor: themeColor().primary}}>
@@ -62,7 +90,7 @@ const targets = (props) => {
             </View>
 
             <View style={{display: 'flex', position: 'absolute', bottom: 35, width: '100%', height: 40, justifyContent: 'center', alignContent:'center', left: 45}}>
-          <Pressable onPress={() => console.log('s')} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
+          <Pressable onPress={() => {saveTargets(); router.push('main/home')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
                   <MaskedView
                   style={{width: 300, height: 60}}
                   maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
