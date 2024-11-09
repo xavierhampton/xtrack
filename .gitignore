@@ -10,7 +10,8 @@ npm-debug.*
 *.orig.*
 web-build/
 app-example
-firebase.js
+firebaseKey.js
+
 
 # macOS
 .DS_Store
