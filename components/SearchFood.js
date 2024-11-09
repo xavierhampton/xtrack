@@ -5,8 +5,25 @@ import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import * as Progress from 'react-native-progress';
+import { useEffect, useState } from 'react';
 
 const SearchFood = (props) => {
+
+    const [targetCar, setTargetCar] = useState(250)
+    const [targetFat, setTargetFat] = useState(66)
+    const [targetPro, setTargetPro] = useState(100)
+
+    const fetchGoals = async () => {
+        const d = await getTargets()
+        setTargetCar(d['car'])
+        setTargetPro(d['pro'])
+        setTargetFat(d['fat'])
+    }
+
+    useEffect(() => {
+        fetchGoals()
+    }, [])
+
     return (
         <View>
             <Pressable onPress={props.pressFunc} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },]}>
@@ -25,9 +42,9 @@ const SearchFood = (props) => {
                     
                 </View>
                 <View style={{display: 'flex',  flexDirection: 'row', height: 5, width: 300, zIndex: 100, marginLeft: 'auto', transform: 'translateY(-38px) translateX(190px)'}}>
-                    <Progress.Bar  color={'#43d07c'} height={10} width={45} progress={.4} style={{transform: 'rotate(-90deg)', marginRight: -35}}></Progress.Bar>
-                    <Progress.Bar  color={'#1cc9d8'} height={10} progress={.4} width={45} style={{transform: 'rotate(-90deg)'}}></Progress.Bar>
-                    <Progress.Bar  color={'#eb3c05'} height={10} progress={0.5} width={45} style={{transform: 'rotate(-90deg)', marginLeft: -35}}></Progress.Bar>
+                    <Progress.Bar  color={'#43d07c'} height={10} width={45} progress={props.car/targetCar} style={{transform: 'rotate(-90deg)', marginRight: -35}}></Progress.Bar>
+                    <Progress.Bar  color={'#1cc9d8'} height={10} progress={props.pro/targetPro} width={45} style={{transform: 'rotate(-90deg)'}}></Progress.Bar>
+                    <Progress.Bar  color={'#eb3c05'} height={10} progress={props.fat/targetCar} width={45} style={{transform: 'rotate(-90deg)', marginLeft: -35}}></Progress.Bar>
                 </View>
                 
 

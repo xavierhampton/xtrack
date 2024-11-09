@@ -86,7 +86,7 @@ export default function Home() {
             setTargetCal(d['cal'])
             setTargetCar(d['car'])
             setTargetPro(d['pro'])
-            setTargetFat(d['fat'])
+            setTargetFat(d['fat'])    
         }
 
     const getDailyFood = (fArr) => {

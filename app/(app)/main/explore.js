@@ -10,12 +10,6 @@ import { router } from 'expo-router';
 
 
 export default function Home() {
-    const clearAsyncStorage = async() => {
-        AsyncStorage.clear();
-     }
-     
-
-
     return (
         <ScrollView style={styles.container}>
             <View style={styles.pageContainer}>

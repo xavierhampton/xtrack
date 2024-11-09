@@ -61,7 +61,9 @@ export default function TabLayout() {
     }
     const body = []
     for (let i = recentsCache.length - 1; i >= 0 ; i--) {
-        body.push(<SearchFood name={recentsCache[i].name} cal={recentsCache[i].servings[0].cal} pressFunc={() => {console.log('TODO')}}></SearchFood>)    
+        body.push(<SearchFood name={recentsCache[i].name} cal={recentsCache[i].servings[0].cal} 
+          pro={recentsCache[i].servings[0].pro} car={recentsCache[i].servings[0].car}
+          fat={recentsCache[i].servings[0].fat} pressFunc={() => {console.log('TODO')}}></SearchFood>)    
       }
     return (
       <View style={{marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: -10}}>

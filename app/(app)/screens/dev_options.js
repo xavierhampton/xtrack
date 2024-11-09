@@ -7,6 +7,11 @@ import { ScrollView } from "react-native-gesture-handler";
 
 
 const dev_options = (props) => {
+  
+  const clearAsyncStorage = async() => {
+    AsyncStorage.clear();
+ }
+
     const showConfirmAlert = () => {
         Alert.alert(
           'Delete Storage Cache?',
