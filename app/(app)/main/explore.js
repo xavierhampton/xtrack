@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { router } from 'expo-router';
 
 
 
@@ -40,7 +41,7 @@ export default function Home() {
                         <Text style={styles.title}>Account</Text>
                     </View>
                 </Pressable>
-                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
+                <Pressable onPress={() => {router.push('screens/targets')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
                     <View style={styles.itemContainer}>
                         <MaterialCommunityIcons style={styles.icon} name="target" size={30} color="white" />
                         <Text style={styles.title}>Daily Targets</Text>
