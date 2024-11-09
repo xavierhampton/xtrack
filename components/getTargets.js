@@ -8,7 +8,7 @@ const fetchData = async () => {
         return null
     } 
 }
-export const getTargets = async () => {
+export async function getTargets() {
         const data = await fetchData()
         if (data) {
             return data

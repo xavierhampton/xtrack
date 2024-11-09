@@ -10,7 +10,7 @@ import Feather from '@expo/vector-icons/Feather';
 import MaskedView from '@react-native-masked-view/masked-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getTargets} from '@/components/getTargets.js'
+import getTargets from '@/components/getTargets.js'
 
 import Food from '@/components/food'
 
