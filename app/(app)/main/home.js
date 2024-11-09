@@ -10,6 +10,7 @@ import Feather from '@expo/vector-icons/Feather';
 import MaskedView from '@react-native-masked-view/masked-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getTargets} from '@/components/getTargets.js'
 
 import Food from '@/components/food'
 
@@ -27,6 +28,8 @@ export default function Home() {
     const [dailyCar, setCar] = useState(0)
     const [dailyFat, setFat] = useState(0)
     const [dailyPro, setPro] = useState(0)
+
+ 
 
 
      /*const handleSignOut = () => {
@@ -77,6 +80,14 @@ export default function Home() {
           }
           
         };
+
+        const fetchGoals = async () => {
+            const d = await getTargets()
+            setTargetCal(d['cal'])
+            setTargetCar(d['car'])
+            setTargetPro(d['pro'])
+            setTargetFat(d['fat'])
+        }
 
     const getDailyFood = (fArr) => {
         if (!fArr) {
@@ -133,6 +144,10 @@ export default function Home() {
     useEffect(() => {
         updateCharts()
     }, [foodArr])
+
+    useEffect(() => {
+        fetchGoals()
+    }, [])
     
 
     return (
