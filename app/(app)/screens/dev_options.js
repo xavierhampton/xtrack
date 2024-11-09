@@ -1,6 +1,4 @@
-import { View, Pressable, Text, StyleSheet, TextInput, KeyboardAvoidingView} from "react-native"
-import { useState, useEffect } from "react";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, Pressable, Text, StyleSheet, KeyboardAvoidingView, Alert} from "react-native"
 import { router } from "expo-router"
 import {themeColor} from '@/hooks/theme';
 

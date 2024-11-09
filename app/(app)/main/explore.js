@@ -1,4 +1,4 @@
-import {View, Text, Pressable, ScrollView, Alert} from 'react-native'
+import {View, Text, Pressable, ScrollView} from 'react-native'
 import React from 'react'
 import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
