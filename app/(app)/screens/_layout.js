@@ -8,6 +8,7 @@ export default function ScreenLayout() {
       <Stack.Screen name="simple_overview" />
       <Stack.Screen name="account" />
       <Stack.Screen name="targets" />
+      <Stack.Screen name="dev_options" />
     </Stack>
   );
 }

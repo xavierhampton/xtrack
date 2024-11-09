@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import {themeColor} from '@/hooks/theme'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
 
 
@@ -12,24 +13,7 @@ export default function Home() {
     const clearAsyncStorage = async() => {
         AsyncStorage.clear();
      }
-     const showConfirmAlert = () => {
-        Alert.alert(
-          'Delete Storage Cache?',
-          'This will permanently remove everything from your local device.',
-          [
-            {
-              text: 'Cancel',
-              onPress: () => {},
-              style: 'cancel',
-            },
-            {
-              text: 'Confirm',
-              onPress: () => {clearAsyncStorage()},
-            },
-          ],
-          { cancelable: false } 
-        );
-      };
+     
 
 
     return (
@@ -47,27 +31,14 @@ export default function Home() {
                         <Text style={styles.title}>Daily Targets</Text>
                     </View>
                 </Pressable>
-                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
+                <Pressable onPress={() => {router.push('screens/dev_options')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
                     <View style={styles.itemContainer}>
-                        <MaterialCommunityIcons style={styles.icon} name="target" size={30} color="white" />
-                        <Text style={styles.title}>TEST</Text>
+                        <MaterialIcons style={styles.icon} name="code" size={30} color="white" />
+                        <Text style={styles.title}>Developer Options</Text>
                     </View>
                 </Pressable>
-                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
-                    <View style={styles.itemContainer}>
-                        <MaterialCommunityIcons style={styles.icon} name="target" size={30} color="white" />
-                        <Text style={styles.title}>TEST</Text>
-                    </View>
-                </Pressable>
-                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
-                    <View style={styles.itemContainer}>
-                        <MaterialCommunityIcons style={styles.icon} name="target" size={30} color="white" />
-                        <Text style={styles.title}>TEST</Text>
-                    </View>
-                </Pressable>
-                <Pressable style={{marginTop: 30}} onPress={showConfirmAlert}>
-                    <Text style={styles.wipeButton}>Wipe Storage Cache</Text>
-                </Pressable>
+            
+                
             </View>
         </ScrollView>
     );
@@ -100,7 +71,7 @@ const styles = StyleSheet.create({
 
         backgroundColor: themeColor().secondary,
         width: 350,
-        height: 90,
+        height: 80,
         borderRadius: 10,
     },
     headerContainer: {
@@ -125,11 +96,5 @@ const styles = StyleSheet.create({
         height: 400,
         borderRadius: 30,
     },
-    wipeButton: {
-        color: 'red',
-        fontFamily: 'JetBrainsMono',
-        fontSize: 14,
-        opacity: 0.6,
-        textDecorationLine: 'underline',
-    }
+    
 })
