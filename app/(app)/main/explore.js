@@ -35,7 +35,7 @@ export default function Home() {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.pageContainer}>
-                <Pressable style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
+                <Pressable onPress={() => {router.push('screens/account')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}>
                     <View style={styles.itemContainer}>
                         <MaterialCommunityIcons style={styles.icon} name="account" size={30} color="white" />
                         <Text style={styles.title}>Account</Text>
