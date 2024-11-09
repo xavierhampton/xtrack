@@ -6,6 +6,8 @@ import {themeColor} from '@/hooks/theme'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import * as Progress from 'react-native-progress';
 import { useEffect, useState } from 'react';
+import getTargets from '@/components/getTargets.js'
+
 
 const SearchFood = (props) => {
 
