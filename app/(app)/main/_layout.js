@@ -61,7 +61,7 @@ export default function TabLayout() {
     }
     const body = []
     for (let i = recentsCache.length - 1; i >= 0 ; i--) {
-        body.push(<SearchFood name={recentsCache[i].name} cal={recentsCache[i].servings[0].cal} 
+        body.push(<SearchFood key={i} name={recentsCache[i].name} cal={recentsCache[i].servings[0].cal} 
           pro={recentsCache[i].servings[0].pro} car={recentsCache[i].servings[0].car}
           fat={recentsCache[i].servings[0].fat} pressFunc={() => {console.log('TODO')}}></SearchFood>)    
       }
@@ -223,6 +223,7 @@ export default function TabLayout() {
           alignContent: 'center',}}>
               <View style={{display: 'flex', gap: 10, flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
                 <SearchBar
+                onFocus={selectSearch}
                 placeholder="Search here"
                 onPress={() => {}}
                 onChangeText={(text) => console.log(text)}
