@@ -7,6 +7,7 @@ import { Dropdown } from 'react-native-element-dropdown'
 import { Bar } from 'react-native-progress';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
+import getTargets from "@/components/getTargets"
 
 
 const overview = (props) => {
