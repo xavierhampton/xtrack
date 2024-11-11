@@ -7,6 +7,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import * as Progress from 'react-native-progress';
 import { useEffect, useState } from 'react';
 import getTargets from '@/components/getTargets.js'
+import { router } from 'expo-router';
 
 
 const SearchFood = (props) => {
@@ -28,7 +29,7 @@ const SearchFood = (props) => {
 
     return (
         <View>
-            <Pressable onPress={props.pressFunc} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },]}>
+            <Pressable onPress={() => {props.pushCache(); router.push('screens/overview')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 },]}>
                 <View style={styles.container}>
                     
 

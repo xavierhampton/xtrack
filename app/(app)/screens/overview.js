@@ -15,10 +15,10 @@ const overview = (props) => {
   const [isFocus, setIsFocus] = useState(false);
   const [food, setFood] = useState({name: 'NULL', selectedServing: 0, mult: '1', servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
 
-  const [dailyCalories, setDailyCalories] = useState('2000')
-  const [dailyPro, setDailyPro] = useState('200')
-  const [dailyCar, setDailyCar] = useState('350')
-  const [dailyFat, setDailyFat] = useState('70')
+  const [dailyCalories, setTargetCalories] = useState('2000')
+  const [dailyPro, setTargetPro] = useState('200')
+  const [dailyCar, setTargetCar] = useState('350')
+  const [dailyFat, setTargetFat] = useState('70')
 
   const [mult, setMult] = useState('1')
 
@@ -30,6 +30,14 @@ const overview = (props) => {
       { label: 'Item 2', value: '2' },
       { label: 'Item 3', value: '3' },])
 
+
+      const fetchGoals = async () => {
+        const d = await getTargets()
+        setTargetCalories(d['cal'])
+        setTargetCar(d['car'])
+        setTargetPro(d['pro'])
+        setTargetFat(d['fat'])
+    }
 
     const fetchFoods = async () => {
         try {
@@ -99,7 +107,7 @@ const overview = (props) => {
       fetchFoods()
   }, [date])
 
-    useEffect(() => {fetchCache()}, [])
+    useEffect(() => {fetchCache(); fetchGoals()}, [])
     
     return (
         <View style={{backgroundColor: themeColor().primary}}>

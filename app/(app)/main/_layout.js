@@ -51,6 +51,17 @@ export default function TabLayout() {
         
       };
 
+      const pushOverviewCache = async (f) => {
+        try {
+          const jsonValue = JSON.stringify(f);
+          await AsyncStorage.setItem('overview-cache', jsonValue);
+        }
+         catch (e) {
+          console.log('store error')
+          return
+        }
+      }
+
   const recentsBody = () => {
     if (!recentsCache || recentsCache.length == 0) {
       return (
@@ -61,7 +72,7 @@ export default function TabLayout() {
     }
     const body = []
     for (let i = recentsCache.length - 1; i >= 0 ; i--) {
-        body.push(<SearchFood key={i} name={recentsCache[i].name} cal={recentsCache[i].servings[0].cal} 
+        body.push(<SearchFood key={i} pushCache={() => {pushOverviewCache(recentsCache[i])}} name={recentsCache[i].name} cal={recentsCache[i].servings[0].cal} 
           pro={recentsCache[i].servings[0].pro} car={recentsCache[i].servings[0].car}
           fat={recentsCache[i].servings[0].fat} pressFunc={() => {console.log('TODO')}}></SearchFood>)    
       }
