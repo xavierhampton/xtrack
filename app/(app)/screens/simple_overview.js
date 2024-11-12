@@ -5,10 +5,14 @@ import {router} from 'expo-router'
 import { Bar } from 'react-native-progress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
+
 
 
 
 const simple_overview = (props) => {
+
+    const [favorite, setFavorite] = useState(false)
 
     const [foodArr, setFoodArr] = useState({})
     const [value, setValue] = useState(0);
@@ -41,6 +45,10 @@ const simple_overview = (props) => {
       );
     };
   
+    const toggleFavorite = () => {
+      setFavorite(!favorite)
+    }
+
     const fetchDate = async () => {
       try {
         const jsonValue = await AsyncStorage.getItem('date-overview-cache');
@@ -106,8 +114,15 @@ const simple_overview = (props) => {
               <Pressable onPress={() => {router.push('main/home')}} style={{width: 26, marginBottom: 10, marginLeft:'auto', backgroundColor: themeColor().secondary}}>
                       <Text style={[styles.closeButton, {marginLeft: 'auto', fontSize: 40, transform: 'translateX(-10px) translateY(10px)'}]}>x</Text>
                     </Pressable>
-                <Text style={[styles.headerText, {transform: 'translateY(-20px)'}]}>{food.name}</Text>
-              </View>
+                  <View style={{display: 'flex', gap: 10, flexDirection: 'row', transform: 'translateY(-20px)'}}>
+                    <Text style={[styles.headerText]}>{food.name}</Text>
+                    <Pressable onPress={toggleFavorite}>
+                      {favorite ? <AntDesign name="star" size={24} color="rgba(255,255,255,0.6)" /> :
+                      <AntDesign name="staro" size={24} color="rgba(255,255,255,0.6)" />
+                      }
+                    </Pressable>
+                  </View>              
+                </View>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100, width: '100%'}}>
                 <View style={{display: 'block', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center'}}>
               
