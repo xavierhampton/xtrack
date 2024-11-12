@@ -3,6 +3,7 @@ import { router } from "expo-router"
 import {themeColor} from '@/hooks/theme';
 
 import { ScrollView } from "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
