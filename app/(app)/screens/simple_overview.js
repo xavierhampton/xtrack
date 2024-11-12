@@ -82,6 +82,7 @@ const simple_overview = (props) => {
         const jsonValue = await AsyncStorage.getItem('overview-cache');
         const cacheVal = jsonValue != null ? JSON.parse(jsonValue) : null;
         setFood(cacheVal)
+        setFavorite(cacheVal.favorite)
         setValue(cacheVal.selectedServing)
         setMult(cacheVal.mult)
       }

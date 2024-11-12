@@ -13,5 +13,5 @@ export default async function getTargets() {
         if (data) {
             return data
         }
-        return {'cal': 0, 'pro': 0, 'car':0, 'fat': 0}
+        return {'cal': 2000, 'pro': 100, 'car':250, 'fat': 80}
 }
