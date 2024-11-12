@@ -8,6 +8,7 @@ import { Bar } from 'react-native-progress';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
 import getTargets from "@/components/getTargets"
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 
 const overview = (props) => {
@@ -125,7 +126,14 @@ const overview = (props) => {
               <Pressable onPress={() => {router.push('main/home')}} style={{width: 26, marginBottom: 10, marginLeft:'auto', backgroundColor: themeColor().secondary}}>
                       <Text style={[styles.closeButton, {marginLeft: 'auto', fontSize: 40, transform: 'translateX(-10px) translateY(10px)'}]}>x</Text>
                     </Pressable>
-                <Text style={[styles.headerText, {transform: 'translateY(-20px)'}]}>{food.name}</Text>
+                <View style={{display: 'flex', gap: 10, flexDirection: 'row', transform: 'translateY(-20px)'}}>
+                  <Text style={[styles.headerText]}>{food.name}</Text>
+                  <Pressable onPress={toggleFavorite}>
+                    {favorite ? <AntDesign name="star" size={24} color="rgba(255,255,255,0.6)" /> :
+                    <AntDesign name="staro" size={24} color="rgba(255,255,255,0.6)" />
+                    }
+                  </Pressable>
+                </View>
               </View>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100, width: '100%'}}>
 
