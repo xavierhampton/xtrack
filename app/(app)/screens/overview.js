@@ -25,9 +25,11 @@ const overview = (props) => {
 
   const [date, setDate] = useState(new Date())
 
-    const [foodArr, setFoodArr] = useState([])
+  const [foodArr, setFoodArr] = useState([])
 
-    const [data, setData] = useState([{ label: 'Item 1', value: '1' },
+  const [favorite, setFavorite] = useState(false)
+
+  const [data, setData] = useState([{ label: 'Item 1', value: '1' },
       { label: 'Item 2', value: '2' },
       { label: 'Item 3', value: '3' },])
 
@@ -97,6 +99,10 @@ const overview = (props) => {
       tmpFoodArr.push(food)
       storeFoods(tmpFoodArr)
       router.push('/main/home')
+    }
+
+    const toggleFavorite = () => {
+      setFavorite(!favorite)
     }
 
 
