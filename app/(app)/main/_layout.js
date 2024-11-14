@@ -259,7 +259,7 @@ export default function TabLayout() {
                 onPress={() => {}}
                 onChangeText={(text) => console.log(text)}
                 darkMode={true}
-                style={{height: 60, backgroundColor: themeColor().secondary, width: 280}}
+                style={{height: 60, backgroundColor: themeColor().secondary, width: 280, paddingRight: 10}}
                 fontSize={16}
                 fontFamily='JetBrainsMono'
               />
