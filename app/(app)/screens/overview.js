@@ -128,16 +128,19 @@ const overview = (props) => {
               <View style={styles.content}> 
 
               <View style={[styles.headerContainer, {display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}]}>
-              <Pressable onPress={() => {router.push('main/home')}} style={{width: 26, marginBottom: 10, marginLeft:'auto', backgroundColor: themeColor().secondary}}>
-                      <Text style={[styles.closeButton, {marginLeft: 'auto', fontSize: 40, transform: 'translateX(-10px) translateY(10px)'}]}>x</Text>
-                    </Pressable>
-                <View style={{display: 'flex', gap: 10, flexDirection: 'row', transform: 'translateY(-20px)'}}>
-                  <Text style={[styles.headerText]}>{food.name}</Text>
+              
+                <View style={{display: 'flex', gap: 10, marginTop: 30, width: '100%', justifyContent: 'center', alignItems: 'center', flexDirection: 'row',}}>
+                  <Text style={[styles.headerText, {marginLeft: 'auto', paddingLeft: 48, marginTop: 5}]}>{food.name}</Text>
                   <Pressable onPress={toggleFavorite}>
-                    {favorite ? <AntDesign name="star" size={24} color="rgba(255,255,255,0.6)" /> :
-                    <AntDesign name="staro" size={24} color="rgba(255,255,255,0.6)" />
-                    }
+                    <View style={{marginTop: 5}}>
+                      {favorite ? <AntDesign name="star"   size={24} color="rgba(255,255,255,0.6)" /> :
+                      <AntDesign name="staro" size={24} color="rgba(255,255,255,0.6)" />
+                      }
+                    </View>
                   </Pressable>
+                  <Pressable onPress={() => {router.push('main/home')}} style={{marginLeft: 'auto', marginRight: 10, width: 26, backgroundColor: themeColor().secondary}}>
+                      <Text style={[styles.closeButton, {marginLeft: 'auto', fontSize: 40}]}>x</Text>
+                    </Pressable>
                 </View>
               </View>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100, width: '100%'}}>
@@ -147,7 +150,7 @@ const overview = (props) => {
                 <View style={{display: 'block', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center'}}>
               
               <View style={{display: 'block', width: '100%'}}>
-                <Text style={[styles.subHeaderText, {marginTop: 20, width: 375, transform: 'translateY(-10px)'}]}>Customize</Text>
+                <Text style={[styles.subHeaderText, {marginTop: 20, width: 375, paddingBottom: 10}]}>Customize</Text>
               </View>
 
               <View style={styles.foodInformationContainer}>
@@ -274,7 +277,6 @@ content: {
     width: '100%',
     color: 'white',
     fontSize: 30,
-    marginTop: 40,
     fontFamily: 'Arial',
     fontWeight: 900,
     textAlign: 'center',

@@ -192,11 +192,13 @@ const create = (props) => {
               <View style={styles.Content}> 
 
               <View style={[styles.headerContainer, {display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}]}>
-              <Pressable onPress={() => {router.back()}} style={{width: 26, marginBottom: 10, marginLeft:'auto', backgroundColor: themeColor().secondary}}>
-                      <Text style={[styles.closeButton, {marginLeft: 'auto', fontSize: 40, transform: 'translateX(-10px) translateY(10px)'}]}>x</Text>
+              
+                <View style={{display: 'flex', gap: 10, marginTop: 30, width: '100%', justifyContent: 'center', alignItems: 'center', flexDirection: 'row',}}>
+                  <Text style={[styles.headerText, {marginLeft: 'auto', paddingLeft: 48, marginTop: 5}]}>Custom Food</Text>
+                  <Pressable onPress={() => {router.back()}} style={{marginLeft: 'auto', marginRight: 10, width: 26, backgroundColor: themeColor().secondary}}>
+                      <Text style={[styles.closeButton, {marginLeft: 'auto', fontSize: 40}]}>x</Text>
                     </Pressable>
-                <Text style={[styles.headerText, {transform: 'translateY(-20px)'}]}>Custom Food</Text>
-                
+                </View>
               </View>
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 150, width: '100%'}}>
@@ -341,7 +343,6 @@ const styles = StyleSheet.create({
     width: '100%',
     color: 'white',
     fontSize: 30,
-    marginTop: 40,
     fontFamily: 'Arial',
     fontWeight: 900,
     textAlign: 'center',
