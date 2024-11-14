@@ -3,9 +3,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default async function saveFavorites(food, bool) {
     const pushData = async (i, d) => {
         try {
-            await AsyncStorage.setItem(i, d);
+            const data = JSON.stringify(d)
+            await AsyncStorage.setItem(i, data);
         }
             catch (e) {
+            console.log('save error')
             return
         }
     }
@@ -15,51 +17,31 @@ export default async function saveFavorites(food, bool) {
             return (jsonValue != null) ? JSON.parse(jsonValue) : null
         } 
         catch (e) {
+            console.log('fetch error')
             return null
         } 
     }
 
-    food.favorite = true
-
-    let fFlag = false
-    let rFlag = false
     let favoritesArray = await fetchData('favorites')
-    let recentsArray = await fetchData('recents')
 
     if (!Array.isArray(favoritesArray)) {
         favoritesArray = []
     }
-    if (!Array.isArray(recentsArrayArray)) {
-        recentsArray = []
+ 
+    if (bool == false) {
+        favoritesArray = favoritesArray.filter( (f) => {
+            return food.name !== f.name
+        })
     }
 
-
-    if (bool === false) {
-    for (let i = 0; i < favoritesArray.length; i++) {
-        if (favoritesArray[i] == food) {
-            recentsArray[i].favorite = false
-            fFlag = true
-        }
-    }
-}
-    else {
+    if (bool == true) {
         favoritesArray.push(food)
-        fFlag = true
+        if (favoritesArray.length > 100) {
+            favoritesArray.shift()
+        }  
     }
-
-    for (let i = 0; i < recentsArray.length; i++) {
-        if (recentsArray[i] == food) {
-            recentsArray[i].favorite = bool
-            rFlag = true
-        }
-    }
-
-    if (fFlag) {
+  
         pushData('favorites', favoritesArray)
-    }
-    if (rFlag) {
-        pushData('recents', recentsArray)
-    }
-
+        console.log(favoritesArray)  
 
 }
