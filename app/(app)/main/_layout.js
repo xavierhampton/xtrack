@@ -51,6 +51,17 @@ export default function TabLayout() {
         
       };
 
+      const fetchFavorites = async() => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('favorites');
+            setFavoritesCache(jsonValue != null ? JSON.parse(jsonValue) : [])} 
+            catch (e) {
+            console.log('fetch error')
+            return
+            }
+          
+        };
+
       const pushOverviewCache = async (f) => {
         try {
           const jsonValue = JSON.stringify(f);
@@ -90,9 +101,17 @@ export default function TabLayout() {
       </View>
       )
     }
-    else return (<Text>TODO</Text>)
+    
     const body = []
-
+    for (let i = favoritesCache.length - 1; i >= 0 ; i--) {
+        body.push(<SearchFood key={i} pushCache={() => {pushOverviewCache(favoritesCache[i])}} name={favoritesCache[i].name} cal={favoritesCache[i].servings[0].cal} 
+          pro={favoritesCache[i].servings[0].pro} car={favoritesCache[i].servings[0].car}
+          fat={favoritesCache[i].servings[0].fat} pressFunc={() => {console.log('TODO')}}></SearchFood>)    
+      }
+    return (
+      <View style={{marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: -10}}>
+        {body}
+      </View>)
   }
 
   const searchBody = () => {
@@ -122,7 +141,7 @@ export default function TabLayout() {
     }
   }
 
-  useEffect(() => {fetchRecents()}, [])
+  useEffect(() => {fetchRecents(); fetchFavorites()}, [])
 
   return (
     <View style={{height: '100%', width: '100%'}}>
