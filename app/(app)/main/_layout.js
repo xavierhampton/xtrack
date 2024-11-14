@@ -147,11 +147,6 @@ export default function TabLayout() {
     <View style={{height: '100%', width: '100%'}}>
     <Tabs 
       screenOptions={{
-        tabBarItemStyle: {
-            paddingBottom: 15,
-            height: 80,
-            width: 50, 
-        },
         tabBarStyle: {
             backgroundColor: themeColor().secondary,
             display: 'flex',
@@ -179,6 +174,9 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} 
             style={{
+              paddingTop: 10,
+                width: 40,
+                height: 50,
                 fontSize: 40,
             }}/>
           ),
@@ -205,7 +203,10 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color} 
             style={{
-                fontSize: 40,
+              paddingTop: 10,
+              width: 40,
+              height: 50,
+              fontSize: 40,
             }} />
           ),
         }}
