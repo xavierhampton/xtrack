@@ -2,6 +2,8 @@ import { Stack } from "expo-router";
 import { Tabs } from 'expo-router';
 import React, {useState} from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import {configureReanimatedLogger, ReanimatedLogLevel} from 'react-native-reanimated';
+
 
 import * as SystemUI from 'expo-system-ui';
 
@@ -14,6 +16,11 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  configureReanimatedLogger({
+    level: ReanimatedLogLevel.warn,
+    strict: false, 
+  });
+
   SystemUI.setBackgroundColorAsync("black");
 
 
@@ -34,7 +41,7 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView>
     <Stack
-    screenOptions={{headerShown: false}} initialRouteName="auth">
+    screenOptions={{headerShown: false}}>
       <Stack.Screen name="auth" options={{headerShown: false}}/>
       <Stack.Screen name="index" options={{headerShown: false}}/>
       <Stack.Screen name="(app)" options={{headerShown: false}}/>
