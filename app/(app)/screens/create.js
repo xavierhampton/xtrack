@@ -133,12 +133,12 @@ const create = (props) => {
           const [servingsArray, setServingsArray] = useState([<View>
             <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                   <Text style={styles.label}>Serving Name</Text>
-                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto',marginLeft: 2, marginTop: -15, }]}>*</Text>
                   <TextInput onChangeText={(text) => setServing1(text)} maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'left', paddingLeft: 15,}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                   <Text style={styles.label} >Weight</Text>
-                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', marginLeft: 2, marginTop: -15,}]}>*</Text>
                   <TextInput placeholder={"0"} onChangeText={(text) => setWeight1(text)} maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
             </View>
@@ -170,15 +170,15 @@ const create = (props) => {
             <View style={{paddingTop: 5}}>
             <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, paddingTop: 10, }]}>
                   <Text style={styles.label}>Serving Name</Text>
-                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', marginLeft: 2, marginTop: -15,}]}>*</Text>
                   <TextInput onChangeText={(text) => { (k == 1) ? setServing2(text): setServing3(text)}}maxLength={20}style={[styles.textInput, {width: 140, textAlign: 'left', paddingLeft: 10,}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 70, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                   <Text style={styles.label}>Weight</Text>
-                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                  <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', marginLeft: 2, marginTop: -15,}]}>*</Text>
                   <TextInput  onChangeText={(text) => { (k == 1) ? setWeight2(text): setWeight3(text)}} maxLength={4}keyboardType="numeric" style={[styles.textInput, {width: 60, textAlign: 'right', paddingRight: 10}]}></TextInput>
                   <Text style={[styles.subHeaderText, {width: 80, textAlign: 'right', height: 30, paddingRight: 5}]}>g</Text>
-                  <Pressable onPress={() =>{deleteServing(k); if (k==1) {setServing2(''); setWeight2(''); setServing3(''); setWeight3('')} else {setServing3(''); setWeight3('')}}} style={{position: 'absolute', right: 0, top: -88,borderRadius: 100, backgroundColor: themeColor().secondary, width: 26, height: 26, borderColor: 'white', borderWidth: 1}}><Text style={{fontFamily: 'JetBrainsMono',fontSize: 24, color:'white', textAlign: 'center', transform: 'translateY(-6px)'}}>x</Text></Pressable>
+                  <Pressable onPress={() =>{deleteServing(k); if (k==1) {setServing2(''); setWeight2(''); setServing3(''); setWeight3('')} else {setServing3(''); setWeight3('')}}} style={{position: 'absolute', right: 0, top: -88,borderRadius: 100, backgroundColor: themeColor().secondary, width: 26, height: 26, borderColor: 'white', borderWidth: 1}}><Text style={{fontFamily: 'JetBrainsMono',fontSize: 24, color:'white', textAlign: 'center', marginTop: -6}}>x</Text></Pressable>
             </View>
             </View>
           )
@@ -212,7 +212,7 @@ const create = (props) => {
                   
                   <View style={[styles.flexContainer, {height: 80, width: 375, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
                     <Text style={styles.label}>Food Name</Text>
-                    <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', transform: 'translateY(-10px) translateX(-10px)'}]}>*</Text>
+                    <Text style={[styles.label, {color:'red', fontSize: 10, marginRight: 'auto', marginLeft: 2, marginTop: -15,}]}>*</Text>
                     <TextInput onChangeText={(text) => setFoodName(text)} value={foodName} maxLength={20}style={[styles.textInput, {width: 190, padding: 5}]}></TextInput>
                   </View>
                   <View style={[styles.flexContainer, {height: 60, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
