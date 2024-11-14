@@ -9,6 +9,8 @@ import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
 import getTargets from "@/components/getTargets"
 import AntDesign from '@expo/vector-icons/AntDesign';
+import saveFavorites from '@/components/saveFavorites';
+import checkFavorites from '@/components/checkFavorites';
 
 
 const overview = (props) => {
@@ -46,7 +48,9 @@ const overview = (props) => {
     const fetchFoods = async () => {
         try {
             const jsonValue = await AsyncStorage.getItem(String(date.getMonth()) + '/' + String(date.getDate()) + '/' + String(date.getFullYear()));
-            return setFoodArr(jsonValue != null ? JSON.parse(jsonValue) : [])          } catch (e) {
+            setFoodArr(jsonValue != null ? JSON.parse(jsonValue) : [])
+                      
+          } catch (e) {
             console.log('fetch error')
             return
           }
@@ -66,6 +70,7 @@ const overview = (props) => {
         const cacheVal = jsonValue != null ? JSON.parse(jsonValue) : null;
         setFood(cacheVal)
         updateList(cacheVal)
+        setFavorite(await checkFavorites(cacheVal))
       }
         catch (e) {
         console.log('fetch error')
@@ -77,7 +82,6 @@ const overview = (props) => {
       let tmp = []
       if (f.servings) {
         for (let i = 0; i < f.servings.length; i++) {
-          console.log(i)
           tmp.push({label: f.servings[i].servingName + " (" + f.servings[i].weight + " g)", value: String(i)})
         }
         setData(tmp)
@@ -102,8 +106,9 @@ const overview = (props) => {
       router.push('/main/home')
     }
 
-    const toggleFavorite = () => {
+    const toggleFavorite = async () => {
       setFavorite(!favorite)
+      await saveFavorites(food, !favorite)
     }
 
 

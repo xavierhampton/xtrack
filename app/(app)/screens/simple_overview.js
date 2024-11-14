@@ -6,6 +6,8 @@ import { Bar } from 'react-native-progress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import saveFavorites from '@/components/saveFavorites';
+import checkFavorites from '@/components/checkFavorites';
 
 
 
@@ -16,7 +18,7 @@ const simple_overview = (props) => {
 
     const [foodArr, setFoodArr] = useState({})
     const [value, setValue] = useState(0);
-    const [food, setFood] = useState({name: 'NULL', selectedServing: 0, mult: '1', servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
+    const [food, setFood] = useState({name: 'NULL', favorite: false, selectedServing: 0, mult: '1', servings: [{servingName: 'NULL', weight: '0', cal: '0', car: '0', pro: '0', fat: '0'}]})
 
     const [dailyCalories, setDailyCalories] = useState('2000')
     const [dailyPro, setDailyPro] = useState('200')
@@ -45,8 +47,9 @@ const simple_overview = (props) => {
       );
     };
   
-    const toggleFavorite = () => {
+    const toggleFavorite = async () => {
       setFavorite(!favorite)
+      await saveFavorites(food, !favorite)
     }
 
     const fetchDate = async () => {
@@ -82,9 +85,9 @@ const simple_overview = (props) => {
         const jsonValue = await AsyncStorage.getItem('overview-cache');
         const cacheVal = jsonValue != null ? JSON.parse(jsonValue) : null;
         setFood(cacheVal)
-        setFavorite(cacheVal.favorite)
         setValue(cacheVal.selectedServing)
         setMult(cacheVal.mult)
+        setFavorite(await checkFavorites(cacheVal))
       }
         catch (e) {
         console.log('fetch error')
