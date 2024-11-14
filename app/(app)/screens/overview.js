@@ -249,7 +249,7 @@ const overview = (props) => {
                   <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
                   </MaskedView>
                   <View style={{ width: 300, height: 60}}>
-                    <Text onPress = {() => {pushToDay()}} style={{ fontFamily: 'JetBrainsMono', fontSize: 26, color: 'white', width: 300, height: 60, textAlign: 'center', transform: 'translateY(-47px)'}}>Track Food</Text>
+                    <Text onPress = {() => {pushToDay()}} style={{ fontFamily: 'JetBrainsMono', fontSize: 26, color: 'white', width: 300, height: 60, textAlign: 'center', marginTop: -47}}>Track Food</Text>
                   </View>
               </Pressable>   
             </View>

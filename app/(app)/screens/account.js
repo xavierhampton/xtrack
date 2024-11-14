@@ -80,7 +80,7 @@ const account = (props) => {
                   <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
                   </MaskedView>
                   <View style={{ width: 300, height: 60}}>
-                    <Text style={{ fontFamily: 'JetBrainsMono', fontSize: 26, color: 'white', width: 300, height: 60, textAlign: 'center', transform: 'translateY(-47px)'}}>Save Changes</Text>
+                    <Text style={{ fontFamily: 'JetBrainsMono', fontSize: 26, color: 'white', width: 300, height: 60, textAlign: 'center', marginTop: -47}}>Save Changes</Text>
                   </View>
               </Pressable>   
             </View>
