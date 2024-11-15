@@ -1,5 +1,4 @@
 import {View, Text, Pressable, ScrollView} from 'react-native'
-import {auth} from '@/firebase'
 import {router} from 'expo-router'
 import React, {Component, useDebugValue, useEffect, useState} from 'react'
 import { StyleSheet } from "react-native";

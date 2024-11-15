@@ -4,9 +4,7 @@ import React, {useState} from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import {configureReanimatedLogger, ReanimatedLogLevel} from 'react-native-reanimated';
 
-
 import * as SystemUI from 'expo-system-ui';
-
 
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -42,7 +40,6 @@ export default function RootLayout() {
     <GestureHandlerRootView>
     <Stack
     screenOptions={{headerShown: false}}>
-      <Stack.Screen name="auth" options={{headerShown: false}}/>
       <Stack.Screen name="index" options={{headerShown: false}}/>
       <Stack.Screen name="(app)" options={{headerShown: false}}/>
     </Stack>
