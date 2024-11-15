@@ -11,7 +11,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import SearchBar from "react-native-dynamic-search-bar";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchFood from '@/components/SearchFood'
-
+import searchResults from '@/components/searchResults';
 
 
 export default function TabLayout() {
@@ -28,6 +28,8 @@ export default function TabLayout() {
     sheetRef.current?.close();
   }, []);
 
+  const [searchVal, setSearchVal] = useState('')
+
   const [recentsSelected, setRecentsSelected] = useState(true)
   const [searchSelected, setSearchSelected] = useState(false)
   const [favoritesSelected, setFavoritesSelected] = useState(false)
@@ -37,7 +39,7 @@ export default function TabLayout() {
 
   const [recentsCache , setRecentsCache] = useState([])
   const [favoritesCache , setFavoritesCache] = useState([])
-  const [searchCache, setSearchCache] = useState([])
+  const [searchArray, setSearchArray] = useState([])
 
 
   const fetchRecents = async() => {
@@ -115,15 +117,23 @@ export default function TabLayout() {
   }
 
   const searchBody = () => {
-    if (!searchCache || searchCache.length == 0) {
+    if (!searchArray || searchArray.length == 0) {
       return (
       <View style={{marginTop: 50, display: 'flex', alignItems: 'center'}}>
         <Text style={styles.emptyText}>You currently have no food that match your search. Type in a new query above!</Text>
       </View>
       )
     }
-    else return (<Text>TODO</Text>)
     const body = []
+    for (let i = 0; i < searchArray.length ; i++) {
+        body.push(<SearchFood key={i} pushCache={() => {pushOverviewCache(searchArray[i])}} name={searchArray[i].name} cal={searchArray[i].servings[0].cal} 
+          pro={searchArray[i].servings[0].pro} car={searchArray[i].servings[0].car}
+          fat={searchArray[i].servings[0].fat} pressFunc={() => {console.log('TODO')}}></SearchFood>)    
+      }
+    return (
+      <View style={{marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: -10}}>
+        {body}
+      </View>)
   }
   
 
@@ -141,7 +151,12 @@ export default function TabLayout() {
     }
   }
 
+  const updateSearch = async () => {
+    setSearchArray(await searchResults(searchVal))
+  }
+
   useEffect(() => {fetchRecents(); fetchFavorites()}, [])
+  useEffect(() => {updateSearch()}, [searchVal])
 
   return (
     <View style={{height: '100%', width: '100%'}}>
@@ -257,10 +272,11 @@ export default function TabLayout() {
                 onFocus={selectSearch}
                 placeholder="Search here"
                 onPress={() => {}}
-                onChangeText={(text) => console.log(text)}
+                onChangeText={(t) => setSearchVal(t)}
                 darkMode={true}
                 style={{height: 60, backgroundColor: themeColor().secondary, width: 280, paddingRight: 10}}
                 fontSize={16}
+                value={searchVal}
                 fontFamily='JetBrainsMono'
               />
               <Pressable onPress={() => router.push('screens/create')} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 60, height: 60}]}>

@@ -11,10 +11,14 @@ export default async function searchResults(q) {
             return null
         } 
     }
+    if (q.trim() == '') {
+        return []
+    }
 
     let favoritesArray = await fetchData('favorites')
     let recentsArray = await fetchData('recents')
     let res = []
+    let foundSet = new Set()
 
     if (!Array.isArray(favoritesArray)) {
         favoritesArray = []
@@ -22,18 +26,18 @@ export default async function searchResults(q) {
     if (!Array.isArray(recentsArray)) {
         recentsArray = []
     }
- 
-    for (f of recentsArray) {
-        if (f.name.includes(q)) {
-            res.push(f)
-        }
-    }
     for (f of favoritesArray) {
         if (f.name.includes(q)) {
             res.push(f)
+            foundSet.add(f.name)
         }
     }
 
+    for (f of recentsArray) {
+        if (f.name.includes(q) && (!foundSet.has(f.name))) {
+            res.push(f)
+        }
+    }
     return res 
 
 }
