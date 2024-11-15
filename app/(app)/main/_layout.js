@@ -1,5 +1,4 @@
 import { Tabs, router } from 'expo-router';
-import '@/components/UserTheme.js'
 import React, {useState, useEffect,useCallback, useRef, useMemo } from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";

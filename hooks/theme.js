@@ -1,7 +1,7 @@
 import { Colors } from '@/constants/Colors';
-import '@/components/UserTheme'
+global.theme = 'galaxy'
 
-export function themeColor(userTheme) {
+export function themeColor() {
     if (Colors[global.theme] != null) {
         return Colors[global.theme]
     }
