@@ -152,7 +152,7 @@ export default function TabLayout() {
   }
 
   const updateSearch = async () => {
-    setSearchArray(await searchResults(searchVal))
+    setSearchArray(await searchResults(searchVal.toLowerCase()))
   }
 
   useEffect(() => {fetchRecents(); fetchFavorites()}, [])

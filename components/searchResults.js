@@ -27,14 +27,14 @@ export default async function searchResults(q) {
         recentsArray = []
     }
     for (f of favoritesArray) {
-        if (f.name.includes(q)) {
+        if ((f.name).toLowerCase().includes(q)) {
             res.push(f)
-            foundSet.add(f.name)
+            foundSet.add((f.name).toLowerCase())
         }
     }
 
     for (f of recentsArray) {
-        if (f.name.includes(q) && (!foundSet.has(f.name))) {
+        if ((f.name).toLowerCase().includes(q) && (!foundSet.has((f.name).toLowerCase()))) {
             res.push(f)
         }
     }
