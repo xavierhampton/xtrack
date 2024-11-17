@@ -4,6 +4,7 @@ import MaskedView from '@react-native-masked-view/masked-view'
 import {Redirect, router} from 'expo-router'
 import {themeColor} from '@/hooks/theme'
 import { useState } from 'react'
+import Carousel from 'react-native-reanimated-carousel';
 
 export default function Index() {
     const [redirect, setRedirect] = useState(false)
@@ -17,6 +18,29 @@ export default function Index() {
                 <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
         </MaskedView>
 
+
+        <Carousel
+                loop
+                width={300}
+                height={600 / 2}
+                autoPlay={true}
+                data={[...new Array(6).keys()]}
+                scrollAnimationDuration={1000}
+                onSnapToItem={(index) => console.log('current index:', index)}
+                renderItem={({ index }) => (
+                    <View
+                        style={{
+                            flex: 1,
+                            borderWidth: 1,
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
+                            {index}
+                        </Text>
+                    </View>
+                )}
+            />
 
 
 
