@@ -93,11 +93,11 @@ const targets = (props) => {
             </ScrollView>
             </View>
 
-            <View style={{display: 'flex', position: 'absolute', bottom: 35, width: '100%', height: 40, justifyContent: 'center', alignContent:'center', left: 45}}>
-          <Pressable onPress={() => {saveTargets(); router.push('main/home')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {width: 300, height: 60, backgroundColor: themeColor().secondary}]}>
+            <View style={{display: 'flex', position: 'absolute', bottom: 50, width: '100%', height: 40, justifyContent: 'center', alignContent:'center', left: 45}}>
+          <Pressable onPress={() => {saveTargets(); router.push('main/home')}} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }, {marginTop: 'auto', marginBottom: 30,width: 300, borderRadius: 10,  height: 60, backgroundColor: themeColor().secondary}]}>
                   <MaskedView
                   style={{width: 300, height: 60}}
-                  maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 3, borderRadius: 10}}><Text></Text></View>}>
+                  maskElement={<View style={{width: 300, height: 60, borderColor: 'white', borderWidth: 1, borderRadius: 10}}><Text></Text></View>}>
                   <LinearGradient colors={['#12c2e9', '#c471ed' , '#f7797d']}  style={{ flex: 1 }}/>
                   </MaskedView>
                   <View style={{ width: 300, height: 60}}>
