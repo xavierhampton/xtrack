@@ -138,7 +138,7 @@ const overview = (props) => {
                       }
                     </View>
                   </Pressable>
-                  <Pressable onPress={() => {router.push('main/home')}} style={{marginLeft: 'auto', marginRight: 10, width: 26, backgroundColor: themeColor().secondary}}>
+                  <Pressable onPress={() => {router.back()}} style={{marginLeft: 'auto', marginRight: 10, width: 26, backgroundColor: themeColor().secondary}}>
                       <Text style={[styles.closeButton, {marginLeft: 'auto', fontSize: 40}]}>x</Text>
                     </Pressable>
                 </View>
