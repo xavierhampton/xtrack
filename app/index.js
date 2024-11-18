@@ -1,17 +1,37 @@
-import {View, Pressable, Text} from 'react-native'
+import {View, Pressable, Text, Image} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import MaskedView from '@react-native-masked-view/masked-view'
 import {Redirect, router} from 'expo-router'
 import {themeColor} from '@/hooks/theme'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Carousel from 'react-native-reanimated-carousel';
 
 export default function Index() {
     const [redirect, setRedirect] = useState(false)
+    const [bubbles, setBubbles] = useState('')
     if (redirect) {
         return <Redirect href="main/home" />
     }
 
+    const data = [require('@/assets/images/index1.png'), require('@/assets/images/index2.png'), require('@/assets/images/index2.png'), require('@/assets/images/index2.png'), require('@/assets/images/index2.png')]
+
+    const updateBubbles = (index) => {
+        let root = []
+        for (let i = 0; i < data.length; i++) {
+            if (i == index) {
+                root.push(<View style={styles.selected}></View>)
+            }
+            else {
+                root.push(<View style={styles.unselected}></View>)
+            }
+        }
+        setBubbles(root)
+    }
+    
+    useEffect(() => {
+        updateBubbles(0)
+    }, [])
+    
     return (
     <View style={{backgroundColor: themeColor().primary, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 50}}>
         <MaskedView style={{ width: 120, height: 40}} maskElement={<Text  style={{fontSize: 35,fontFamily: 'JetBrainsMono',letterSpacing: -3, textAlign: 'center'}}>xTracK</Text>}>
@@ -20,29 +40,36 @@ export default function Index() {
 
 
         <Carousel
+                style={{marginTop: 60}}
                 loop
-                width={300}
-                height={600 / 2}
+                width={320}
+                height={400}
                 autoPlay={true}
-                data={[...new Array(6).keys()]}
+                data={data}
                 scrollAnimationDuration={1000}
-                onSnapToItem={(index) => console.log('current index:', index)}
+                onSnapToItem={(i) => {updateBubbles(i)}}
                 renderItem={({ index }) => (
                     <View
                         style={{
                             flex: 1,
                             borderWidth: 1,
                             justifyContent: 'center',
+                            borderRadius: 10
                         }}
                     >
-                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
-                            {index}
-                        </Text>
+                        <Image style={{
+                    flex: 1,
+                    width: null,
+                    height: null,
+                    resizeMode: 'contain'
+                    }} 
+                    source={data[index]}></Image>
                     </View>
                 )}
             />
-
-
+                {bubbles}
+                
+                <Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 16, width: 280, textAlign: 'center', opacity: 0.6, marginBottom: 200}}>Put your health first by tracking your food!</Text>
 
 
 
@@ -62,4 +89,18 @@ export default function Index() {
     </View>
         
     )
+}
+const styles = {
+unselected: {
+    backgroundColor: 'blue',
+    width: 50,
+    height: 50,
+    borderRadius: 100
+},
+selected: {
+    backgroundColor: 'red',
+    width: 50,
+    height: 50,
+    borderRadius: 100
+}
 }
