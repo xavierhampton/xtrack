@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import Carousel from 'react-native-reanimated-carousel';
 
 export default function Index() {
-    const [redirect, setRedirect] = useState(false)
+    const [redirect, setRedirect] = useState(true)
     const [bubbles, setBubbles] = useState('')
     if (redirect) {
         return <Redirect href="main/home" />
