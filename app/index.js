@@ -44,9 +44,9 @@ export default function Index() {
                 loop
                 width={320}
                 height={400}
-                autoPlay={true}
+
                 data={data}
-                scrollAnimationDuration={1000}
+                scrollAnimationDuration={500}
                 onSnapToItem={(i) => {updateBubbles(i)}}
                 renderItem={({ index }) => (
                     <View
@@ -67,7 +67,10 @@ export default function Index() {
                     </View>
                 )}
             />
-                {bubbles}
+            <View style={{display: 'flex', flexDirection: 'row', marginBottom: 20, gap: 2}}>
+                 {bubbles}
+            </View>
+                
                 
                 <Text style={{fontFamily: 'JetBrainsMono', color: 'white', fontSize: 16, width: 280, textAlign: 'center', opacity: 0.6, marginBottom: 200}}>Put your health first by tracking your food!</Text>
 
@@ -92,15 +95,15 @@ export default function Index() {
 }
 const styles = {
 unselected: {
-    backgroundColor: 'blue',
-    width: 50,
-    height: 50,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    width: 15,
+    height: 15,
     borderRadius: 100
 },
 selected: {
-    backgroundColor: 'red',
-    width: 50,
-    height: 50,
-    borderRadius: 100
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    width: 20,
+    height: 15,
+    borderRadius: 20
 }
 }
