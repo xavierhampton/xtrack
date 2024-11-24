@@ -11,7 +11,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import getTargets from '@/components/getTargets.js'
 
-import Food from '@/components/Food'
+import Food from '@/components/food'
 
 export default function Home() {
 
