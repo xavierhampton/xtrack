@@ -1,4 +1,4 @@
-import {View, Text, Pressable, ScrollView} from 'react-native'
+import {View, Text, Pressable, ScrollView, Button} from 'react-native'
 import {router} from 'expo-router'
 import React, {Component, useDebugValue, useEffect, useState} from 'react'
 import { StyleSheet } from "react-native";
@@ -212,6 +212,10 @@ export default function Home() {
                 </View>
 
                 <View style={styles.foodContainer}>
+                
+                        //TMP Button
+                        <Button title={"REDIRECT"}onPress={() => {router.push('screens/scanner')}}>REDIRECT</Button>
+
                     {getDailyFood(foodArr)}
 
                 </View>
