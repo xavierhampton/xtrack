@@ -27,7 +27,7 @@ export default async function searchResults(q) {
         recentsArray = []
     }
     for (f of favoritesArray) {
-        if ((f.name).toLowerCase().includes(q)) {
+        if ((f.name).toLowerCase().includes(q) || (f.barcode && f.barcode.includes(q))) {
             res.push(f)
             foundSet.add((f.name).toLowerCase())
         }
@@ -35,6 +35,9 @@ export default async function searchResults(q) {
 
     for (f of recentsArray) {
         if ((f.name).toLowerCase().includes(q) && (!foundSet.has((f.name).toLowerCase()))) {
+            res.push(f)
+        }
+        else if ((f.barcode && f.barcode.includes(q)) && (!foundSet.has((f.name).toLowerCase()))){
             res.push(f)
         }
     }

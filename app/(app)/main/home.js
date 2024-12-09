@@ -212,9 +212,6 @@ export default function Home() {
                 </View>
 
                 <View style={styles.foodContainer}>
-                
-                        //TMP Button
-                        <Button title={"REDIRECT"}onPress={() => {router.push('screens/scanner')}}>REDIRECT</Button>
 
                     {getDailyFood(foodArr)}
 

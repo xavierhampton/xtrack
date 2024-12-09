@@ -62,7 +62,7 @@ const create = (props) => {
   const [food, setFood] = useState({})
 
   const [barcode, setBarcode] = useState('')
-  const [barcodeVisible, setBarcodeVisible] = useState(true)
+  const [barcodeVisible, setBarcodeVisible] = useState(false)
 
   const closeBarcode = () => {
     setBarcodeVisible(false)
@@ -70,7 +70,7 @@ const create = (props) => {
 
 
   useEffect(() => {
-    let foodObject = {name: foodName, favorite: false, selectedServing: 0, mult: '1', servings: [{servingName: serving1, weight: weight1 ? weight1 : 0, cal: cal ? cal: 0, car: car ? car : 0, pro: pro ? pro : 0, fat: fat ? fat : 0}]}
+    let foodObject = {name: foodName, barcode: barcode, favorite: false, selectedServing: 0, mult: '1', servings: [{servingName: serving1, weight: weight1 ? weight1 : 0, cal: cal ? cal: 0, car: car ? car : 0, pro: pro ? pro : 0, fat: fat ? fat : 0}]}
     if (serving2 != '' && weight2 != '') {
       let mult = weight1 ? (weight2 / weight1): 0
       let tmp = {servingName: serving2, weight: weight2, cal: (cal*mult), car: (car*mult), pro: (pro*mult), fat: (fat*mult)}
@@ -82,7 +82,7 @@ const create = (props) => {
       foodObject['servings'].push(tmp)
     }
     setFood(foodObject)
-  }, [foodName, serving1, weight1, serving2, weight2, serving3, weight3, cal, car, pro, fat])
+  }, [foodName, serving1, weight1, serving2, weight2, serving3, weight3, cal, car, pro, fat, barcode])
 
 
   const checkValidState = () => {
@@ -134,8 +134,8 @@ const create = (props) => {
   
   const saveFood = () => { 
     storeRecents(food)
-    console.log("SAVE")
   }
+
   useEffect(() => {fetchRecents()}, [])
  
           const [servingsArray, setServingsArray] = useState([<View>
@@ -234,7 +234,7 @@ const create = (props) => {
                    
                     </TouchableOpacity>) :
 
-                    (<TextInput style={[styles.textInput, {width: 120, padding: 5, marginRight: 30, display: 'flex', justifyContent: 'center'}]}>
+                    (<TextInput editable={false} value={barcode} style={[styles.textInput, {width: 120, padding: 5, marginRight: 30, display: 'flex', justifyContent: 'center', fontSize: 14, textAlign: 'center', color: 'rgba(255,255,255,0.6)'}]}>
                       
                     </TextInput>)
                     }
@@ -340,7 +340,7 @@ const create = (props) => {
           
             :
             (
-              <Scanner closeFunc={closeBarcode} />
+              <Scanner setBar={setBarcode} closeFunc={closeBarcode} />
             )
     
         )

@@ -31,7 +31,7 @@ const Scanner = (props) => {
   if (!permission.granted) {
     // Camera permissions are not granted yet.
     return (
-      <View style={[styles.container, themeColor().secondary]}>
+      <View style={[styles.container, {backgroundColor: themeColor().secondary}]}>
         <Text style={styles.message}>xTrack Needs Camera Permissions to Scan Barcodes</Text>
         <Button onPress={requestPermission} title="grant permission" />
       </View>
@@ -42,7 +42,7 @@ const Scanner = (props) => {
 
   return (
     <View style={styles.container}>
-      <CameraView barcodeScannerSettings={{barcodeTypes: ['ean13']}} onBarcodeScanned={(e) => {console.log(e.data)}}style={styles.camera} facing={facing}>
+      <CameraView barcodeScannerSettings={{barcodeTypes: ['ean13']}} onBarcodeScanned={(e) => {props.setBar(e.data); props.closeFunc()}}style={styles.camera} facing={facing}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={props.closeFunc}>
             <Text style={styles.text}>x</Text>
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: themeColor().secondary
   },
   message: {
     textAlign: 'center',
