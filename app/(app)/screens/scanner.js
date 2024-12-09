@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import {themeColor} from '@/hooks/theme'
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const scanner = (props) => {
+const Scanner = (props) => {
   const [facing, setFacing] = useState('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [header, setHeader] = useState('Scanning for barcodes.')
@@ -44,7 +44,7 @@ const scanner = (props) => {
     <View style={styles.container}>
       <CameraView barcodeScannerSettings={{barcodeTypes: ['ean13']}} onBarcodeScanned={(e) => {console.log(e.data)}}style={styles.camera} facing={facing}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={props.closeFunc}>
             <Text style={styles.text}>x</Text>
           </TouchableOpacity>
           
@@ -57,7 +57,7 @@ const scanner = (props) => {
     </View>
   );
 }
-export default scanner;
+export default Scanner;
 
 const styles = StyleSheet.create({
   container: {

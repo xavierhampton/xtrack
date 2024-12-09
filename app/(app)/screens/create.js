@@ -1,4 +1,4 @@
-import {View, Alert, Text, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
+import {View, Alert, Text, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import React, {useState, useEffect, useRef, useMemo, useCallback} from 'react';
 import {themeColor} from '@/hooks/theme';
 import MaskedView from '@react-native-masked-view/masked-view';
@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {router} from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Entypo from '@expo/vector-icons/Entypo';
+import Scanner from './Scanner.js'
 
 
 const create = (props) => {
@@ -61,6 +62,11 @@ const create = (props) => {
   const [food, setFood] = useState({})
 
   const [barcode, setBarcode] = useState('')
+  const [barcodeVisible, setBarcodeVisible] = useState(true)
+
+  const closeBarcode = () => {
+    setBarcodeVisible(false)
+  }
 
 
   useEffect(() => {
@@ -189,6 +195,8 @@ const create = (props) => {
 
 
         return (
+          (!barcodeVisible) ? 
+
           <View style={{backgroundColor: themeColor().primary}}>
               <KeyboardAvoidingView behavior='padding' style={{width: '100%', height: '100%'}} contentContainerStyle={{backgroundColor: 'black'}}>
               <View style={styles.Content}> 
@@ -220,9 +228,11 @@ const create = (props) => {
                   <View style={[styles.flexContainer, {height: 60, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                     <Text style={styles.label}>Barcode</Text>
                     { barcode === '' ? (
-                    <View style={[styles.textInput, {width: 120, padding: 5, marginRight: 30, display: 'flex', justifyContent: 'center', flexDirection: 'row', backgroundColor: 'rgba(255,255,255,0.1)'}]}>
+                    <TouchableOpacity onPress={() => {setBarcodeVisible(true)}} style={[styles.textInput, {width: 120, padding: 5, marginRight: 30, display: 'flex', justifyContent: 'center', flexDirection: 'row', backgroundColor: 'rgba(255,255,255,0.1)'}]}>
+                    
                       <Entypo name="camera" size={24} color="white" />
-                    </View>) :
+                   
+                    </TouchableOpacity>) :
 
                     (<TextInput style={[styles.textInput, {width: 120, padding: 5, marginRight: 30, display: 'flex', justifyContent: 'center'}]}>
                       
@@ -328,7 +338,10 @@ const create = (props) => {
             </BottomSheet>
             </View>
           
-            
+            :
+            (
+              <Scanner closeFunc={closeBarcode} />
+            )
     
         )
       }

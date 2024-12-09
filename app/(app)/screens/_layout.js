@@ -9,7 +9,7 @@ export default function ScreenLayout() {
       <Stack.Screen name="account" />
       <Stack.Screen name="targets" />
       <Stack.Screen name="dev_options" />
-      <Stack.Screen name="scanner" />
+      <Stack.Screen name="Scanner" />
     </Stack>
   );
 }
