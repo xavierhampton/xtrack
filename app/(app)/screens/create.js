@@ -6,7 +6,7 @@ import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { LinearGradient } from 'expo-linear-gradient';
 import {router} from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Entypo from '@expo/vector-icons/Entypo';
 
 
 const create = (props) => {
@@ -59,6 +59,8 @@ const create = (props) => {
   
   const [recents, setRecents] = useState([])
   const [food, setFood] = useState({})
+
+  const [barcode, setBarcode] = useState('')
 
 
   useEffect(() => {
@@ -217,7 +219,16 @@ const create = (props) => {
                   </View>
                   <View style={[styles.flexContainer, {height: 60, width: 375, borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
                     <Text style={styles.label}>Barcode</Text>
-                    <View style={[styles.textInput, {width: 120, padding: 5, marginRight: 30}]}></View>
+                    { barcode === '' ? (
+                    <View style={[styles.textInput, {width: 120, padding: 5, marginRight: 30, display: 'flex', justifyContent: 'center', flexDirection: 'row', backgroundColor: 'rgba(255,255,255,0.1)'}]}>
+                      <Entypo name="camera" size={24} color="white" />
+                    </View>) :
+
+                    (<TextInput style={[styles.textInput, {width: 120, padding: 5, marginRight: 30, display: 'flex', justifyContent: 'center'}]}>
+                      
+                    </TextInput>)
+                    }
+
                   </View>
 
                   <View style={{display: 'block', width: '100%'}}>
