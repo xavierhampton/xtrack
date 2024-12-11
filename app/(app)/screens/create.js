@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {router} from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Entypo from '@expo/vector-icons/Entypo';
-import Scanner from './Scanner.js'
+import Scanner from './scanner.js'
 
 
 const create = (props) => {
