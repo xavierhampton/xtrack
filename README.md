@@ -44,19 +44,14 @@
 - **Goal Setting**  
   Set personalized calorie and macronutrient goals based on your fitness objectives.
 
-- **Minimalistic Design**  
-  A sleek, modern interface for a seamless user experience.
-
-- **Offline Support**  
-  Log and access recent data even without an internet connection.
 
 ## Installation Instructions
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/xavierhampton/xTrack.git
-cd ./xTrack
+git clone https://github.com/xavierhampton/xtrack.git
+cd ./xtrack
 ```
 
 ### 2. Install Dependencies
@@ -70,4 +65,5 @@ npm install
 ```bash
 npm start
 ```
+
 
