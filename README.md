@@ -1,6 +1,6 @@
-# xTrack
+# xtrack
 
-`xTrack` is a modern mobile app for tracking calories and macronutrients. It lets users log meals, scan barcodes, set nutritional goals, and monitor progress.
+`xtrack` is a modern mobile app for tracking calories and macronutrients. It lets users log meals, scan barcodes, set nutritional goals, and monitor progress.
 
 
 <div align="center">
@@ -22,11 +22,11 @@
 
 | Demo | Home  | Settings | Create |
 | ------------- | ------------- | ------------- | ------------- |
-| <img src="https://github.com/xavierhampton/xTrack/blob/demo/assets/demo-gif.gif" width="150" /> | <img src="https://github.com/xavierhampton/xTrack/blob/demo/assets/home.PNG" width="150" />  |  <img src="https://github.com/xavierhampton/xTrack/blob/demo/assets/settings.PNG" width="150" />  | <img src="https://github.com/xavierhampton/xTrack/blob/demo/assets/create-page.PNG" width="150" />
+| <img src="https://github.com/xavierhampton/xtrack/blob/demo/assets/demo-gif.gif" width="150" /> | <img src="https://github.com/xavierhampton/xtrack/blob/demo/assets/home.PNG" width="150" />  |  <img src="https://github.com/xavierhampton/xtrack/blob/demo/assets/settings.PNG" width="150" />  | <img src="https://github.com/xavierhampton/xtrack/blob/demo/assets/create-page.PNG" width="150" />
 
 | Overview | Recents  | Favorites | Targets |
 | ------------- | ------------- | ------------- | ------------- |
-| <img src="https://github.com/xavierhampton/xTrack/blob/demo/assets/overview.PNG" width="150" /> | <img src="https://github.com/xavierhampton/xTrack/blob/demo/assets/recents.PNG" width="150" />  |  <img src="https://github.com/xavierhampton/xTrack/blob/demo/assets/favorites.PNG" width="150" />  | <img src="https://github.com/xavierhampton/xTrack/blob/demo/assets/targets.PNG" width="150" />
+| <img src="https://github.com/xavierhampton/xtrack/blob/demo/assets/overview.PNG" width="150" /> | <img src="https://github.com/xavierhampton/xtrack/blob/demo/assets/recents.PNG" width="150" />  |  <img src="https://github.com/xavierhampton/xtrack/blob/demo/assets/favorites.PNG" width="150" />  | <img src="https://github.com/xavierhampton/xtrack/blob/demo/assets/targets.PNG" width="150" />
 
    
  
@@ -65,5 +65,6 @@ npm install
 ```bash
 npm start
 ```
+
 
 
